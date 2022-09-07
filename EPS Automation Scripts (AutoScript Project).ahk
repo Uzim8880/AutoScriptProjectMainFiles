@@ -11,9 +11,8 @@
 CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
-
-
 f1::ExitApp
+
 return
 
 
@@ -30,6 +29,7 @@ CoordMode, Pixel, Screen
 
 ^1::
 Send, 380NCH0001
+
 Return
 
 #UseHook
@@ -38,6 +38,7 @@ CoordMode, Pixel, Screen
 
 ^2::
 Send, 380NCH0002
+
 Return
 
 #UseHook
@@ -46,6 +47,7 @@ CoordMode, Pixel, Screen
 
 ^6::
 Send, 380NCH0006
+
 Return
 
 #UseHook
@@ -54,6 +56,7 @@ CoordMode, Pixel, Screen
 
 ^5::
 Send, 6164411006
+
 Return
 
 #UseHook
@@ -62,6 +65,7 @@ CoordMode, Pixel, Screen
 
 ^4::
 Send, 380NLTC034
+
 Return
 
 #UseHook
@@ -70,6 +74,7 @@ CoordMode, Pixel, Screen
 
 `::
 Send, EPS^v
+
 Return
 
 
@@ -86,6 +91,7 @@ CoordMode, Pixel, Screen
 
 F12::
 Reload
+
 Return
 
 
@@ -108,6 +114,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 +Delete::
+
 BlockInput, MouseMove
 
 checkIfScreenIsScrolledToTop()
@@ -190,7 +197,8 @@ Send {Shift Down}
 Sleep 50
 Send {Shift Up}
 BlockInput, MouseMoveOff
-	Return ; Script Run Finished
+
+Return ; Script Run Finished
 
 
 
@@ -328,7 +336,8 @@ Send {Alt Down}
 Sleep 50
 Send {Alt Up}
 BlockInput, MouseMoveOff
-	Return ; Script Run Finished
+
+Return ; Script Run Finished
 
 
 
@@ -524,7 +533,8 @@ MouseClick
 selectsPXNumberInProScriptAndCopyIt()
 
 BlockInput, MouseMoveOff
-	Return ; Script Run Finished
+
+Return ; Script Run Finished
 
 
 
@@ -645,7 +655,8 @@ Send {Shift Down}
 Sleep 50
 Send {Shift Up}
 BlockInput, MouseMoveOff
-	Return ; Script Run finishes
+
+Return ; Script Run finishes
 
 
 
@@ -757,7 +768,8 @@ Send {Shift Down}
 Sleep 50
 Send {Shift Up}
 BlockInput, MouseMoveOff
-	Return ; Script Run Finished
+
+Return ; Script Run Finished
 
 
 
@@ -814,7 +826,9 @@ Sleep 50
 Send {Enter}
 Sleep 50
 MouseMove 61, 642
+
 checkForProgressBar()
+
 checkForPatientNameToAppear()
 
 Sleep 50
@@ -822,7 +836,8 @@ Send {Shift Down}
 Sleep 50
 Send {Shift Up}
 BlockInput, MouseMoveOff
-	Return ; Script Run Finished
+
+Return ; Script Run Finished
 
 
 
@@ -875,7 +890,8 @@ Send {Shift Down}
 Sleep 50
 Send {Shift Up}
 BlockInput, MouseMoveOff
-	Return ; Script Run Finished
+
+Return ; Script Run Finished
 
 
 
@@ -932,7 +948,8 @@ Send {Shift Down}
 Sleep 50
 Send {Shift Up}
 BlockInput, MouseMoveOff
-	Return ; Script Run Finished
+
+Return ; Script Run Finished
 
 
 

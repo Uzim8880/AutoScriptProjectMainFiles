@@ -11,8 +11,7 @@
 CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
-f1::ExitApp
-
+#x::ExitApp  ; Win+X
 return
 
 

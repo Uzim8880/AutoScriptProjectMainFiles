@@ -343,6 +343,7 @@ Return ; Script Run Finished
 
 
 
+
 	;=============================================== EPS RETURN DUPLICATE ==============================================================
 
 ; This script works by creating Return activity in Siebel
@@ -657,8 +658,6 @@ Send {Shift Up}
 BlockInput, MouseMoveOff
 
 Return ; Script Run finishes
-
-
 
 
 
@@ -1075,6 +1074,7 @@ Sleep 50
 Return
 }
 }
+
 
 
 clickOnNewlyCreatedActivity()

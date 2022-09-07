@@ -817,14 +817,17 @@ ClipWait
 
 MouseClick
 Sleep 50
-MouseClick
+Send, ^{End}
 Sleep 50
+Send, +{Home}
+Sleep 100
 Send {Ctrl Down}
 Send v
 Send {Ctrl Up}
 Sleep 50
 Send {Enter}
 Sleep 50
+
 MouseMove 61, 642
 
 checkForProgressBar()
@@ -870,13 +873,10 @@ selectsPXNumberInProScriptAndCopyIt()
 
 checkForWindowChangeGas()
 MouseClick
-MouseClick
-Sleep 100
-Send {Backspace}
-Send {Backspace}
-Send {Backspace}
-Send {Backspace}
-Send {Backspace}
+Sleep 50
+Send, ^{End}
+Sleep 50
+Send, +{Home}
 Sleep 100
 Send, EPS^v
 Sleep 50
@@ -928,14 +928,11 @@ selectsPXNumberInProScriptAndCopyIt()
 
 checkForWindowChangeGas()
 MouseClick
-MouseClick
 Sleep 50
-Send {Backspace}
-Send {Backspace}
-Send {Backspace}
-Send {Backspace}
-Send {Backspace}
+Send, ^{End}
 Sleep 50
+Send, +{Home}
+Sleep 100
 Send, EPS^v
 Sleep 50
 
@@ -1117,6 +1114,8 @@ Send {Ctrl Up}
 ClipWait
 Sleep 50
 }
+
+
 
 
 clickOnPXAfterGAS()

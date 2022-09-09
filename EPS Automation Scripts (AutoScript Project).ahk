@@ -186,10 +186,6 @@ Send v
 Send {Ctrl Up}
 ClipWait
 
-Sleep 50
-Send {Shift Down}
-Sleep 50
-Send {Shift Up}
 BlockInput, MouseMoveOff
 
 Return ; Script Run Finished
@@ -288,6 +284,7 @@ Send v
 Send {Ctrl Up}
 ClipWait
 Sleep 50
+Clipboard :=
 
 
 selectsPXNumberInProScriptAndCopyIt()
@@ -320,10 +317,6 @@ Sleep 50
 MouseMove 878, 409
 MouseClick
 
-Sleep 50
-Send {Alt Down}
-Sleep 50
-Send {Alt Up}
 BlockInput, MouseMoveOff
 
 Return ; Script Run Finished
@@ -393,6 +386,7 @@ Send v
 Send {Ctrl Up}
 ClipWait
 Sleep 50
+Clipboard :=
 
 selectsPXNumberInProScriptAndCopyIt()
 
@@ -400,9 +394,11 @@ selectsPXNumberInProScriptAndCopyIt()
 
 MouseClick ; Selects the Description Field and Pastes in the PX number
 Send {Enter}
+Sleep 10
 Send {Enter}
 Sleep 50
 Send {Up}
+Sleep 10
 Send {Up}
 Sleep 50
 Send {Ctrl Down}
@@ -477,6 +473,7 @@ Send v
 Send {Ctrl Up}
 ClipWait
 Sleep 50
+Clipboard :=
 
 WinActivate, ahk_class ApplicationFrameWindow ; Opens up Sticky Notes app by its class
 Sleep 100
@@ -498,6 +495,7 @@ Send v
 Send {Ctrl Up}
 ClipWait
 Sleep 50
+Clipboard :=
 
 	MouseMove 715, 327 ; Moves to source field and selects duplicate (Siebel)
 
@@ -610,6 +608,7 @@ Send v
 Send {Ctrl Up}
 ClipWait
 Sleep 50
+Clipboard :=
 
 WinActivate, ahk_class ApplicationFrameWindow ; Opens up Sticky Notes app by its class
 Sleep 100
@@ -629,11 +628,8 @@ Send v
 Send {Ctrl Up}
 ClipWait
 Sleep 50
+Clipboard :=
 
-Sleep 50
-Send {Shift Down}
-Sleep 50
-Send {Shift Up}
 BlockInput, MouseMoveOff
 
 Return ; Script Run finishes
@@ -741,10 +737,6 @@ MouseClick
 Sleep 50
 checkForPatientNameToAppear()
 
-Sleep 50
-Send {Shift Down}
-Sleep 50
-Send {Shift Up}
 BlockInput, MouseMoveOff
 
 Return ; Script Run Finished
@@ -805,6 +797,7 @@ Send {Ctrl Up}
 Sleep 50
 Send {Enter}
 Sleep 50
+Clipboard :=
 
 MouseMove 61, 642
 
@@ -812,10 +805,6 @@ checkForProgressBar()
 
 checkForPatientNameToAppear()
 
-Sleep 50
-Send {Shift Down}
-Sleep 50
-Send {Shift Up}
 BlockInput, MouseMoveOff
 
 Return ; Script Run Finished
@@ -858,15 +847,12 @@ Send, +{Home}
 Sleep 100
 Send, EPS^v
 Sleep 50
+Clipboard :=
 
 clickOnPXAfterGAS()
 
 MouseClick
 
-Sleep 50
-Send {Shift Down}
-Sleep 50
-Send {Shift Up}
 BlockInput, MouseMoveOff
 
 Return ; Script Run Finished
@@ -913,15 +899,12 @@ Send, +{Home}
 Sleep 100
 Send, EPS^v
 Sleep 50
+Clipboard :=
 
 clickOnPXAfterGAS()
 
 MouseClick
 
-Sleep 50
-Send {Shift Down}
-Sleep 50
-Send {Shift Up}
 BlockInput, MouseMoveOff
 
 Return ; Script Run Finished
@@ -934,6 +917,8 @@ Return ; Script Run Finished
 
 
 			;============================================== FUNCTIONS =====================================================
+
+
 
 checkIfScreenIsScrolledToTop()
 {
@@ -1061,6 +1046,7 @@ if (ErrorLevel != 0)
 return
 else
 MouseMove %OutputVarX%, %OutputVarY%
+Clipboard :=
 MouseClick
 MouseClick
 Send {Ctrl Down}
@@ -1102,7 +1088,7 @@ selectsPXNumberInProScriptAndCopyIt()
 {
 
 	MouseMove -738, 78 ; Selects PX number and copies it (ProScript)
-
+Clipboard :=
 MouseClick
 MouseClick
 Send {Ctrl Down}

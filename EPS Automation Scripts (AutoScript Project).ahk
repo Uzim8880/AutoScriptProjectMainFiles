@@ -161,12 +161,7 @@ checkForTemplateWindow()
 
 Sleep 50
 
-MouseClick ; Scrolls Down in the Template Window
-Sleep 50
-MouseClick
-Sleep 50
-MouseClick
-Sleep 50
+checkIfTemplateWindowIsScrolled()
 
 selectsEPSReturnTemplate()
 
@@ -267,12 +262,7 @@ checkForTemplateWindow()
 
 Sleep 50
 
-MouseClick ; Scrolls Down in the Template Window
-Sleep 50
-MouseClick
-Sleep 50
-MouseClick
-Sleep 50
+checkIfTemplateWindowIsScrolled()
 
 selectsEPSReturnTemplate()
 
@@ -464,12 +454,7 @@ checkForTemplateWindow()
 
 Sleep 50
 
-MouseClick ; Scrolls Down in the Template Window
-Sleep 50
-MouseClick
-Sleep 50
-MouseClick
-Sleep 50
+checkIfTemplateWindowIsScrolled()
 
 selectsEPSReturnTemplate()
 
@@ -603,12 +588,7 @@ checkForTemplateWindow()
 
 Sleep 50
 
-MouseClick ; Scrolls Down in the Template Window
-Sleep 50
-MouseClick
-Sleep 50
-MouseClick
-Sleep 50
+checkIfTemplateWindowIsScrolled()
 
 selectsEPSShortfallTemplate()
 
@@ -1017,6 +997,28 @@ sleep 10
 }
 
 
+checkIfTemplateWindowIsScrolled()
+{
+Loop
+{
+PixelGetColor, color, 1348, 638
+if (color = 0xFFFFFF)
+{
+MouseClick ; Scrolls Down in the Template Window
+Sleep 50
+MouseClick
+Sleep 50
+MouseClick
+Sleep 50
+break
+}
+else
+{
+break
+}
+}
+}
+
 
 
 
@@ -1085,13 +1087,13 @@ clickOnNewlyCreatedActivity()
 
 selectsEPSReturnTemplate()
 {
-	MouseMove 826, 634 ; Selects EPS Return Template
+	MouseMove 1325, 635 ; Selects EPS Return Template
 }
 
 
 selectsEPSShortfallTemplate()
 {
-	MouseMove 816, 656 ; Selects EPS Shortfall Template
+	MouseMove 1325, 659 ; Selects EPS Shortfall Template
 }
 
 

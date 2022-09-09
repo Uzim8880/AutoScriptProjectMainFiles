@@ -1,4 +1,4 @@
-﻿ 
+﻿ ; To jest jest koment czy GIT dziala jak GIT KOT MAX OPOR
 
 
 

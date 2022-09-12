@@ -616,6 +616,9 @@ Send {Ctrl Up}
 ClipWait
 Sleep 50
 
+MouseMove 714, 302 ; Moves over sub-type drop arrow and clicks it
+MouseClick
+
 
 BlockInput, MouseMoveOff
 
@@ -853,8 +856,6 @@ Sleep 50
 
 clickOnPXAfterGAS()
 
-MouseClick
-
 BlockInput, MouseMoveOff
 
 Return ; Script Run Finished
@@ -904,8 +905,6 @@ Sleep 50
 
 clickOnPXAfterGAS()
 
-MouseClick
-
 BlockInput, MouseMoveOff
 
 Return ; Script Run Finished
@@ -934,6 +933,7 @@ MouseClick
 MouseClick
 MouseClick
 Sleep 100
+return
 }
 else
 {
@@ -1048,9 +1048,11 @@ if (ErrorLevel != 0)
 return
 else
 MouseMove %OutputVarX%, %OutputVarY%
-Clipboard :=
+Sleep 50
 MouseClick
+Sleep 50
 MouseClick
+Sleep 50
 Send {Ctrl Down}
 Send a
 Send {Ctrl Up}
@@ -1108,6 +1110,7 @@ Sleep 50
 clickOnPXAfterGAS()
 {
 	MouseMove -910, 275 ; General PX coordinates (So that the script selects the PX at the end)
+	MouseClick
 }
 
 

@@ -1046,7 +1046,7 @@ checkForMedicationOnPX()
 {
 Loop
 {
-	PixelSearch, OutputVarX, OutputVarY, -1174, 219, -1066, 303, 000000, 50, Fast ; Looks for black font in PX to select the medication
+	PixelSearch, OutputVarX, OutputVarY, -1179, 210, -1066, 303, 000000, 50, Fast ; Looks for black font in PX to select the medication
 if (ErrorLevel != 0)
 return
 else

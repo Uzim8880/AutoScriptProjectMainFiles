@@ -839,19 +839,15 @@ MouseClick
 Sleep, 50
 MouseClick
 Sleep 50
-Send, {Backspace}
+Send {backspace}
 Sleep 50
-Send, {Backspace}
+Send {backspace}
 Sleep 50
 Send, ^{End}
 Sleep 50
 Send, +{Home}
 Sleep 100
-Send {Ctrl Down}
-Send v
-Send {Ctrl Up}
-Sleep 50
-Send {Enter}
+Send EPS^v
 Sleep 50
 
 clickOnPXAfterGAS()
@@ -894,13 +890,20 @@ selectsPXNumberInProScriptAndCopyIt()
 	MouseMove 672, 241 ; Perscription No. box Coordinates (Siebel)
 
 checkForWindowChangeGas()
+
 MouseClick
+Sleep, 50
+MouseClick
+Sleep 50
+Send {backspace}
+Sleep 50
+Send {backspace}
 Sleep 50
 Send, ^{End}
 Sleep 50
 Send, +{Home}
 Sleep 100
-Send, EPS^v
+Send EPS^v
 Sleep 50
 
 clickOnPXAfterGAS()

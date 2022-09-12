@@ -155,8 +155,6 @@ Send ^q ; Opens up Template Window
 
 Sleep 50
 
-	MouseMove 1349, 683 ; Moves the mouse over the down arrow in template window
-
 checkForTemplateWindow()
 
 Sleep 50
@@ -252,8 +250,6 @@ Send ^q ; Opens up Template Window
 
 Sleep 50
 
-	MouseMove 1349, 683 ; Moves the mouse over the down arrow in template window
-
 checkForTemplateWindow()
 
 Sleep 50
@@ -284,7 +280,6 @@ Send v
 Send {Ctrl Up}
 ClipWait
 Sleep 50
-Clipboard :=
 
 
 selectsPXNumberInProScriptAndCopyIt()
@@ -386,7 +381,6 @@ Send v
 Send {Ctrl Up}
 ClipWait
 Sleep 50
-Clipboard :=
 
 selectsPXNumberInProScriptAndCopyIt()
 
@@ -444,8 +438,6 @@ Send ^q ; Opens up Template Window
 
 Sleep 50
 
-	MouseMove 1349, 683 ; Moves the mouse over the down arrow in template window
-
 checkForTemplateWindow()
 
 Sleep 50
@@ -473,7 +465,6 @@ Send v
 Send {Ctrl Up}
 ClipWait
 Sleep 50
-Clipboard :=
 
 WinActivate, ahk_class ApplicationFrameWindow ; Opens up Sticky Notes app by its class
 Sleep 100
@@ -495,7 +486,6 @@ Send v
 Send {Ctrl Up}
 ClipWait
 Sleep 50
-Clipboard :=
 
 	MouseMove 715, 327 ; Moves to source field and selects duplicate (Siebel)
 
@@ -580,8 +570,6 @@ Send ^q ; Opens up Template Window
 
 Sleep 50
 
-MouseMove 1349, 683 ; Moves the mouse over the down arrow in template window
-
 checkForTemplateWindow()
 
 Sleep 50
@@ -608,7 +596,6 @@ Send v
 Send {Ctrl Up}
 ClipWait
 Sleep 50
-Clipboard :=
 
 WinActivate, ahk_class ApplicationFrameWindow ; Opens up Sticky Notes app by its class
 Sleep 100
@@ -628,7 +615,7 @@ Send v
 Send {Ctrl Up}
 ClipWait
 Sleep 50
-Clipboard :=
+
 
 BlockInput, MouseMoveOff
 
@@ -786,6 +773,12 @@ ClipWait
 	MouseMove 89, 441 ; NHS Number field Coordinates (Siebel)
 
 MouseClick
+Sleep, 50
+MouseClick
+Sleep 50
+Send, {Backspace}
+Sleep 50
+Send, {Backspace}
 Sleep 50
 Send, ^{End}
 Sleep 50
@@ -797,7 +790,6 @@ Send {Ctrl Up}
 Sleep 50
 Send {Enter}
 Sleep 50
-Clipboard :=
 
 MouseMove 61, 642
 
@@ -839,15 +831,25 @@ selectsPXNumberInProScriptAndCopyIt()
 	MouseMove 672, 241 ; Perscription No. box Coordinates (Siebel)
 
 checkForWindowChangeGas()
+
 MouseClick
+Sleep, 50
+MouseClick
+Sleep 50
+Send, {Backspace}
+Sleep 50
+Send, {Backspace}
 Sleep 50
 Send, ^{End}
 Sleep 50
 Send, +{Home}
 Sleep 100
-Send, EPS^v
+Send {Ctrl Down}
+Send v
+Send {Ctrl Up}
 Sleep 50
-Clipboard :=
+Send {Enter}
+Sleep 50
 
 clickOnPXAfterGAS()
 
@@ -899,7 +901,6 @@ Send, +{Home}
 Sleep 100
 Send, EPS^v
 Sleep 50
-Clipboard :=
 
 clickOnPXAfterGAS()
 
@@ -989,6 +990,7 @@ Loop
 PixelGetColor, color, 1348, 638
 if (color = 0xFFFFFF)
 {
+MouseMove 1349, 683 ; Moves the mouse over the down arrow in template window
 MouseClick ; Scrolls Down in the Template Window
 Sleep 50
 MouseClick
@@ -1086,9 +1088,7 @@ selectsEPSShortfallTemplate()
 
 selectsPXNumberInProScriptAndCopyIt()
 {
-
 	MouseMove -738, 78 ; Selects PX number and copies it (ProScript)
-Clipboard :=
 MouseClick
 MouseClick
 Send {Ctrl Down}

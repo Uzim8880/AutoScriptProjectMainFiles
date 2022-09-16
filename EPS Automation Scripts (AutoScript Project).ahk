@@ -1,8 +1,8 @@
-﻿ ; To jest jest koment czy GIT dziala jak GIT KOT MAX OPOR
+﻿
 
 
+  ; ==================================================================== EXITS SCRIPT DOCUMENT ==========================================================
 
-  ; ==================================================================== EXITS SCRIPT DOCUMENT ==============================================================
 ; This script exits the AHK application
 
 
@@ -13,6 +13,11 @@ CoordMode, Pixel, Screen
 
 #x::ExitApp  ; Win+X
 return
+
+
+
+
+
 
 
 
@@ -27,7 +32,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 ^1::
-Send, 380NCH0001
+Send, 380NCH0001 ; Complimentary Disposal Bags
 
 Return
 
@@ -36,7 +41,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 ^2::
-Send, 380NCH0002
+Send, 380NCH0002 ; Complimentary Dry Wipes
 
 Return
 
@@ -45,7 +50,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 ^6::
-Send, 380NCH0006
+Send, 380NCH0006 ; Complimentary Wet Wipes
 
 Return
 
@@ -54,7 +59,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 ^5::
-Send, 6164411006
+Send, 6164411006 ; Complimentary Isagel
 
 Return
 
@@ -63,7 +68,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 ^4::
-Send, 380NLTC034
+Send, 380NLTC034 ; Out Of Stock Flier
 
 Return
 
@@ -72,9 +77,15 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 `::
-Send, EPS^v
+Send, EPS
+Send {Ctrl Down}
+Send v
+Send {Ctrl Up} ; EPS + Script ID
 
 Return
+
+
+
 
 
 
@@ -116,7 +127,11 @@ CoordMode, Pixel, Screen
 
 BlockInput, MouseMove
 
+clearClipboard()
+
 checkIfScreenIsScrolledToTop()
+
+checkIfCurrentWindowIsCorrect()
 
 	MouseMove 1012, 557 ; Moves over activity tab
 
@@ -166,12 +181,8 @@ selectsEPSReturnTemplate()
 MouseClick
 Sleep 50
 
-	MouseMove 1276, 702 ; Clicks on OK
-
-MouseClick
-MouseClick
-Sleep 50
-
+clicksOnOkInTemplateWindow()
+checkIfPxIsScrolledToTop()
 selectsPXNumberInProScriptAndCopyIt()
 
 	MouseMove 870, 271 ; Moves to description field and pastes the PX number (Siebel)
@@ -182,12 +193,10 @@ Sleep 50
 Send {Ctrl Down}
 Send v
 Send {Ctrl Up}
-ClipWait
-
+ClipWait, 0.5
 BlockInput, MouseMoveOff
 
 Return ; Script Run Finished
-
 
 
 
@@ -211,7 +220,11 @@ CoordMode, Pixel, Screen
 !Delete::
 BlockInput, MouseMove
 
+clearClipboard()
+
 checkIfScreenIsScrolledToTop()
+
+checkIfCurrentWindowIsCorrect()
 
 	MouseMove 1012, 557 ; Moves over activity tab
 
@@ -261,12 +274,7 @@ selectsEPSReturnTemplate()
 MouseClick
 Sleep 50
 
-	MouseMove 1276, 702 ; Clicks on OK
-
-MouseClick
-MouseClick
-Sleep 50
-
+clicksOnOkInTemplateWindow()
 
 checkForMedicationOnPX()
 
@@ -278,10 +286,11 @@ Sleep 50
 Send {Ctrl Down}
 Send v
 Send {Ctrl Up}
-ClipWait
-Sleep 50
+ClipWait, 0.5
+Sleep 100
 
-
+clearClipboard()
+checkIfPxIsScrolledToTop()
 selectsPXNumberInProScriptAndCopyIt()
 
 	MouseMove 870, 271 ; Moves to description field and pastes the PX number (Siebel)
@@ -292,7 +301,6 @@ Sleep 50
 Send {Ctrl Down}
 Send v
 Send {Ctrl Up}
-ClipWait
 Sleep 50
 
 
@@ -321,6 +329,8 @@ Return ; Script Run Finished
 
 
 
+
+
 	;=============================================== EPS RETURN DUPLICATE ==============================================================
 
 ; This script works by creating Return activity in Siebel
@@ -337,7 +347,11 @@ CoordMode, Pixel, Screen
 ^Delete::
 BlockInput, MouseMove
 
+clearClipboard()
+
 checkIfScreenIsScrolledToTop()
+
+checkIfCurrentWindowIsCorrect()
 
 	MouseMove 1423, 899 ; Moves over New in Notes
 
@@ -380,26 +394,26 @@ Send {Ctrl Down}
 Send v
 Send {Ctrl Up}
 ClipWait
-Sleep 50
-
-selectsPXNumberInProScriptAndCopyIt()
+Sleep 100
+checkIfPxIsScrolledToTop()
+selectsPXNumberInProScriptAndCopyItForDuplicate()
 
 	MouseMove 1730, 844 ; Moves over Description Field
 
 MouseClick ; Selects the Description Field and Pastes in the PX number
 Send {Enter}
-Sleep 10
+Sleep 100
 Send {Enter}
-Sleep 50
+Sleep 100
 Send {Up}
-Sleep 10
+Sleep 100
 Send {Up}
-Sleep 50
+Sleep 100
 Send {Ctrl Down}
 Send v
 Send {Ctrl Up}
 ClipWait
-Sleep 50
+Sleep 100
 
 	MouseMove 1008, 453 ; Moves over activity tab
 
@@ -449,11 +463,7 @@ selectsEPSReturnTemplate()
 MouseClick
 Sleep 50
 
-	MouseMove 1276, 702 ; Clicks on OK
-
-MouseClick
-MouseClick
-Sleep 50
+clicksOnOkInTemplateWindow()
 
 	MouseMove 870, 271 ; Moves to description field and pastes the PX number (Siebel)
 
@@ -464,7 +474,9 @@ Send {Ctrl Down}
 Send v
 Send {Ctrl Up}
 ClipWait
-Sleep 50
+Sleep 100
+
+clearClipboard()
 
 WinActivate, ahk_class ApplicationFrameWindow ; Opens up Sticky Notes app by its class
 Sleep 100
@@ -485,7 +497,9 @@ Send {Ctrl Down}
 Send v
 Send {Ctrl Up}
 ClipWait
-Sleep 50
+Sleep 100
+
+clearClipboard()
 
 	MouseMove 715, 327 ; Moves to source field and selects duplicate (Siebel)
 
@@ -502,8 +516,184 @@ MouseClick
 Sleep 50
 MouseMove 878, 409
 MouseClick
+checkIfPxIsScrolledToTop()
+selectsPXNumberInProScriptAndCopyItForDuplicate()
 
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
+
+
+
+
+
+
+
+
+	; ==================================================================== EPS RETURN PX SERVICE ==============================================================
+
+; This script works by creating Return activity in Siebel
+; It also copies and pastes PX number and Medication product from ProScript to Siebel
+; Of of its' functions is to wait for the blue progress bar in Siebel to appear (after every window change) 
+; It waits until it appears, then it waits until it disappears
+; After that it completes the next step
+
+#UseHook
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+!Insert::
+BlockInput, MouseMove
+
+clearClipboard()
+
+checkIfScreenIsScrolledToTop()
+
+checkIfCurrentWindowIsCorrect()
+
+	MouseMove 1012, 557 ; Moves over activity tab
+
+MouseClick ; Clicks on Activity
+
+	MouseMove 590, 581 ; Moves on New in activity tab
+
+checkForProgressBar()
+
+Sleep 50
+MouseClick ; Creates New Activity
+
+	MouseMove 776, 483 ; Moves the cursor away from activities field
+
+checkForProgressBar()
+
+MouseClick ; Clicks Away from the Activity Window
+Sleep 50
+MouseClick
+Sleep 50
+MouseClick
+Sleep 50
+
+clickOnNewlyCreatedActivity()
+
+MouseClick
+
+	MouseMove 872, 268 ; Moves to description field
+
+checkForProgressBar()
+
+MouseClick ; Clicks on Description in Activity
+MouseClick
+Sleep 50
+Send ^q ; Opens up Template Window
+
+Sleep 50
+
+checkForTemplateWindow()
+
+Sleep 50
+
+checkIfTemplateWindowIsScrolled()
+
+selectsEPSReturnPXServiceTemplate()
+
+MouseClick
+Sleep 50
+
+clicksOnOkInTemplateWindow()
+checkIfPxIsScrolledToTop()
 selectsPXNumberInProScriptAndCopyIt()
+
+	MouseMove 859, 329 ; Moves to comment field and pastes the PX number with text (Siebel)
+	
+
+MouseClick
+Sleep 100
+Send EPS Px Services returned to spine
+Send {Space}
+Send {Ctrl Down}
+Send v
+Send {Ctrl Up}
+Sleep 100
+checkForPatientNameToAppear()
+
+checkForProgressBar()
+
+	MouseMove 1012, 557 ; Moves over activity tab
+
+MouseClick ; Clicks on Activity
+
+	MouseMove 590, 581 ; Moves on New in activity tab
+
+checkForProgressBar()
+
+Sleep 50
+MouseClick ; Creates New Activity
+
+	MouseMove 776, 483 ; Moves the cursor away from activities field
+
+checkForProgressBar()
+
+MouseClick ; Clicks Away from the Activity Window
+Sleep 50
+MouseClick
+Sleep 50
+MouseClick
+Sleep 50
+
+clickOnNewlyCreatedActivity()
+
+MouseClick
+
+	MouseMove 872, 268 ; Moves to description field
+
+checkForProgressBar()
+
+MouseClick ; Clicks on Description in Activity
+MouseClick
+Sleep 50
+Send ^q ; Opens up Template Window
+
+Sleep 50
+
+checkForTemplateWindow()
+
+Sleep 50
+
+checkIfTemplateWindowIsScrolled()
+
+selectsEPSReturnTemplate()
+
+MouseClick
+Sleep 50
+
+clicksOnOkInTemplateWindow()
+checkIfPxIsScrolledToTop()
+selectsPXNumberInProScriptAndCopyIt()
+
+	MouseMove 870, 271 ; Moves to description field and pastes the PX number (Siebel)
+
+MouseClick
+MouseClick
+Sleep 50
+Send {Ctrl Down}
+Send v
+Send {Ctrl Up}
+Sleep 100
+
+	MouseMove 715, 327 ; Moves to source field and selects PX Service (Siebel)
+
+MouseClick
+Sleep 50
+MouseMove 712, 410
+MouseClick
+Sleep 50
+
+	MouseMove 865, 336 ; Moves to comments field and pastes the Duplicate Notes
+
+MouseClick
+MouseClick
+Sleep 50
+
 
 BlockInput, MouseMoveOff
 
@@ -531,7 +721,11 @@ CoordMode, Pixel, Screen
 +Insert::
 BlockInput, MouseMove
 
+checkIfSiebelOrderNoIsCopied()
+
 checkIfScreenIsScrolledToTop()
+
+checkIfCurrentWindowIsCorrect()
 
 	MouseMove 1012, 557 ; Clicks on Activity
 
@@ -581,11 +775,7 @@ selectsEPSShortfallTemplate()
 MouseClick
 Sleep 50
 
-	MouseMove 1276, 702 ; Clicks on OK
-
-MouseClick
-MouseClick
-Sleep 100
+clicksOnOkInTemplateWindow()
 
 	MouseMove 1307, 408 ; Clicks on Siebel Order No and pastes Order No
 
@@ -595,7 +785,9 @@ Send {Ctrl Down}
 Send v
 Send {Ctrl Up}
 ClipWait
-Sleep 50
+Sleep 100
+
+clearClipboard()
 
 WinActivate, ahk_class ApplicationFrameWindow ; Opens up Sticky Notes app by its class
 Sleep 100
@@ -614,16 +806,16 @@ Send {Ctrl Down}
 Send v
 Send {Ctrl Up}
 ClipWait
-Sleep 50
+Sleep 100
 
 MouseMove 714, 302 ; Moves over sub-type drop arrow and clicks it
 MouseClick
 
+clearClipboard()
 
 BlockInput, MouseMoveOff
 
 Return ; Script Run finishes
-
 
 
 
@@ -646,6 +838,8 @@ CoordMode, Pixel, Screen
 
 +End::
 BlockInput, MouseMove
+
+checkIfCurrentWindowIsCorrectForStockAndCheck()
 
 checkIfScreenIsScrolledToTop()
 
@@ -736,6 +930,76 @@ Return ; Script Run Finished
 
 
 
+
+
+	; ============================================== PARTIAL STOCK & CHECK =====================================================================
+
+; This script performs first part of the Stock & Check 
+; It changes the "Origin" to "Perscription EPS"
+; It changes the "Source" to "Professional Contact"
+; It changes the "Order Status" to "Pending"
+; It clicks on "Stock & Check" button
+
+#UseHook
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+!End::
+BlockInput, MouseMove
+
+checkIfCurrentWindowIsCorrectForStockAndCheck()
+
+checkIfScreenIsScrolledToTop()
+
+	MouseMove 752, 295 ; "Order Status" field coordinates
+
+MouseClick
+Sleep 50
+
+	MouseMove 682, 338 ; "Pending" option Coordinates
+
+MouseClick
+Sleep 50
+
+	MouseMove 851, 704 ; Stock & Check button Coordinates
+
+MouseClick
+
+Send {Enter}
+Send {Enter}
+Send {Enter}
+
+	MouseMove 753, 294 ; "Order Ststus" field Coordinates
+
+MouseClick
+Sleep 50
+
+	MouseMove 743, 311 ; "Open" option Coordinates
+
+MouseClick
+Sleep 50
+
+	MouseMove 753, 294 ; "Order Ststus" field Coordinates
+
+MouseClick
+Sleep 50
+
+	MouseMove 739, 322 ; "Awaiting Payment" option Coordinates
+
+MouseClick
+Sleep 50
+
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
+
+
+
+
+
+
+
+
 	; ============================================== EPS NHS NUMBER COPY + PASTE INTO SIEBEL =====================================================================
 
 ; This script copies the NHS Number from PX in ProScript, then pastes it into "NHS Number' field in Siebel, then searches for the patient account
@@ -750,28 +1014,10 @@ colors := "97E8A2, 6666CC" ; Array of colors used by PixelSearch function (NHS n
 +PgDn::
 BlockInput, MouseMove
 
-Loop
-{
+clearClipboard()
 
-	PixelSearch, OutputVarX, OutputVarY, -970, 164, -947, 191, %A_LoopField%, 210, Fast ; NHS Number color search box Coordinates (ProScript)
 
-if ErrorLevel 
-return
-else
-break
-}
-
-	click %OutputVarX%, %OutputVarY% ; Function clicks on the coordinates of found color (In that case NHS number)
-
-Sleep 50
-Send {Ctrl Down}
-Send a
-Send {Ctrl Up}
-Sleep 50
-Send {Ctrl Down}
-Send c
-Send {Ctrl Up}
-ClipWait
+lookForNHSOnPX()
 
 	MouseMove 89, 441 ; NHS Number field Coordinates (Siebel)
 
@@ -790,7 +1036,7 @@ Sleep 100
 Send {Ctrl Down}
 Send v
 Send {Ctrl Up}
-Sleep 50
+Sleep 100
 Send {Enter}
 Sleep 50
 
@@ -800,9 +1046,13 @@ checkForProgressBar()
 
 checkForPatientNameToAppear()
 
+clearClipboard()
+
 BlockInput, MouseMoveOff
 
 Return ; Script Run Finished
+
+
 
 
 
@@ -823,12 +1073,16 @@ CoordMode, Pixel, Screen
 +Home::
 BlockInput, MouseMove
 
+clearClipboard()
+
 checkIfScreenIsScrolledToTop()
+
+checkIfCurrentWindowIsCorrect()
 
 	MouseMove 1609, 600 ; "Auto GAS All" button Coordinates (Siebel)
 
 MouseClick
-
+checkIfPxIsScrolledToTop()
 selectsPXNumberInProScriptAndCopyIt()
 
 	MouseMove 672, 241 ; Perscription No. box Coordinates (Siebel)
@@ -847,14 +1101,18 @@ Send, ^{End}
 Sleep 50
 Send, +{Home}
 Sleep 100
-Send EPS^v
-Sleep 50
+Send, EPS
+Send {Ctrl Down}
+Send v
+Send {Ctrl Up}
+Sleep 100
 
 clickOnPXAfterGAS()
 
 BlockInput, MouseMoveOff
 
 Return ; Script Run Finished
+
 
 
 
@@ -873,7 +1131,11 @@ CoordMode, Pixel, Screen
 +PgUp::
 BlockInput, MouseMove
 
+clearClipboard()
+
 checkIfScreenIsScrolledToTop()
+
+checkIfCurrentWindowIsCorrect()
 
 	MouseMove 1750, 469 ; Whitespace coordinates (Siebel)
 
@@ -884,7 +1146,7 @@ Sleep 100
 	MouseMove 1700, 599 ; "Auto GAS Selected" button Coordinates
 
 MouseClick
-
+checkIfPxIsScrolledToTop()
 selectsPXNumberInProScriptAndCopyIt()
 
 	MouseMove 672, 241 ; Perscription No. box Coordinates (Siebel)
@@ -903,8 +1165,11 @@ Send, ^{End}
 Sleep 50
 Send, +{Home}
 Sleep 100
-Send EPS^v
-Sleep 50
+Send, EPS
+Send {Ctrl Down}
+Send v
+Send {Ctrl Up}
+Sleep 100
 
 clickOnPXAfterGAS()
 
@@ -919,34 +1184,15 @@ Return ; Script Run Finished
 
 
 
-			;============================================== FUNCTIONS =====================================================
+
+
+	;============================================== FUNCTIONS =====================================================
 
 
 
-checkIfScreenIsScrolledToTop()
-{
-Loop
-{
-PixelGetColor, color, 1908, 190
-if (color = 0xFFFFFF)
-{
-	MouseMove 1907, 178 ; Scrolls up to the top of the window
-MouseClick
-MouseClick
-MouseClick
-MouseClick
-Sleep 100
-return
-}
-else
-{
-break
-}
-}
-}
 
 
-
+	; ========== Wait Functions ==========
 
 checkForProgressBar()
 {
@@ -973,6 +1219,232 @@ break
 
 
 
+checkForWindowChangeGas()
+{
+	PixelGetColor, color, 691, 526 ; "Team" field Coordinates (Siebel - gray color sample) - Loop looks for white color to appear at these coordinates before moving forward
+While color = 0xEEEEEE
+{
+	PixelGetColor, color, 691, 526 
+Sleep 10
+}
+}
+
+
+
+
+
+
+	; ========== PX & Patient Account Functions ==========
+
+lookForNHSOnPX()
+{
+Loop
+{
+
+	PixelSearch, OutputVarX, OutputVarY, -970, 164, -947, 191, %A_LoopField%, 210, Fast ; NHS Number color search box Coordinates (ProScript)
+
+if ErrorLevel 
+MsgBox, 4096, Error 001, "Script Failed - Please try again or copy NHS Manually. Press F12 to Exit the error message"
+else
+break
+}
+
+	click %OutputVarX%, %OutputVarY% ; Function clicks on the coordinates of found color (In that case NHS number)
+
+Sleep 50
+Send {Ctrl Down}
+Send a
+Send {Ctrl Up}
+Sleep 50
+Send {Ctrl Down}
+Send c
+Send {Ctrl Up}
+ClipWait, 1
+if RegExMatch(Clipboard, "(\d{10})", OutputVar)
+{
+;
+}
+else if (OutputVar = 0)
+{
+Sleep 200
+MouseClick
+Sleep 50
+MouseClick
+Sleep 50
+Send {Ctrl Down}
+Send a
+Send {Ctrl Up}
+Sleep 50
+Send {Ctrl Down}
+Send c
+Send {Ctrl Up}
+ClipWait, 1
+}
+else
+{
+MouseMove 370, 484
+MouseClick
+MsgBox, 4096, Error 001, "Script Failed - Please try again or copy NHS Manually. Press F12 to Exit the error message"
+Reload
+}
+}
+
+
+
+
+checkIfPxIsScrolledToTop()
+{
+Loop
+{
+PixelGetColor, color, -461, 83
+if (color = 0xF0F0F0)
+{
+MouseMove -460, 83 ; Moves the mouse over up bar on PX
+MouseClick ; Scrolls Up the PX
+Sleep 10
+MouseClick
+Sleep 10
+MouseClick
+Sleep 10
+MouseClick
+Sleep 10
+break
+}
+else
+{
+break
+}
+}
+}
+
+
+
+
+checkForPatientNameToAppear()
+{
+Loop
+{
+	PixelSearch, OutputVarX, OutputVarY, 45, 628, 71, 661, 6666CC, 210, Fast ; Last Name Field Coordinates (Search Box - Siebel)
+if (ErrorLevel != 0)
+return
+else
+click %OutputVarX%, %OutputVarY%
+Return
+}
+}
+
+
+
+
+checkForMedicationOnPX()
+{
+Loop
+{
+	PixelSearch, OutputVarX, OutputVarY, -1179, 210, -1066, 303, 000000, 50 ; Looks for black font in PX to select the medication
+if (ErrorLevel != 0)
+return
+else
+MouseMove %OutputVarX%, %OutputVarY%
+Sleep 50
+MouseClick
+Sleep 50
+MouseClick
+Sleep 50
+Send {Ctrl Down}
+Send a
+Send {Ctrl Up}
+Sleep 50
+Send {Ctrl Down}
+Send c
+Send {Ctrl Up}
+ClipWait, 0.5
+Sleep 50
+Return
+}
+}
+
+
+
+
+selectsPXNumberInProScriptAndCopyItForDuplicate()
+{
+
+	MouseMove -738, 78 ; Selects PX number and copies it (ProScript)
+	
+MouseClick
+MouseClick
+Sleep 50
+Send {Ctrl Down}
+Send a
+Send {Ctrl Up}
+Sleep 50
+Send {Ctrl Down}
+Send c
+Send {Ctrl Up}
+ClipWait, 1
+}
+
+
+
+
+selectsPXNumberInProScriptAndCopyIt()
+{
+
+	MouseMove -738, 78 ; Selects PX number and copies it (ProScript)
+	
+MouseClick
+MouseClick
+Sleep 50
+Send {Ctrl Down}
+Send a
+Send {Ctrl Up}
+Sleep 50
+Send {Ctrl Down}
+Send c
+Send {Ctrl Up}
+ClipWait, 1
+if RegExMatch(Clipboard, "(.{6}-.{6}-.{6})", OutputVar)
+{
+;
+}
+else if (OutputVar = 0)
+{
+Sleep 200
+MouseClick
+MouseClick
+Sleep 50
+Send {Ctrl Down}
+Send a
+Send {Ctrl Up}
+Sleep 50
+Send {Ctrl Down}
+Send c
+Send {Ctrl Up}
+ClipWait, 1
+}
+else
+{
+MouseMove 370, 484
+MouseClick
+MsgBox, 4096, Error, "Script Failed - Please copy the PX number manually. Press F12 to Exit the error message"
+Reload
+}
+}
+
+
+
+
+
+
+	; ========== Template Window Functions ==========
+
+clickOnNewlyCreatedActivity()
+{
+	MouseMove 729, 626 ; Clicks on Newly Created Activity
+}
+
+
+
 
 checkForTemplateWindow()
 {
@@ -984,6 +1456,8 @@ While color = 0xffffff
 sleep 10
 }
 }
+
+
 
 
 checkIfTemplateWindowIsScrolled()
@@ -1012,109 +1486,140 @@ break
 
 
 
-checkForWindowChangeGas()
+clicksOnOkInTemplateWindow()
 {
-	PixelGetColor, color, 691, 526 ; "Team" field Coordinates (Siebel - gray color sample) - Loop looks for white color to appear at these coordinates before moving forward
-While color = 0xEEEEEE
-{
-	PixelGetColor, color, 691, 526 
-Sleep 10
-}
-}
+	MouseMove 1276, 702 ; Clicks on OK
 
-
-
-
-
-checkForPatientNameToAppear()
-{
-Loop
-{
-	PixelSearch, OutputVarX, OutputVarY, 50, 634, 71, 661, 6666CC, 210, Fast ; Last Name Field Coordinates (Search Box - Siebel)
-if (ErrorLevel != 0)
-return
-else
-click %OutputVarX%, %OutputVarY%
-Return
-}
-}
-
-
-
-
-checkForMedicationOnPX()
-{
-Loop
-{
-	PixelSearch, OutputVarX, OutputVarY, -1179, 210, -1066, 303, 000000, 50, Fast ; Looks for black font in PX to select the medication
-if (ErrorLevel != 0)
-return
-else
-MouseMove %OutputVarX%, %OutputVarY%
-Sleep 50
 MouseClick
-Sleep 50
 MouseClick
-Sleep 50
-Send {Ctrl Down}
-Send a
-Send {Ctrl Up}
-Sleep 50
-Send {Ctrl Down}
-Send c
-Send {Ctrl Up}
-ClipWait
-Sleep 50
-Return
-}
+Sleep 100
 }
 
-
-
-clickOnNewlyCreatedActivity()
-{
-	MouseMove 729, 626 ; Clicks on Newly Created Activity
-}
 
 
 
 selectsEPSReturnTemplate()
 {
-	MouseMove 1325, 635 ; Selects EPS Return Template
+	MouseMove 1275, 635 ; Selects EPS Return Template
 }
+
+
+
+
+selectsEPSReturnPXServiceTemplate()
+{
+	MouseMove 1275, 680 ; Selects EPS Return Template
+}
+
+
 
 
 selectsEPSShortfallTemplate()
 {
-	MouseMove 1325, 659 ; Selects EPS Shortfall Template
+	MouseMove 1275, 659 ; Selects EPS Shortfall Template
 }
 
 
 
-selectsPXNumberInProScriptAndCopyIt()
+
+
+
+	; ========== Safety Functions ==========
+
+checkIfScreenIsScrolledToTop()
 {
-	MouseMove -738, 78 ; Selects PX number and copies it (ProScript)
+Loop
+{
+PixelGetColor, color, 1908, 190
+if (color = 0xFFFFFF)
+{
+	MouseMove 1907, 178 ; Scrolls up to the top of the window
 MouseClick
 MouseClick
-Send {Ctrl Down}
-Send a
-Send {Ctrl Up}
-Sleep 50
-Send {Ctrl Down}
-Send c
-Send {Ctrl Up}
-ClipWait
-Sleep 50
+MouseClick
+MouseClick
+Sleep 1000
+return
+}
+else
+{
+break
+}
+}
 }
 
 
 
+
+checkIfSiebelOrderNoIsCopied()
+{
+if RegExMatch(Clipboard, "(\d{1}-\d{10})", OutputVar)
+{
+;
+}
+else
+{
+MsgBox, 4096, Error, "Script Failed - Please copy the Siebel Order number first. Press F12 to Exit the error message"
+Reload
+}
+}
+
+
+
+
+checkIfCurrentWindowIsCorrect()
+{
+PixelGetColor, color, 526, 557 ; Siebel "AP Order Lines" label coordinates
+PixelGetColor, color2, 176, 141 ; Siebel "Contacts" label coordinates
+While (color != 0xFFFFFF) || (color2 != 0xFFFFFF)
+{
+BlockInput, MouseMoveOff
+MsgBox, 4096, Error, You can only run this script from AP Order Lines Tab. Press F12 to Exit the error message.
+Reload
+}
+}
+
+
+
+
+checkIfCurrentWindowIsCorrectForStockAndCheck()
+{
+PixelGetColor, color, 592, 138 ; Siebel "Orders" label coordinates
+While color != 0xFFFFFF
+{
+BlockInput, MouseMoveOff
+MsgBox, 4096, Error, You can only run this script while Stock Checking the order. Press F12 to Exit the error message.
+Reload
+}
+}
+
+
+
+
+
+
+	; ========== Misc Functions ==========
 
 clickOnPXAfterGAS()
 {
 	MouseMove -910, 275 ; General PX coordinates (So that the script selects the PX at the end)
 	MouseClick
 }
+
+
+
+
+clearClipboard()
+{
+Clipboard :=
+return
+}
+
+
+
+
+
+
 
 
 ; Scripts created by PLBASIO & PLTOTO

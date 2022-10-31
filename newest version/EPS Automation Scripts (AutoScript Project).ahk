@@ -1400,9 +1400,9 @@ Reload
 
 siebelActivityNewButton()
 {
-Loop, 20
+Loop, 10
 {
-Sleep 100
+Sleep 200
 ImageSearch OutputVarX, OutputVarY, 565, 570, 613, 593, *100 %A_ScriptDir%\Images\New_Activity_Button.png
 if (ErrorLevel = 0)
 {
@@ -1410,6 +1410,7 @@ VarPosX := OutputVarX + 15
 VarPosY := OutputVarY + 5
 SetDefaultMouseSpeed, 0
 MouseMove %VarPosX%, %VarPosY%
+Sleep 100
 MouseClick
 SetDefaultMouseSpeed, 2
 Return
@@ -1441,18 +1442,19 @@ Sleep 100
 MouseClick
 Sleep 100
 MouseClick
-Sleep 100
 SetDefaultMouseSpeed, 2
 }
 
 
 
 
+
+
 clickOnNewlyCreatedActivity()
 {
-Loop, 20
+Loop, 10
 {
-Sleep 100
+Sleep 200
 ImageSearch OutputVarX, OutputVarY, 492, 569, 1265, 720, *40 %A_ScriptDir%\Images\New_Activity_Other.png
 if (ErrorLevel = 0)
 {
@@ -1651,7 +1653,7 @@ selectsEPSReturnTemplate()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1273, 657 ; Selects EPS Return Template
+	MouseMove 1275, 635 ; Selects EPS Return Template
 	
 MouseClick
 SetDefaultMouseSpeed, 2
@@ -1664,7 +1666,7 @@ selectsEPSReturnPXServiceTemplate()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1276, 679 ; Selects EPS Return Template
+	MouseMove 1275, 680 ; Selects EPS Return Template
 
 MouseClick
 SetDefaultMouseSpeed, 2
@@ -1677,7 +1679,7 @@ selectsEPSShortfallTemplate()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1278, 633 ; Selects EPS Shortfall Template
+	MouseMove 1275, 659 ; Selects EPS Shortfall Template
 	
 MouseClick
 SetDefaultMouseSpeed, 2
@@ -1712,7 +1714,7 @@ siebelClickOnDropDownArrowInNotes()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1592, 841 ; Moves over Typ dropdown menu arrow in Active Notes on AP Order Lines
+	MouseMove 1651, 843 ; Moves over Typ dropdown menu arrow in Active Notes on AP Order Lines
 	
 SetDefaultMouseSpeed, 2
 }
@@ -1727,7 +1729,7 @@ SetDefaultMouseSpeed, 0
 MouseClick ; Clicks on dropdown arrow in newly created Active Note (If Flag Contact collumn is before Type collumn in siebel then add another MouseClick to fix the error)
 Sleep 50
 
-	MouseMove 1591, 882 ; Moves over Duplicate Perscription Alert
+	MouseMove 1654, 884 ; Moves over Duplicate Perscription Alert
 
 MouseClick ; Clicks on Duplicate Perscription Alert
 Sleep 50
@@ -1743,7 +1745,7 @@ siebelFlagContactTick()
 SetDefaultMouseSpeed, 0
 Sleep 50
 
-	MouseMove 1641, 839 ; Moves over Flag Contact Tick in newly created Active Note
+	MouseMove 1686, 841 ; Moves over Flag Contact Tick in newly created Active Note
 
 MouseClick
 Sleep 50

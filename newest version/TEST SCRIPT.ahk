@@ -1,277 +1,21 @@
-﻿
-#UseHook
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
 
-Up::
 
-siebelCheckPerscriptionFieldIfPXIsPastedIn()
-clickOnPXAfterGAS()
-keyFix()
 
-return
 
 
-
-
-
-
-
-
-  ; ==================================================================== EXITS SCRIPT DOCUMENT ==========================================================
-
-; This script exits the AHK application
-
-
-
-#UseHook
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-
-#x::ExitApp  ; Win+X
-return
-
-
-
-
-
-
-
-
-    ; ==================================================================== COMPLIMENTARIES ==============================================================
-
-; This script adds shortcuts for adding complimentary items, also adds EPS+ScriptID functionality
-
-
-
-#UseHook
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-
-^1::
-SendInput {Raw}380NCH0001 ; Complimentary Disposal Bags
-
-Return
-
-#UseHook
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-
-^2::
-SendInput {Raw}380NCH0002 ; Complimentary Dry Wipes
-
-Return
-
-#UseHook
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-
-^6::
-SendInput {Raw}380NCH0006 ; Complimentary Wet Wipes
-
-Return
-
-#UseHook
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-
-^5::
-SendInput {Raw}6164411006 ; Complimentary Isagel
-
-Return
-
-#UseHook
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-
-^4::
-SendInput {Raw}380NLTC034 ; Out Of Stock Flier
-
-Return
-
-#UseHook
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-
-`::
-SendInput {Raw}EPS
-Send {Ctrl Down}
-SendInput {Raw}v
-Send {Ctrl Up} ; EPS + Script ID
-
-Return
-
-
-
-
-
-
-
-
-	; ==================================================================== RELOAD WHOLE SCRIPT DOCUMENT ==============================================================
-
-; This script reloads the whole script document in case any of the scripts gets stuck
-
-#UseHook
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-
-F12::
-Reload
-
-Return
-
-
-
-
-
-
-
-
-	; ==================================================================== EPS RETURN ACTIVITY ==============================================================
-
-; This script works by creating Return activity in Siebel
-; It also copies and pastes PX number from ProScript to Siebel
-; Of of its' functions is to wait for the blue progress bar in Siebel to appear (after every window change) 
-; It waits until it appears, then it waits until it disappears
-; After that it completes the next step
 
 #UseHook
 SetBatchLines, -1
 CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
-+Delete::
-BlockInput, MouseMove
-
-clearClipboard()
-checkIfScreenIsScrolledToTop()
-checkIfCurrentWindowIsCorrect()
-siebelActivityTab()
+^p::
+checkForPatientNameToAppear()
 checkForProgressBar()
-siebelActivityNewButton()
-checkForProgressBar()
-siebelActivityWhiteSpace()
-clickOnNewlyCreatedActivity()
-checkForProgressBar()
-siebelActivityDescriptionField()
-
-MouseClick ; Clicks on Description in Activity
-Sleep 50
-MouseClick
-Sleep 50
-SendInput ^q ; Opens up Template Window
-Sleep 50
-
-checkForTemplateWindow()
-
-Sleep 50
-
-checkIfTemplateWindowIsScrolled()
-selectsEPSReturnTemplate()
-clicksOnOkInTemplateWindow()
-checkIfPxIsScrolled()
-selectsPXNumberInProScriptAndCopyIt()
-siebelActivityDescriptionField()
-
-MouseClick
-MouseClick
-Sleep 50
-Send {Ctrl Down}
-SendInput {Raw}v
-Send {Ctrl Up}
-ClipWait, 1
-
-keyFix()
-
-BlockInput, MouseMoveOff
-
-Return ; Script Run Finished
-
-
-
-
-
-
-
-
-	; ==================================================================== EPS RETURN MED ACTIVITY (If only 1 product on PX) ==============================================================
-
-; This script works by creating Return activity in Siebel
-; It also copies and pastes PX number and Medication product from ProScript to Siebel
-; Of of its' functions is to wait for the blue progress bar in Siebel to appear (after every window change) 
-; It waits until it appears, then it waits until it disappears
-; After that it completes the next step
-
-#UseHook
-SetBatchLines, -1
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-
-!Delete::
-BlockInput, MouseMove
-
-clearClipboard()
-checkIfScreenIsScrolledToTop()
-checkIfCurrentWindowIsCorrect()
-siebelActivityTab()
-checkForProgressBar()
-siebelActivityNewButton()
-checkForProgressBar()
-siebelActivityWhiteSpace()
-clickOnNewlyCreatedActivity()
-checkForProgressBar()
-siebelActivityDescriptionField()
-
-MouseClick ; Clicks on Description in Activity
-Sleep 50
-MouseClick
-Sleep 50
-SendInput ^q ; Opens up Template Window
-Sleep 50
-
-checkForTemplateWindow()
-
-Sleep 50
-
-checkIfTemplateWindowIsScrolled()
-selectsEPSReturnTemplate()
-clicksOnOkInTemplateWindow()
-checkForMedicationOnPX()
-siebelActivityCommentField()
-
-MouseClick
-MouseClick
-Sleep 50
-Send {Ctrl Down}
-SendInput {Raw}v
-Send {Ctrl Up}
-ClipWait, 1
+MouseMove 1222, 301
 Sleep 100
-
-clearClipboard()
-checkIfPxIsScrolled()
-selectsPXNumberInProScriptAndCopyIt()
-siebelActivityDescriptionField()
-
-MouseClick
-MouseClick
-Sleep 50
-Send {Ctrl Down}
-SendInput {Raw}v
-Send {Ctrl Up}
-Sleep 50
-
-
-siebelSourceDownArrow()
-siebelSelectSourceMED()
-siebelSelectStatusDownArrow()
-siebelSelectStatusDone()
-keyFix()
-
-BlockInput, MouseMoveOff
-
-Return ; Script Run Finished
+MouseMove -1200, 479
+Return
 
 
 
@@ -280,13 +24,14 @@ Return ; Script Run Finished
 
 
 
-	;=============================================== EPS RETURN DUPLICATE ==============================================================
 
-; This script works by creating Return activity in Siebel
-; It also copies and pastes PX number and Dupliate product from ProScript to Siebel
-; Of of its' functions is to wait for the blue progress bar in Siebel to appear (after every window change) 
-; It waits until it appears, then it waits until it disappears
-; After that it completes the next step
+
+
+
+
+
+
+
 
 
 #UseHook
@@ -297,53 +42,60 @@ CoordMode, Pixel, Screen
 ^Delete::
 BlockInput, MouseMove
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 clearClipboard()
+checkIfStickyNotesAreRunning()
 checkIfScreenIsScrolledToTop()
 checkIfCurrentWindowIsCorrect()
 siebelClickOnNewInNotes()
-siebelClickOnDropDownArrowInNotes()
 checkForProgressBar()
+siebelClickOnDropDownArrowInNotes()
 siebelSelectDupPxAlert()
 siebelFlagContactTick()
+clearClipboard()
+copyStickyNotes()
 siebelDescriptionFieldInActiveNotes()
 
-WinActivate, ahk_class ApplicationFrameWindow ; Opens up Sticky Notes app by its class
-Sleep 100
-Send {Ctrl Down}
-SendInput {Raw}c
-Send {Ctrl Up}
-ClipWait
-Sleep 50
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
-Sleep 100
-
-MouseClick
+Sleep 50
 MouseClick ; Selects and pastes the Sticky Notes
 Send {Ctrl Down}
 SendInput {Raw}v
 Send {Ctrl Up}
 ClipWait
-Sleep 100
-
+Sleep 50
 
 checkIfPxIsScrolled()
 selectsPXNumberInProScriptAndCopyItForDuplicate()
 siebelDescriptionFieldInActiveNotes()
 
-MouseClick ; Selects the Description Field and Pastes in the PX number
+Send ^{Home}
+Sleep 50
 SendInput {Enter}
-Sleep 100
+Sleep 50
 SendInput {Enter}
-Sleep 100
+Sleep 50
 SendInput {Up}
-Sleep 100
+Sleep 50
 SendInput {Up}
-Sleep 100
+Sleep 50
 Send {Ctrl Down}
 SendInput {Raw}v
 Send {Ctrl Up}
 ClipWait
-Sleep 100
+Sleep 50
 
 siebelActivityTabDuplicate()
 checkForProgressBar()
@@ -351,8 +103,8 @@ siebelActivityNewButton()
 checkForProgressBar()
 siebelActivityWhiteSpace()
 clickOnNewlyCreatedActivity()
-checkForProgressBar()
 siebelActivityDescriptionField()
+checkForProgressBar()
 
 MouseClick ; Clicks on Description in Activity
 Sleep 50
@@ -381,14 +133,8 @@ ClipWait
 Sleep 100
 
 clearClipboard()
+copyStickyNotes()
 
-WinActivate, ahk_class ApplicationFrameWindow ; Opens up Sticky Notes app by its class
-Sleep 100
-Send {Ctrl Down}
-SendInput {Raw}c
-Send {Ctrl Up}
-ClipWait
-Sleep 50
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Sleep 100
 
@@ -412,275 +158,13 @@ checkIfPxIsScrolled()
 selectsPXNumberInProScriptAndCopyItForDuplicate()
 keyFix()
 
-BlockInput, MouseMoveOff
 
-Return ; Script Run Finished
 
 
 
 
 
 
-
-
-	; ==================================================================== EPS RETURN PX SERVICE ==============================================================
-
-; This script works by creating Return activity in Siebel
-; It also copies and pastes PX number and Medication product from ProScript to Siebel
-; Of of its' functions is to wait for the blue progress bar in Siebel to appear (after every window change) 
-; It waits until it appears, then it waits until it disappears
-; After that it completes the next step
-
-#UseHook
-SetBatchLines, -1
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-
-!Insert::
-BlockInput, MouseMove
-
-clearClipboard()
-checkIfScreenIsScrolledToTop()
-checkIfCurrentWindowIsCorrect()
-siebelActivityTab()
-checkForProgressBar()
-siebelActivityNewButton()
-checkForProgressBar()
-siebelActivityWhiteSpace()
-clickOnNewlyCreatedActivity()
-checkForProgressBar()
-siebelActivityDescriptionField()
-
-MouseClick ; Clicks on Description in Activity
-Sleep 50
-MouseClick
-Sleep 50
-SendInput ^q ; Opens up Template Window
-Sleep 50
-
-checkForTemplateWindow()
-
-Sleep 50
-
-checkIfTemplateWindowIsScrolled()
-selectsEPSReturnPXServiceTemplate()
-clicksOnOkInTemplateWindow()
-checkIfPxIsScrolled()
-selectsPXNumberInProScriptAndCopyIt()
-siebelActivityCommentField()
-	
-
-MouseClick
-Sleep 100
-SendInput {Raw}EPS Px Services returned to spine
-SendInput {Space}
-Send {Ctrl Down}
-SendInput {Raw}v
-Send {Ctrl Up}
-Sleep 100
-Send {Ctrl Down}
-SendInput {Raw}b
-Send {Ctrl Up}
-Sleep 100
-
-siebelActivityDescriptionField()
-
-MouseClick ; Clicks on Description in Activity
-MouseClick
-Sleep 50
-SendInput ^q ; Opens up Template Window
-Sleep 50
-
-checkForTemplateWindow()
-
-Sleep 50
-
-checkIfTemplateWindowIsScrolled()
-selectsEPSReturnTemplate()
-clicksOnOkInTemplateWindow()
-checkIfPxIsScrolled()
-selectsPXNumberInProScriptAndCopyIt()
-siebelActivityDescriptionField()
-
-MouseClick
-Sleep, 50
-SendInput {Ctrl Down}
-SendInput {Raw}v
-SendInput {Ctrl Up}
-Sleep 100
-
-
-siebelSourceDownArrow()
-siebelSourcePXService()
-siebelActivityCommentField()
-
-MouseClick
-MouseClick
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-
-keyFix()
-
-BlockInput, MouseMoveOff
-
-Return ; Script Run Finished
-
-
-
-
-
-
-
-
-	; ============================================== EPS SHORTFALL =====================================================================
-
-; This script works by creating Shortfall activity in Siebel
-; It also copies the PX Number from ProScript and pastes it into Siebel
-; Of of its' functions is to wait for the blue progress bar in Siebel to appear (after every window change) 
-; It waits until it appears, then it waits until it disappears
-; After that it completes the next step
-
-#UseHook
-SetBatchLines, -1
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-
-+Insert::
-BlockInput, MouseMove
-
-checkIfSiebelOrderNoIsCopied()
-checkIfScreenIsScrolledToTop()
-checkIfCurrentWindowIsCorrect()
-siebelActivityTab()
-checkForProgressBar()
-siebelActivityNewButton()
-checkForProgressBar()
-siebelActivityWhiteSpace()
-clickOnNewlyCreatedActivity()
-checkForProgressBar()
-siebelActivityDescriptionField()
-
-Sleep 100
-MouseClick ; Clicks on Description in Activity
-Sleep 50
-MouseClick
-Sleep 50
-SendInput ^q ; Opens up Template Window
-Sleep 50
-
-checkForTemplateWindow()
-
-Sleep 50
-
-checkIfTemplateWindowIsScrolled()
-selectsEPSShortfallTemplate()
-clicksOnOkInTemplateWindow()
-siebelSiebelOrderNoField()
-clearClipboard()
-
-WinActivate, ahk_class ApplicationFrameWindow ; Opens up Sticky Notes app by its class
-Sleep 100
-Send {Ctrl Down}
-SendInput {Raw}c
-Send {Ctrl Up}
-ClipWait
-Sleep 50
-WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
-Sleep 100
-
-siebelActivityCommentField()
-
-MouseClick
-Send {Ctrl Down}
-SendInput {Raw}v
-Send {Ctrl Up}
-ClipWait
-Sleep 100
-
-siebelSubTypeDownArrow()
-clearClipboard()
-keyFix()
-
-BlockInput, MouseMoveOff
-
-Return ; Script Run finishes
-
-
-
-
-
-
-	; ============================================== STOCK & CHECK =====================================================================
-
-; This script performs first part of the Stock & Check 
-; It changes the "Origin" to "Perscription EPS"
-; It changes the "Source" to "Professional Contact"
-; It changes the "Order Status" to "Pending"
-; It clicks on "Stock & Check" button
-
-#UseHook
-SetBatchLines, -1
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-
-+End::
-SetDefaultMouseSpeed, 0
-BlockInput, MouseMove
-
-checkIfCurrentWindowIsCorrectForStockAndCheck()
-checkIfScreenIsScrolledToTop()
-siebelSourceAndOriginFields()
-siebelStockAndCheckOrderStatusChanges()
-checkForPatientNameToAppear()
-keyFix()
-
-BlockInput, MouseMoveOff
-
-Return ; Script Run Finished
-
-
-
-
-
-
-
-
-	; ============================================== PARTIAL STOCK & CHECK =====================================================================
-
-; This script performs first part of the Stock & Check 
-; It changes the "Origin" to "Perscription EPS"
-; It changes the "Source" to "Professional Contact"
-; It changes the "Order Status" to "Pending"
-; It clicks on "Stock & Check" button
-
-#UseHook
-SetBatchLines, -1
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-
-!End::
-SetDefaultMouseSpeed, 0
-BlockInput, MouseMove
-
-checkIfCurrentWindowIsCorrectForStockAndCheck()
-checkIfScreenIsScrolledToTop()
-siebelAddOosFlier()
-siebelStockAndCheckOrderStatusChanges()
-keyFix()
 
 BlockInput, MouseMoveOff
 
@@ -695,35 +179,6 @@ Return ; Script Run Finished
 
 
 
-	; ============================================== EPS NHS NUMBER COPY + PASTE INTO SIEBEL =====================================================================
-
-; This script copies the NHS Number from PX in ProScript, then pastes it into "NHS Number' field in Siebel, then searches for the patient account
-; This script finds the text (PX Number in ProScript) by looking for specified font colors in specified area 
-; If it finds the color, it clicks in that place and copies the text
-
-#UseHook
-SetBatchLines, -1
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-colors := "97E8A2, 6666CC" ; Array of colors used by PixelSearch function (NHS number font colors - regular and highlighted)
-
-+PgDn::
-SetDefaultMouseSpeed, 0
-BlockInput, MouseMove
-
-clearClipboard()
-lookForNHSOnPX()
-siebelClickReset()
-checkForProgressBar()
-siebelPasteNHSNumber()
-checkForProgressBar()
-checkForPatientNameToAppear()
-keyFix()
-clearClipboard()
-
-BlockInput, MouseMoveOff
-
-Return ; Script Run Finished
 
 
 
@@ -732,38 +187,6 @@ Return ; Script Run Finished
 
 
 
-	; ============================================== EPS GAS ALL + SCRIPT ID COPY + PASTE INTO SIEBEL =====================================================================
-
-; This script works by GASsing the entire order
-; Then it checks the color in the specified area ("Team" field Coordinates in Siebel - It retrieves gray color sample from there)
-; When the color changes to white (Since gray color doesn't exist in that position in the next window, it means that window changed) then it executes the rest of the script 
-; Rest of the script includes: Copying Script ID number and pasting it into Siebel along with EPS in front of it
-
-#UseHook
-SetBatchLines, -1
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-
-+Home::
-BlockInput, MouseMove
-
-clearClipboard()
-checkIfScreenIsScrolledToTop()
-checkIfCurrentWindowIsCorrect()
-siebelAutoGASAllButton()
-checkIfPxIsScrolled()
-selectsPXNumberInProScriptAndCopyIt()
-siebelPerscriptionNoField()
-checkForWindowChangeGas()
-siebelPerscriptionNoFieldClearAndPastePX()
-clearClipboard()
-siebelCheckPerscriptionFieldIfPXIsPastedIn()
-clickOnPXAfterGAS()
-keyFix()
-
-BlockInput, MouseMoveOff
-
-Return ; Script Run Finished
 
 
 
@@ -772,35 +195,24 @@ Return ; Script Run Finished
 
 
 
-	; ============================================== EPS GAS SELECTED + SCRIPT ID COPY + PASTE INTO SIEBEL =====================================================================
 
-; This script copies the Script ID from ProScript, then pastes it into Siebel into "Perscription NO" field with "EPS" in front of it
 
-#UseHook
-SetBatchLines, -1
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
 
-+PgUp::
-BlockInput, MouseMove
 
-clearClipboard()
-checkIfScreenIsScrolledToTop()
-checkIfCurrentWindowIsCorrect()
-siebelAutoGASSelectedButton()
-checkIfPxIsScrolled()
-selectsPXNumberInProScriptAndCopyIt()
-siebelPerscriptionNoField()
-checkForWindowChangeGas()
-siebelPerscriptionNoFieldClearAndPastePX()
-clearClipboard()
-siebelCheckPerscriptionFieldIfPXIsPastedIn()
-clickOnPXAfterGAS()
-keyFix()
 
-BlockInput, MouseMoveOff
 
-Return ; Script Run Finished
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -814,26 +226,360 @@ Return ; Script Run Finished
 	;============================================== FUNCTIONS =====================================================
 
 
+	; ====================== PROSCRIPT FUNCTIONS ========================
 
 
-	; ========== Siebel Functions ============
+lookForNHSOnPX()
+{
+Loop, 2
+{
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\NHS_Number_Green.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 110
+VarPosY := OutputVarY + 6
+MouseMove %VarPosX%, %VarPosY%
+Sleep 100
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 50
+SetDefaultMouseSpeed, 2
+Break
+}
+else if (ErrorLevel != 0)
+{
+;
+}
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\NHS_Number_Purple.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 110
+VarPosY := OutputVarY + 6
+MouseMove %VarPosX%, %VarPosY%
+Sleep 100
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 50
+SetDefaultMouseSpeed, 2
+Break
+}
+}
+if RegExMatch(Clipboard, "(\d{10})", OutputVar)
+{
+Return
+}
+else
+{
+Sleep 100
+MouseClick
+Sleep 50
+Send {Ctrl Down}
+SendInput {Raw}a
+Send {Ctrl Up}
+Sleep 50
+Send {Ctrl Down}
+SendInput {Raw}c
+Send {Ctrl Up}
+ClipWait, 1
+}
+SetDefaultMouseSpeed, 0
+MouseMove 370, 484
+MouseClick
+MsgBox, 4096, Error, "Script Failed - Please try again or copy NHS Manually. Press F12 to Exit the error message"
+SetDefaultMouseSpeed, 2
+Reload
+}
+
+
+
+
+checkForMedicationOnPX()
+{
+Loop, 5
+{
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\Prescribed_Medication_Green.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 15
+VarPosY := OutputVarY + 25
+MouseMove %VarPosX%, %VarPosY%
+Sleep 200
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 50
+SetDefaultMouseSpeed, 2
+if (Clipboard = "")
+{
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 200
+}
+else
+{
+Return
+}
+}
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\Prescribed_Medication_Purple.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 15
+VarPosY := OutputVarY + 25
+MouseMove %VarPosX%, %VarPosY%
+Sleep 200
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 50
+SetDefaultMouseSpeed, 2
+if (Clipboard = "")
+{
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 200
+}
+else
+{
+Return
+}
+}
+}
+SetDefaultMouseSpeed, 0
+MouseMove 370, 484
+MouseClick
+MsgBox, 4096, Error, Could not copy the product! Press F12 to exit
+Reload
+}
+
+
+
+
+selectsPXNumberInProScriptAndCopyIt()
+{
+Loop, 5
+{
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\Script_Id.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 130
+VarPosY := OutputVarY + 6
+MouseMove %VarPosX%, %VarPosY%
+Sleep 200
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 50
+SetDefaultMouseSpeed, 2
+if RegExMatch(Clipboard, "(.{6}-.{6}-.{6})", OutputVar)
+{
+Return
+}
+else 
+{
+Sleep 100
+}
+}
+}
+SetDefaultMouseSpeed, 0
+MouseMove 370, 484
+MouseClick
+MsgBox, 4096, Error, "Could not find the PX Number. Press F12 to Exit the error message"
+Reload
+}
+
+
+
+
+selectsPXNumberInProScriptAndCopyItForDuplicate()
+{
+Loop, 5
+{
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\Script_Id.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 130
+VarPosY := OutputVarY + 6
+MouseMove %VarPosX%, %VarPosY%
+Sleep 200
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 50
+SetDefaultMouseSpeed, 2
+Return
+}
+else
+{
+Sleep 100
+}
+}
+SetDefaultMouseSpeed, 0
+MouseMove 370, 484
+MsgBox, 4096, Error, "Could not find the PX Number. Press F12 to Exit the error message"
+Reload
+}
+
+
+
+
+checkIfPxIsScrolled()
+{
+Loop
+{
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *25 %A_ScriptDir%\Images\PX_Scroll_Up_Arrow.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 7
+VarPosY := OutputVarY + 19
+MouseMove %VarPosX%, %VarPosY%
+Sleep 50
+MouseClick
+Sleep 50
+MouseClick
+Sleep 50
+MouseClick
+Sleep 50
+Return
+}
+else if (ErrorLevel != 0)
+{
+;
+}
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *25 %A_ScriptDir%\Images\PX_Scroll_Up_Arrow_2.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 7
+VarPosY := OutputVarY + 19
+MouseMove %VarPosX%, %VarPosY%
+Sleep 50
+MouseClick
+Sleep 50
+MouseClick
+Sleep 50
+MouseClick
+Sleep 50
+Return
+}
+else if (ErrorLevel != 0)
+{
+Break
+}
+}
+}
+
+
+
+
+checkForPatientNameToAppear()
+{
+Loop
+{
+	PixelSearch, OutputVarX, OutputVarY, 45, 628, 71, 661, 6666CC, 210, Fast ; Last Name Field Coordinates (Search Box - Siebel)
+if (ErrorLevel != 0)
+return
+else
+SetDefaultMouseSpeed, 0
+click %OutputVarX%, %OutputVarY%
+SetDefaultMouseSpeed, 2
+Return
+}
+}
 
 
 
 
 
-	; ========== ACTIVITY COORDINATES ============
 
 
+
+
+
+
+
+
+
+
+
+	; ====================== SIEBEL FUNCTIONS ========================
+
+
+	; === Activity Coordinates ===
 
 
 
 
 siebelActivityTab()
 {
-Loop
+Loop, 2
 {
-Sleep 100
 ImageSearch OutputVarX, OutputVarY, 470, 498, 1884, 622, *60 %A_ScriptDir%\Images\Activities_Tab.png
 if (ErrorLevel = 0)
 {
@@ -843,10 +589,9 @@ SetDefaultMouseSpeed, 0
 MouseMove %VarPosX%, %VarPosY%
 MouseClick
 SetDefaultMouseSpeed, 2
-Break
+Return
 }
-else (ErrorLevel != 0)
-{
+}
 SetDefaultMouseSpeed, 0
 MouseMove 370, 484
 MouseClick
@@ -854,21 +599,16 @@ SetDefaultMouseSpeed, 2
 MsgBox, 4096, Error, "Script Failed - Could not find Activity tab. Press F12 to Exit the error message"
 Reload
 }
-}
-}
-
-
 
 
 
 
 siebelActivityNewButton()
 {
-
-Loop
+Loop, 20
 {
 Sleep 100
-ImageSearch OutputVarX, OutputVarY, 449, 510, 1004, 676, *50 %A_ScriptDir%\Images\New_Activity_Button.png
+ImageSearch OutputVarX, OutputVarY, 565, 570, 613, 593, *100 %A_ScriptDir%\Images\New_Activity_Button.png
 if (ErrorLevel = 0)
 {
 VarPosX := OutputVarX + 15
@@ -877,9 +617,11 @@ SetDefaultMouseSpeed, 0
 MouseMove %VarPosX%, %VarPosY%
 MouseClick
 SetDefaultMouseSpeed, 2
-Break
+Return
 }
-else (ErrorLevel != 0)
+}
+ImageSearch OutputVarX, OutputVarY, 565, 570, 613, 593, *100 %A_ScriptDir%\Images\New_Activity_Button.png
+if (ErrorLevel != 0)
 {
 SetDefaultMouseSpeed, 0
 MouseMove 370, 484
@@ -889,10 +631,6 @@ MsgBox, 4096, Error, "Script Failed - Could not find New Activity button. Press 
 Reload
 }
 }
-}
-
-
-
 
 
 
@@ -908,22 +646,18 @@ MouseClick
 Sleep 100
 MouseClick
 Sleep 100
-
+MouseClick
 SetDefaultMouseSpeed, 2
 }
 
 
 
 
-
-
-
 clickOnNewlyCreatedActivity()
 {
-
-Loop
+Loop, 20
 {
-Sleep 100
+Sleep 50
 ImageSearch OutputVarX, OutputVarY, 492, 569, 1265, 720, *60 %A_ScriptDir%\Images\New_Activity_Other.png
 if (ErrorLevel = 0)
 {
@@ -933,10 +667,9 @@ SetDefaultMouseSpeed, 0
 MouseMove %VarPosX%, %VarPosY%
 MouseClick
 SetDefaultMouseSpeed, 2
-Break
+Return
 }
-else (ErrorLevel != 0)
-{
+}
 SetDefaultMouseSpeed, 0
 MouseMove 370, 484
 MouseClick
@@ -944,10 +677,6 @@ SetDefaultMouseSpeed, 2
 MsgBox, 4096, Error, "Script Failed - Could not find new activity created. Press F12 to Exit the error message"
 Reload
 }
-}
-}
-
-
 
 
 
@@ -962,6 +691,8 @@ SetDefaultMouseSpeed, 2
 }
 
 
+
+
 siebelActivityCommentField()
 {
 SetDefaultMouseSpeed, 0
@@ -972,21 +703,62 @@ SetDefaultMouseSpeed, 2
 }
 
 
+
+
 siebelSiebelOrderNoField()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1307, 408 ; Clicks on Siebel Order No Field in Shortfall Activity and pastes in Siebel Order Number
+	MouseMove 1376, 404 ; Clicks on Siebel Order No Field in Shortfall Activity and pastes in Siebel Order Number
 
+Sleep 100
 MouseClick
+Sleep 50
 MouseClick
+Sleep 50
 Send {Ctrl Down}
 SendInput {Raw}v
 Send {Ctrl Up}
-ClipWait
+ClipWait, 1
 Sleep 100
+MouseClick
+SendInput ^{End}
+SendInput +{Home}
+Sleep 50
+Send {Ctrl Down}
+SendInput {Raw}c
+Send {Ctrl Up}
+ClipWait, 1
+Sleep 50
 SetDefaultMouseSpeed, 2
+Loop, 5
+{
+if RegExMatch(Clipboard, "(\d{1}-\d{10})", OutputVar)
+{
+Return
 }
+else
+{
+Sleep 50
+Send {Ctrl Down}
+SendInput {Raw}v
+Send {Ctrl Up}
+ClipWait, 1
+Sleep 50
+MouseClick
+SendInput ^{End}
+SendInput +{Home}
+Sleep 50
+Send {Ctrl Down}
+SendInput {Raw}c
+Send {Ctrl Up}
+ClipWait, 1
+Sleep 50
+}
+}
+}
+
+
 
 
 siebelSourceDownArrow()
@@ -995,9 +767,12 @@ SetDefaultMouseSpeed, 0
 
 	MouseMove 715, 327 ; Moves to source field down arrow in a newly created Activity and clicks it
 	
-MouseClick	
+MouseClick
+Sleep 100
 SetDefaultMouseSpeed, 2
 }
+
+
 
 
 siebelSelectSourceMED()
@@ -1007,6 +782,8 @@ SendInput {Enter}
 }
 
 
+
+
 siebelSelectSourceDUP()
 {
 SendInput {Raw}Dupliate
@@ -1014,11 +791,15 @@ SendInput {Enter}
 }
 
 
+
+
 siebelSourcePXService()
 {
 SendInput {Raw}Px Services
 SendInput {Enter}
 }
+
+
 
 
 siebelSelectStatusDownArrow()
@@ -1032,11 +813,15 @@ SetDefaultMouseSpeed, 2
 }
 
 
+
+
 siebelSelectStatusDone()
 {
 SendInput {Raw}Done
 SendInput {Enter}
 }
+
+
 
 
 siebelSubTypeDownArrow()
@@ -1050,9 +835,12 @@ SetDefaultMouseSpeed, 2
 }
 
 
+
+
 clicksOnOkInTemplateWindow()
 {
 SetDefaultMouseSpeed, 0
+
 	MouseMove 1276, 702 ; Clicks on OK
 
 MouseClick
@@ -1062,33 +850,39 @@ SetDefaultMouseSpeed, 2
 }
 
 
+
+
 selectsEPSReturnTemplate()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1275, 635 ; Selects EPS Return Template
+	MouseMove 1273, 657 ; Selects EPS Return Template
 	
 MouseClick
 SetDefaultMouseSpeed, 2
 }
+
+
 
 
 selectsEPSReturnPXServiceTemplate()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1275, 680 ; Selects EPS Return Template
-	
+	MouseMove 1276, 679 ; Selects EPS Return Template
+
 MouseClick
 SetDefaultMouseSpeed, 2
 }
+
+
 
 
 selectsEPSShortfallTemplate()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1275, 659 ; Selects EPS Shortfall Template
+	MouseMove 1278, 633 ; Selects EPS Shortfall Template
 	
 MouseClick
 SetDefaultMouseSpeed, 2
@@ -1101,11 +895,7 @@ SetDefaultMouseSpeed, 2
 
 
 
-
-
-	;=====================  DUPLICATE COORDINATERS ======================
-
-
+	; === Duplicate Coordinates ===
 
 
 
@@ -1121,14 +911,18 @@ SetDefaultMouseSpeed, 2
 }
 
 
+
+
 siebelClickOnDropDownArrowInNotes()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1651, 843 ; Moves over Typ dropdown menu arrow in Active Notes on AP Order Lines
+	MouseMove 1592, 841 ; Moves over Typ dropdown menu arrow in Active Notes on AP Order Lines
 	
 SetDefaultMouseSpeed, 2
 }
+
+
 
 
 siebelSelectDupPxAlert()
@@ -1138,7 +932,7 @@ SetDefaultMouseSpeed, 0
 MouseClick ; Clicks on dropdown arrow in newly created Active Note (If Flag Contact collumn is before Type collumn in siebel then add another MouseClick to fix the error)
 Sleep 50
 
-	MouseMove 1654, 884 ; Moves over Duplicate Perscription Alert
+	MouseMove 1591, 882 ; Moves over Duplicate Perscription Alert
 
 MouseClick ; Clicks on Duplicate Perscription Alert
 Sleep 50
@@ -1147,11 +941,14 @@ SetDefaultMouseSpeed, 2
 }
 
 
+
+
 siebelFlagContactTick()
 {
 SetDefaultMouseSpeed, 0
+Sleep 100
 
-	MouseMove 1686, 841 ; Moves over Flag Contact Tick in newly created Active Note
+	MouseMove 1641, 839 ; Moves over Flag Contact Tick in newly created Active Note
 
 MouseClick
 Sleep 50
@@ -1162,14 +959,19 @@ SetDefaultMouseSpeed, 2
 }
 
 
+
+
 siebelDescriptionFieldInActiveNotes()
 {
 SetDefaultMouseSpeed, 0
 
 	MouseMove 1730, 844 ; Moves over Description Field in newly created Active Note
 	
+MouseClick	
 SetDefaultMouseSpeed, 2
 }
+
+
 
 
 siebelActivityTabDuplicate()
@@ -1207,7 +1009,7 @@ Reload
 
 
 
-	; ========= GAS RELATED (Buttons, PX Field) COORDINATES ======
+	; === GAS Related (Buttons, PX Field) Coordinates ===
 
 
 
@@ -1220,8 +1022,6 @@ SetDefaultMouseSpeed, 0
 	
 SetDefaultMouseSpeed, 2
 }
-
-
 
 
 
@@ -1247,6 +1047,9 @@ ClipWait 1
 Sleep 200
 }
 
+
+
+
 siebelCheckPerscriptionFieldIfPXIsPastedIn()
 {
 Loop, 5
@@ -1259,7 +1062,7 @@ Send {Ctrl Down}
 SendInput {Raw}c
 Send {Ctrl Up}
 ClipWait, 1
-Sleep 200
+Sleep 50
 if RegExMatch(Clipboard, "(EPS.{6}-.{6}-.{6})", OutputVar)
 {
 return
@@ -1273,7 +1076,7 @@ SetDefaultMouseSpeed, 0
 VarPosX := OutputVarX + 130
 VarPosY := OutputVarY + 6
 MouseMove %VarPosX%, %VarPosY%
-Sleep 200
+Sleep 50
 MouseClick
 Sleep 50
 SendInput {Ctrl Down}
@@ -1285,7 +1088,7 @@ SendInput {Raw}c
 SendInput {Ctrl Up}
 ClipWait, 1
 Sleep 50
-MouseMove 672, 241 ; Perscription No Field coordinates in Siebel, after GASing the order	
+MouseMove 672, 241 ; Perscription No Field coordinates in Siebel, after GASing the order    
 MouseClick
 Sleep, 50
 MouseClick
@@ -1302,7 +1105,7 @@ Send {Ctrl Down}
 SendInput {Raw}v
 Send {Ctrl Up}
 ClipWait 1
-Sleep 200
+Sleep 50
 SetDefaultMouseSpeed, 2
 }
 }
@@ -1318,7 +1121,6 @@ Reload
 
 
 
-
 siebelAutoGASAllButton()
 {
 SetDefaultMouseSpeed, 0
@@ -1329,6 +1131,8 @@ MouseClick
 
 SetDefaultMouseSpeed, 2
 }
+
+
 
 
 siebelAutoGASSelectedButton()
@@ -1355,7 +1159,9 @@ SetDefaultMouseSpeed, 2
 
 
 
-	; ========== SIEBEL NHS C+V COORDINATES ==============
+	; === NHS Copy & Paste Coordinates ===	
+
+
 
 
 siebelClickReset()
@@ -1368,6 +1174,8 @@ MouseClick
 
 SetDefaultMouseSpeed, 2
 }
+
+
 
 
 siebelPasteNHSNumber()
@@ -1394,9 +1202,58 @@ SetDefaultMouseSpeed, 2
 
 
 
+	; === Template Window Coordinates ===	
 
-	;=============== STOCK & CHECK COORDINATES =======================
 
+
+
+checkForTemplateWindow()
+{
+	PixelGetColor, color, 968, 409 ; Looks for pixel (load up the template window and select pixel that is behind the blue top of the window) and waits for the template window to load before progressing
+While color = 0xffffff 
+{
+	PixelGetColor, color, 968, 409 ; Loop keeps looking for pixel until it changes to blue (top of the template window)
+sleep 10
+}
+}
+
+
+
+
+checkIfTemplateWindowIsScrolled()
+{
+Loop
+{
+Sleep 100
+PixelGetColor, color, 1348, 638
+if (color = 0xFFFFFF)
+{
+SetDefaultMouseSpeed, 0
+MouseMove 1349, 683 ; Moves the mouse over the down arrow in template window
+MouseClick ; Scrolls Down in the Template Window
+Sleep 50
+MouseClick
+Sleep 50
+MouseClick
+Sleep 50
+SetDefaultMouseSpeed, 2
+break
+}
+else
+{
+break
+}
+}
+}
+
+
+
+
+
+
+
+
+	; === Stock & Check Coordinates ===	
 
 
 
@@ -1404,69 +1261,50 @@ SetDefaultMouseSpeed, 2
 siebelStockAndCheckOrderStatusChanges()
 {
 SetDefaultMouseSpeed, 0
-
 OrderStatusX := 752 ; X coordinate of the "Order Status" down arrow in new Order Window
 OrderStatusY := 295 ; Y coordinate of the "Order Status" down arrow in new Order Window
-
-	MouseMove %OrderStatusX%, %OrderStatusY% ; "Order Status" downarrow coordinates in new Order window
-
+MouseMove %OrderStatusX%, %OrderStatusY% ; "Order Status" downarrow coordinates in new Order window
 MouseClick
 Sleep 50
-
-	MouseMove 682, 338 ; "Pending" option Coordinates in dropdown menu
-
+MouseMove 682, 338 ; "Pending" option Coordinates in dropdown menu
 MouseClick
 Sleep 50
-
-	MouseMove 851, 704 ; Stock & Check button Coordinates in  new Order Window
-
+MouseMove 851, 704 ; Stock & Check button Coordinates in  new Order Window
 MouseClick
-
 SendInput {Enter}
 SendInput {Enter}
 SendInput {Enter}
-
-	MouseMove %OrderStatusX%, %OrderStatusY% ; "Order Status" downarrow coordinates in new Order window
-
+MouseMove %OrderStatusX%, %OrderStatusY% ; "Order Status" downarrow coordinates in new Order window
 MouseClick
 Sleep 50
-
-	MouseMove 743, 311 ; "Open" option Coordinates in dropdown menu
-
+MouseMove 743, 311 ; "Open" option Coordinates in dropdown menu
 MouseClick
 Sleep 50
-
-	MouseMove %OrderStatusX%, %OrderStatusY% ; "Order Status" downarrow coordinates in new Order window
-
+MouseMove %OrderStatusX%, %OrderStatusY% ; "Order Status" downarrow coordinates in new Order window
 MouseClick
 Sleep 50
-
-	MouseMove 739, 322 ; "Awaiting Payment" option Coordinates in dropdown menu
-
+MouseMove 739, 322 ; "Awaiting Payment" option Coordinates in dropdown menu
 MouseClick
 Sleep 50
 SetDefaultMouseSpeed, 2
 }
 
 
+
+
 siebelSourceAndOriginFields()
 {
 SetDefaultMouseSpeed, 0
-
-	MouseMove 752, 477 ; "Origin" downarrow field Coordinates (Siebel)
-
+MouseMove 752, 477 ; "Origin" downarrow field Coordinates (Siebel)
 MouseClick
 Sleep 50
 SendInput {Raw}Prescription - EPS
 SendInput {Enter}
-
-	MouseMove 751, 373 ; "Source" downarrow field Coordinates (Siebel)
-
+MouseMove 751, 373 ; "Source" downarrow field Coordinates (Siebel)
 MouseClick
 Sleep 50
 SendInput {Raw}Professional Contact
 SendInput {Enter}
-
 SetDefaultMouseSpeed, 2
 }
 
@@ -1495,289 +1333,6 @@ Sleep 50
 
 
 
-  ; ========== PROSCRIPT FUNCTIONS ==========
-
-
-
-
-
-
-
-lookForNHSOnPX()
-{
-Loop
-{
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\NHS_Number_Green.png
-if (ErrorLevel = 0)
-{
-SetDefaultMouseSpeed, 0
-VarPosX := OutputVarX + 110
-VarPosY := OutputVarY + 6
-MouseMove %VarPosX%, %VarPosY%
-Sleep 200
-MouseClick
-Sleep 50
-SendInput {Ctrl Down}
-SendInput {Raw}a
-SendInput {Ctrl Up}
-Sleep 50
-SendInput {Ctrl Down}
-SendInput {Raw}c
-SendInput {Ctrl Up}
-ClipWait, 1
-Sleep 50
-SetDefaultMouseSpeed, 2
-Break
-}
-else if (ErrorLevel != 0)
-{
-;
-}
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\NHS_Number_Purple.png
-if (ErrorLevel = 0)
-{
-SetDefaultMouseSpeed, 0
-VarPosX := OutputVarX + 110
-VarPosY := OutputVarY + 6
-MouseMove %VarPosX%, %VarPosY%
-Sleep 200
-MouseClick
-Sleep 50
-SendInput {Ctrl Down}
-SendInput {Raw}a
-SendInput {Ctrl Up}
-Sleep 50
-SendInput {Ctrl Down}
-SendInput {Raw}c
-SendInput {Ctrl Up}
-ClipWait, 1
-Sleep 50
-SetDefaultMouseSpeed, 2
-Break
-}
-if RegExMatch(Clipboard, "(\d{10})", OutputVar)
-{
-;
-}
-else if (OutputVar = 0)
-{
-Sleep 1000
-MouseClick
-Sleep 50
-Send {Ctrl Down}
-SendInput {Raw}a
-Send {Ctrl Up}
-Sleep 50
-Send {Ctrl Down}
-SendInput {Raw}c
-Send {Ctrl Up}
-ClipWait, 1
-}
-else
-{
-MouseMove 370, 484
-MouseClick
-MsgBox, 4096, Error 001, "Script Failed - Please try again or copy NHS Manually. Press F12 to Exit the error message"
-Reload
-}
-}
-}
-
-
-
-checkForMedicationOnPX()
-{
-Loop
-{
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\Prescribed_Medication_Green.png
-if (ErrorLevel = 0)
-{
-SetDefaultMouseSpeed, 0
-VarPosX := OutputVarX + 15
-VarPosY := OutputVarY + 25
-MouseMove %VarPosX%, %VarPosY%
-Sleep 200
-MouseClick
-Sleep 50
-SendInput {Ctrl Down}
-SendInput {Raw}a
-SendInput {Ctrl Up}
-Sleep 50
-SendInput {Ctrl Down}
-SendInput {Raw}c
-SendInput {Ctrl Up}
-ClipWait, 1
-Sleep 50
-SetDefaultMouseSpeed, 2
-Break
-}
-else if (ErrorLevel != 0)
-{
-;
-}
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\Prescribed_Medication_Purple.png
-if (ErrorLevel = 0)
-{
-SetDefaultMouseSpeed, 0
-VarPosX := OutputVarX + 15
-VarPosY := OutputVarY + 25
-MouseMove %VarPosX%, %VarPosY%
-Sleep 200
-MouseClick
-Sleep 50
-SendInput {Ctrl Down}
-SendInput {Raw}a
-SendInput {Ctrl Up}
-Sleep 50
-SendInput {Ctrl Down}
-SendInput {Raw}c
-SendInput {Ctrl Up}
-ClipWait, 1
-Sleep 50
-SetDefaultMouseSpeed, 2
-Break
-}
-else if (ErrorLevel != 0)
-{
-MsgBox Product not found! Press F12 to exit
-Return
-}
-}
-}
-
-
-
-selectsPXNumberInProScriptAndCopyIt()
-{
-Loop
-{
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\Script_Id.png
-if (ErrorLevel = 0)
-{
-SetDefaultMouseSpeed, 0
-VarPosX := OutputVarX + 130
-VarPosY := OutputVarY + 6
-MouseMove %VarPosX%, %VarPosY%
-Sleep 200
-MouseClick
-Sleep 50
-SendInput {Ctrl Down}
-SendInput {Raw}a
-SendInput {Ctrl Up}
-Sleep 50
-SendInput {Ctrl Down}
-SendInput {Raw}c
-SendInput {Ctrl Up}
-ClipWait, 1
-Sleep 50
-SetDefaultMouseSpeed, 2
-Break
-}
-if RegExMatch(Clipboard, "(.{6}-.{6}-.{6})", OutputVar)
-{
-;
-}
-else if (OutputVar = 0)
-{
-Sleep 1000
-MouseClick
-Sleep 50
-Send {Ctrl Down}
-SendInput {Raw}a
-Send {Ctrl Up}
-Sleep 50
-Send {Ctrl Down}
-SendInput {Raw}c
-Send {Ctrl Up}
-ClipWait, 1
-}
-else
-{
-MouseMove 370, 484
-MouseClick
-MsgBox, 4096, Error, "Script Failed - Please copy the PX number manually. Press F12 to Exit the error message"
-Reload
-}
-}
-}
-
-
-selectsPXNumberInProScriptAndCopyItForDuplicate()
-{
-Loop
-{
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\Script_Id.png
-if (ErrorLevel = 0)
-{
-SetDefaultMouseSpeed, 0
-VarPosX := OutputVarX + 130
-VarPosY := OutputVarY + 6
-MouseMove %VarPosX%, %VarPosY%
-Sleep 200
-MouseClick
-Sleep 50
-SendInput {Ctrl Down}
-SendInput {Raw}a
-SendInput {Ctrl Up}
-Sleep 50
-SendInput {Ctrl Down}
-SendInput {Raw}c
-SendInput {Ctrl Up}
-ClipWait, 1
-Sleep 50
-SetDefaultMouseSpeed, 2
-Break
-}
-}
-}
-
-
-checkIfPxIsScrolled()
-{
-Loop
-{
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *25 %A_ScriptDir%\Images\PX_Scroll_Up_Arrow.png
-if (ErrorLevel = 0)
-{
-SetDefaultMouseSpeed, 0
-VarPosX := OutputVarX + 7
-VarPosY := OutputVarY + 19
-MouseMove %VarPosX%, %VarPosY%
-Sleep 50
-MouseClick
-Sleep 50
-MouseClick
-Sleep 50
-MouseClick
-Sleep 50
-Break
-}
-else if (ErrorLevel != 0)
-{
-;
-}
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *25 %A_ScriptDir%\Images\PX_Scroll_Up_Arrow_2.png
-if (ErrorLevel = 0)
-{
-SetDefaultMouseSpeed, 0
-VarPosX := OutputVarX + 7
-VarPosY := OutputVarY + 19
-MouseMove %VarPosX%, %VarPosY%
-Sleep 50
-MouseClick
-Sleep 50
-MouseClick
-Sleep 50
-MouseClick
-Sleep 50
-Break
-}
-else if (ErrorLevel != 0)
-{
-Break
-}
-}
-}
 
 
 
@@ -1786,31 +1341,35 @@ Break
 
 
 
-	; ========== Wait Functions ==========
-
+	; ====================== WAIT FUNCTIONS ========================
 
 
 checkForProgressBar()
 {
-Loop
+Loop, 100
 {
-	PixelSearch, OutputVarX, OutputVarY, 1299, 1027, 1383, 1035, 000080, 150, Fast ; Loop looks for progress bar to appear before moving forward
-
-if (ErrorLevel != 0)
-Sleep 10
-else
-break
-}
-Loop
-{
-	PixelSearch, OutputVarX, OutputVarY, 1299, 1027, 1383, 1035, 000080, 150, Fast ; Loop looks for progress bar to disappear before moving forward
-
+ImageSearch OutputVarX, OutputVarY, 1273, 1009, 1404, 1052, *100 %A_ScriptDir%\Images\Progress_Bar_Blue.png
 if (ErrorLevel = 0)
-Sleep 10
-else
-break
+{
+Break
 }
-Sleep 100
+else (ErrorLevel != 0)
+{
+Sleep 10
+}
+}
+Loop, 100
+{
+ImageSearch OutputVarX, OutputVarY, 1273, 1009, 1404, 1052, *100 %A_ScriptDir%\Images\Progress_Bar_Blue.png
+if (ErrorLevel != 0)
+{
+Return
+}
+else
+{
+Sleep 10
+}
+}
 }
 
 
@@ -1831,79 +1390,9 @@ Sleep 10
 
 
 
-	; ========== PX & Patient Account Functions ==========
 
 
-
-checkForPatientNameToAppear()
-{
-Loop
-{
-	PixelSearch, OutputVarX, OutputVarY, 45, 628, 71, 661, 6666CC, 210, Fast ; Last Name Field Coordinates (Search Box - Siebel)
-if (ErrorLevel != 0)
-return
-else
-SetDefaultMouseSpeed, 0
-click %OutputVarX%, %OutputVarY%
-SetDefaultMouseSpeed, 2
-Return
-}
-}
-
-
-
-
-
-
-
-	; ========== Template Window Functions ==========
-
-
-
-checkForTemplateWindow()
-{
-
-	PixelGetColor, color, 968, 409 ; Looks for pixel (load up the template window and select pixel that is behind the blue top of the window) and waits for the template window to load before progressing
-While color = 0xffffff 
-{
-	PixelGetColor, color, 968, 409 ; Loop keeps looking for pixel until it changes to blue (top of the template window)
-sleep 10
-}
-}
-
-
-
-
-checkIfTemplateWindowIsScrolled()
-{
-Loop
-{
-PixelGetColor, color, 1348, 638
-if (color = 0xFFFFFF)
-{
-SetDefaultMouseSpeed, 0
-MouseMove 1349, 683 ; Moves the mouse over the down arrow in template window
-MouseClick ; Scrolls Down in the Template Window
-Sleep 50
-MouseClick
-Sleep 50
-MouseClick
-Sleep 50
-SetDefaultMouseSpeed, 2
-break
-}
-else
-{
-break
-}
-}
-}
-
-
-
-
-	; ========== Safety Functions ==========
-
+	; ====================== SAFETY FUNCTIONS ========================
 
 
 checkIfScreenIsScrolledToTop()
@@ -1953,7 +1442,7 @@ checkIfCurrentWindowIsCorrect()
 {
 Loop
 {
-ImageSearch OutputVarX, OutputVarY, 490, 518, 1777, 603, *70 %A_ScriptDir%\Images\AP_Order_Lines.png
+ImageSearch OutputVarX, OutputVarY, 490, 518, 983, 574, *70 %A_ScriptDir%\Images\AP_Order_Lines.png
 if (ErrorLevel = 0)
 {
 ;
@@ -1964,7 +1453,7 @@ BlockInput, MouseMoveOff
 MsgBox, 4096, Error, You can only run this script from AP Order Lines Tab. Press F12 to Exit the error message.
 Reload
 }
-ImageSearch OutputVarX, OutputVarY, 6, 114, 888, 176, *70 %A_ScriptDir%\Images\Contacts.png
+ImageSearch OutputVarX, OutputVarY, 6, 114, 426, 156, *70 %A_ScriptDir%\Images\Contacts.png
 if (ErrorLevel = 0)
 {
 Break
@@ -2002,10 +1491,56 @@ Reload
 
 
 
+checkIfStickyNotesAreRunning()
+{
+Loop
+{
+if WinExist("ahk_class ApplicationFrameWindow")
+Return
+else
+MsgBox, 4096, Error, Please open Sticky Notes app before running the script! Press F12 to exit
+Reload
+}
+}
 
 
-	; ========== Misc Functions ==========
 
+
+copyStickyNotes()
+{
+Loop, 5
+{
+if (Clipboard = "")
+{
+Sleep 100
+WinActivate, ahk_class ApplicationFrameWindow ; Opens up Sticky Notes app by its class
+Sleep 100
+Send {Ctrl Down}
+SendInput {Raw}c
+Send {Ctrl Up}
+ClipWait, 1
+Sleep 50
+}
+else
+{
+Return
+}
+}
+SetDefaultMouseSpeed, 0
+MouseMove 370, 484
+MouseClick
+MsgBox, 4096, Error, Could not find the selected sticky notes! Press F12 to exit
+Reload
+}
+
+
+
+
+
+
+
+
+	; ====================== MISC FUNCTIONS ========================
 
 
 clickOnPXAfterGAS()
@@ -2024,6 +1559,8 @@ clearClipboard()
 Clipboard :=
 return
 }
+
+
 
 
 keyFix()
@@ -2061,6 +1598,9 @@ else
 ;
 }
 }
+
+
+
 
 
 

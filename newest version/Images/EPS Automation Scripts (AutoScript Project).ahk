@@ -1514,7 +1514,6 @@ SetDefaultMouseSpeed, 2
 siebelFlagContactTick()
 {
 SetDefaultMouseSpeed, 0
-Sleep 100
 
 	MouseMove 1641, 839 ; Moves over Flag Contact Tick in newly created Active Note
 
@@ -1914,7 +1913,7 @@ Sleep 50
 
 checkForProgressBar()
 {
-Loop, 10
+Loop, 5
 {
 ImageSearch OutputVarX, OutputVarY, 1273, 1009, 1404, 1052, *150 %A_ScriptDir%\Images\Progress_Bar_Blue.png
 if (ErrorLevel = 0)
@@ -1926,10 +1925,10 @@ else (ErrorLevel != 0)
 Sleep 10
 }
 }
-Loop, 10
+Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, 1273, 1009, 1404, 1052, *150 %A_ScriptDir%\Images\Progress_Bar_Blue.png
-if (ErrorLevel != 0)
+ImageSearch OutputVarX, OutputVarY, 1273, 1009, 1404, 1052, *150 %A_ScriptDir%\Images\Progress_Bar_Gray.png
+if (ErrorLevel = 0)
 {
 Return
 }

@@ -1,16 +1,4 @@
 ﻿
-#UseHook
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-
-^p::
-clearClipboard()
-keyFix()
-siebelActivityNewButton()
-return
-
-
-
 
 
   ; ==================================================================== EXITS SCRIPT DOCUMENT ==========================================================
@@ -1914,30 +1902,25 @@ Sleep 50
 
 checkForProgressBar()
 {
-Loop, 10
+Loop
 {
-ImageSearch OutputVarX, OutputVarY, 1273, 1009, 1404, 1052, *150 %A_ScriptDir%\Images\Progress_Bar_Blue.png
-if (ErrorLevel = 0)
-{
-Break
-}
-else (ErrorLevel != 0)
-{
-Sleep 10
-}
-}
-Loop, 10
-{
-ImageSearch OutputVarX, OutputVarY, 1273, 1009, 1404, 1052, *150 %A_ScriptDir%\Images\Progress_Bar_Blue.png
+	PixelSearch, OutputVarX, OutputVarY, 1299, 1027, 1383, 1035, 000080, 150, Fast ; Loop looks for progress bar to appear before moving forward
+
 if (ErrorLevel != 0)
-{
-Return
-}
-else
-{
 Sleep 10
+else
+break
 }
+Loop
+{
+	PixelSearch, OutputVarX, OutputVarY, 1299, 1027, 1383, 1035, 000080, 150, Fast ; Loop looks for progress bar to disappear before moving forward
+
+if (ErrorLevel = 0)
+Sleep 10
+else
+break
 }
+Sleep 100
 }
 
 

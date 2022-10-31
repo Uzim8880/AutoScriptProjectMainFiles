@@ -124,7 +124,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 +Delete::
-
+SetDefaultMouseSpeed, 0
 BlockInput, MouseMove
 
 clearClipboard()
@@ -133,11 +133,11 @@ checkIfScreenIsScrolledToTop()
 
 checkIfCurrentWindowIsCorrect()
 
-	MouseMove 1012, 557 ; Moves over activity tab
+	MouseMove 1230, 557 ; Moves over activity tab
 
 MouseClick ; Clicks on Activity
 
-	MouseMove 590, 581 ; Moves on New in activity tab
+	MouseMove 592, 582 ; Moves on New in activity tab
 
 checkForProgressBar()
 
@@ -218,6 +218,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 !Delete::
+SetDefaultMouseSpeed, 0
 BlockInput, MouseMove
 
 clearClipboard()
@@ -226,11 +227,11 @@ checkIfScreenIsScrolledToTop()
 
 checkIfCurrentWindowIsCorrect()
 
-	MouseMove 1012, 557 ; Moves over activity tab
+	MouseMove 1230, 557 ; Moves over activity tab
 
 MouseClick ; Clicks on Activity
 
-	MouseMove 590, 581 ; Moves on New in activity tab
+	MouseMove 592, 582 ; Moves on New in activity tab
 
 checkForProgressBar()
 
@@ -345,6 +346,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 ^Delete::
+SetDefaultMouseSpeed, 0
 BlockInput, MouseMove
 
 clearClipboard()
@@ -415,11 +417,11 @@ Send {Ctrl Up}
 ClipWait
 Sleep 100
 
-	MouseMove 1008, 453 ; Moves over activity tab
+	MouseMove 1241, 454 ; Moves over activity tab
 
 MouseClick ; Clicks on Activity
 
-	MouseMove 590, 581 ; Moves on New in activity tab
+	MouseMove 592, 582 ; Moves on New in activity tab
 
 checkForProgressBar()
 
@@ -543,6 +545,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 !Insert::
+SetDefaultMouseSpeed, 0
 BlockInput, MouseMove
 
 clearClipboard()
@@ -551,11 +554,11 @@ checkIfScreenIsScrolledToTop()
 
 checkIfCurrentWindowIsCorrect()
 
-	MouseMove 1012, 557 ; Moves over activity tab
+	MouseMove 1230, 557 ; Moves over activity tab
 
 MouseClick ; Clicks on Activity
 
-	MouseMove 590, 581 ; Moves on New in activity tab
+	MouseMove 592, 582 ; Moves on New in activity tab
 
 checkForProgressBar()
 
@@ -618,11 +621,11 @@ checkForPatientNameToAppear()
 
 checkForProgressBar()
 
-	MouseMove 1012, 557 ; Moves over activity tab
+	MouseMove 1230, 557 ; Moves over activity tab
 
 MouseClick ; Clicks on Activity
 
-	MouseMove 590, 581 ; Moves on New in activity tab
+	MouseMove 592, 582 ; Moves on New in activity tab
 
 checkForProgressBar()
 
@@ -719,6 +722,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 +Insert::
+SetDefaultMouseSpeed, 0
 BlockInput, MouseMove
 
 checkIfSiebelOrderNoIsCopied()
@@ -727,11 +731,11 @@ checkIfScreenIsScrolledToTop()
 
 checkIfCurrentWindowIsCorrect()
 
-	MouseMove 1012, 557 ; Clicks on Activity
+	MouseMove 1230, 557 ; Clicks on Activity
 
 MouseClick
 
-	MouseMove 590, 581 ; Moves the cursor over the activity tab
+	MouseMove 592, 582 ; Moves the cursor over the activity tab
 
 checkForProgressBar()
 
@@ -822,8 +826,6 @@ Return ; Script Run finishes
 
 
 
-
-
 	; ============================================== STOCK & CHECK =====================================================================
 
 ; This script performs first part of the Stock & Check 
@@ -837,6 +839,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 +End::
+SetDefaultMouseSpeed, 0
 BlockInput, MouseMove
 
 checkIfCurrentWindowIsCorrectForStockAndCheck()
@@ -945,6 +948,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 !End::
+SetDefaultMouseSpeed, 0
 BlockInput, MouseMove
 
 checkIfCurrentWindowIsCorrectForStockAndCheck()
@@ -1000,6 +1004,8 @@ Return ; Script Run Finished
 
 
 
+
+
 	; ============================================== EPS NHS NUMBER COPY + PASTE INTO SIEBEL =====================================================================
 
 ; This script copies the NHS Number from PX in ProScript, then pastes it into "NHS Number' field in Siebel, then searches for the patient account
@@ -1012,6 +1018,7 @@ CoordMode, Pixel, Screen
 colors := "97E8A2, 6666CC" ; Array of colors used by PixelSearch function (NHS number font colors - regular and highlighted)
 
 +PgDn::
+SetDefaultMouseSpeed, 0
 BlockInput, MouseMove
 
 clearClipboard()
@@ -1071,6 +1078,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 +Home::
+SetDefaultMouseSpeed, 0
 BlockInput, MouseMove
 
 clearClipboard()
@@ -1129,6 +1137,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 +PgUp::
+SetDefaultMouseSpeed, 0
 BlockInput, MouseMove
 
 clearClipboard()
@@ -1170,6 +1179,10 @@ Send {Ctrl Down}
 Send v
 Send {Ctrl Up}
 Sleep 100
+
+checkForPatientNameToAppear()
+
+checkForProgressBar()
 
 clickOnPXAfterGAS()
 
@@ -1214,6 +1227,7 @@ Sleep 10
 else
 break
 }
+Sleep 100
 }
 
 
@@ -1241,7 +1255,7 @@ lookForNHSOnPX()
 Loop
 {
 
-	PixelSearch, OutputVarX, OutputVarY, -970, 164, -947, 191, %A_LoopField%, 210, Fast ; NHS Number color search box Coordinates (ProScript)
+	PixelSearch, OutputVarX, OutputVarY, -980, 164, -947, 220, %A_LoopField%, 210, Fast ; NHS Number color search box Coordinates (ProScript)
 
 if ErrorLevel 
 MsgBox, 4096, Error 001, "Script Failed - Please try again or copy NHS Manually. Press F12 to Exit the error message"
@@ -1296,10 +1310,10 @@ checkIfPxIsScrolledToTop()
 {
 Loop
 {
-PixelGetColor, color, -461, 83
+PixelGetColor, color, -461, 95
 if (color = 0xF0F0F0)
 {
-MouseMove -460, 83 ; Moves the mouse over up bar on PX
+MouseMove -461, 95 ; Moves the mouse over up bar on PX
 MouseClick ; Scrolls Up the PX
 Sleep 10
 MouseClick
@@ -1340,7 +1354,7 @@ checkForMedicationOnPX()
 {
 Loop
 {
-	PixelSearch, OutputVarX, OutputVarY, -1179, 210, -1066, 303, 000000, 50 ; Looks for black font in PX to select the medication
+	PixelSearch, OutputVarX, OutputVarY, -1180, 224, -1040, 275, 000000, 100 ; Looks for black font in PX to select the medication
 if (ErrorLevel != 0)
 return
 else

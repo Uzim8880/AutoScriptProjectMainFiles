@@ -1,4 +1,60 @@
 
+  ; ==================================================================== EXITS SCRIPT DOCUMENT ==========================================================
+
+; This script exits the AHK application
+
+
+
+#UseHook
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+#x::ExitApp  ; Win+X
+return
+
+
+
+
+
+	; ==================================================================== RELOAD WHOLE SCRIPT DOCUMENT ==============================================================
+
+; This script reloads the whole script document in case any of the scripts gets stuck
+
+#UseHook
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+F12::
+Reload
+
+Return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16,6 +72,106 @@ MouseMove 1222, 301
 Sleep 100
 MouseMove -1200, 479
 Return
+
+
+
+
+removeCommentsField()
+{
+MouseMove 879, 337
+MouseClick
+MouseClick
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+}
+
+
+
+removeDescriptionField()
+{
+MouseMove 882, 275
+MouseClick
+MouseClick
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+}
+
+
+
+
+
+setStatusDone()
+{
+MouseMove 935, 380
+Sleep 50
+MouseClick
+Sleep 50
+MouseMove 936, 409
+Sleep 50
+MouseClick
+}
+
+
+
+setTyprOpenedInError()
+{
+MouseMove 715, 279
+Sleep 50
+MouseClick
+Sleep 50
+SendInput {Raw}Opened in Error
+Sleep 50
+SendInput {Enter}
+}
+
+
+
+
+
 
 
 
@@ -41,6 +197,20 @@ CoordMode, Pixel, Screen
 
 ^Delete::
 BlockInput, MouseMove
+
+Loop, 100
+{
+Sleep 500
+var++
+Gui,help:Add, Text,     , %var%
+Gui,help:+toolwindow
+Gui,help:Show
+sleep,500
+Gui, help: Destroy
+
+
+
+
 
 
 
@@ -97,6 +267,7 @@ Send {Ctrl Up}
 ClipWait
 Sleep 50
 
+siebelFlagContactTick()
 siebelActivityTabDuplicate()
 checkForProgressBar()
 siebelActivityNewButton()
@@ -152,10 +323,6 @@ Sleep 100
 clearClipboard()
 siebelSourceDownArrow()
 siebelSelectSourceDUP()
-siebelSelectStatusDownArrow()
-siebelSelectStatusDone()
-checkIfPxIsScrolled()
-selectsPXNumberInProScriptAndCopyItForDuplicate()
 keyFix()
 
 
@@ -166,11 +333,23 @@ keyFix()
 
 
 
+
+
+
+
+
+
+removeCommentsField()
+removeDescriptionField()
+setTyprOpenedInError()
+setStatusDone()
+checkForPatientNameToAppear()
+
+}
+
 BlockInput, MouseMoveOff
-
+MsgBox Meczyk wygrany, kurczak podany
 Return ; Script Run Finished
-
-
 
 
 
@@ -1346,29 +1525,23 @@ Sleep 50
 
 checkForProgressBar()
 {
-Loop, 100
+Loop
 {
-ImageSearch OutputVarX, OutputVarY, 1273, 1009, 1404, 1052, *100 %A_ScriptDir%\Images\Progress_Bar_Blue.png
-if (ErrorLevel = 0)
-{
-Break
-}
-else (ErrorLevel != 0)
-{
-Sleep 10
-}
-}
-Loop, 100
-{
-ImageSearch OutputVarX, OutputVarY, 1273, 1009, 1404, 1052, *100 %A_ScriptDir%\Images\Progress_Bar_Blue.png
+	PixelSearch, OutputVarX, OutputVarY, 1299, 1027, 1383, 1035, 000080, 150, Fast ; Loop looks for progress bar to appear before moving forward
+
 if (ErrorLevel != 0)
-{
-Return
-}
-else
-{
 Sleep 10
+else
+break
 }
+Loop
+{
+	PixelSearch, OutputVarX, OutputVarY, 1299, 1027, 1383, 1035, 000080, 150, Fast ; Loop looks for progress bar to disappear before moving forward
+
+if (ErrorLevel = 0)
+Sleep 10
+else
+break
 }
 }
 

@@ -1,4 +1,16 @@
 ﻿
+#UseHook
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+^p::
+clearClipboard()
+keyFix()
+siebelActivityNewButton()
+return
+
+
+
 
 
   ; ==================================================================== EXITS SCRIPT DOCUMENT ==========================================================
@@ -1920,7 +1932,6 @@ Sleep 10
 else
 break
 }
-Sleep 100
 }
 
 

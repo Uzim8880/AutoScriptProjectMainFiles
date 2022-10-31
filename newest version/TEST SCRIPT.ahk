@@ -35,8 +35,30 @@ Return
 
 
 
-
-
+checkForExpiryDateOnPX2()
+{
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\PX_Expiry_Date_Green.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 120
+VarPosY := OutputVarY + 37
+MouseMove %VarPosX%, %VarPosY%
+}
+else if (ErrorLevel != 0)
+{
+;
+}
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\PX_Expiry_Date_Purple.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 120
+VarPosY := OutputVarY + 37
+MouseMove %VarPosX%, %VarPosY%
+Return
+}
+}
 
 
 
@@ -66,16 +88,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 ^p::
-Loop, 100
-{
-SetDefaultMouseSpeed, 0
-clearClipboard()
-siebelFlagContactTick()
-MouseMove 1222, 301
-Sleep 100
-MouseClick
-SetDefaultMouseSpeed, 2
-}
+checkForExpiryDateOnPX2()
 Return
 
 
@@ -239,12 +252,156 @@ Gui, help: Destroy
 
 
 clearClipboard()
-lookForNHSOnPX()
-siebelPasteNHSNumber()
+checkIfScreenIsScrolledToTop()
+checkIfCurrentWindowIsCorrect()
+siebelActivityTab()
 checkForProgressBar()
-checkForPatientNameToAppear()
-keyFix()
+siebelActivityNewButton()
+checkForProgressBar()
+siebelActivityWhiteSpace()
+clickOnNewlyCreatedActivity()
+siebelActivityDescriptionField()
+checkForProgressBar()
+
+MouseClick
+MouseClick
+SendInput ^q ; Opens up Template Window
+Sleep 50
+
+checkForTemplateWindow()
+
+Sleep 50
+
+checkIfTemplateWindowIsScrolled()
+selectsEPSReturnPXServiceTemplate()
+clicksOnOkInTemplateWindow()
+checkIfPxIsScrolled()
+selectsPXNumberInProScriptAndCopyIt()
+siebelActivityCommentField()
+	
+
+MouseClick
+Sleep 100
+SendInput {Raw}EPS Px Services returned to spine
+SendInput {Space}
+Send {Ctrl Down}
+SendInput {Raw}v
+Send {Ctrl Up}
+Sleep 100
+
+
+
+
+removeCommentsField()
+setTyprOpenedInError()
+setStatusDone()
+
+
+
+Send {Ctrl Down}
+SendInput {Raw}b
+Send {Ctrl Up}
+Sleep 100
+
+siebelActivityDescriptionField()
+
+MouseClick ; Clicks on Description in Activity
+MouseClick
+Sleep 50
+SendInput ^q ; Opens up Template Window
+Sleep 50
+
+checkForTemplateWindow()
+
+Sleep 50
+
+checkIfTemplateWindowIsScrolled()
+selectsEPSReturnTemplate()
+clicksOnOkInTemplateWindow()
+siebelActivityDescriptionField()
+
+MouseClick
+Sleep, 50
+SendInput {Ctrl Down}
+SendInput {Raw}v
+SendInput {Ctrl Up}
+Sleep 100
+
+
+siebelSourceDownArrow()
+siebelSourcePXService()
+siebelActivityCommentField()
+
+MouseClick
+MouseClick
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+
+Sleep 200
 clearClipboard()
+checkForExpiryDateOnPXFirstLine()
+siebelActivityCommentField()
+
+MouseClick
+Sleep, 50
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}v
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 50
+
+Sleep 200
+clearClipboard()
+checkForExpiryDateOnPXSecondLine()
+siebelActivityCommentField()
+
+MouseClick
+Sleep, 50
+MouseClick
+Sleep 50
+SendInput ^{End}
+Sleep 50
+SendInput {Enter}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}v
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 50
+SendInput {Enter}
+Sleep 50
+SendInput {Enter}
+Sleep 100
+
+
+
+
+removeDescriptionField()
+removeCommentsField()
+setTyprOpenedInError()
+setStatusDone()
+
+
+
+
+
+keyFix()
 
 
 
@@ -260,7 +417,7 @@ clearClipboard()
 
 
 
-
+checkForPatientNameToAppear()
 checkForProgressBar()
 }
 
@@ -637,6 +794,192 @@ Break
 
 
 
+checkForExpiryDateOnPXFirstLine()
+{
+Loop, 5
+{
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\PX_Expiry_Date_Green.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 120
+VarPosY := OutputVarY + 20
+MouseMove %VarPosX%, %VarPosY%
+Sleep 200
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 50
+SetDefaultMouseSpeed, 2
+if (Clipboard = "")
+{
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 200
+}
+else
+{
+Return
+}
+}
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\PX_Expiry_Date_Purple.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 120
+VarPosY := OutputVarY + 20
+MouseMove %VarPosX%, %VarPosY%
+Sleep 200
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 50
+SetDefaultMouseSpeed, 2
+if (Clipboard = "")
+{
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 200
+}
+else
+{
+Return
+}
+}
+}
+SetDefaultMouseSpeed, 0
+MouseMove 370, 484
+MouseClick
+MsgBox, 4096, Error, Could not find the PX! Press F12 to exit
+Reload
+}
+
+
+
+
+checkForExpiryDateOnPXSecondLine()
+{
+Loop, 5
+{
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\PX_Expiry_Date_Green.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 120
+VarPosY := OutputVarY + 37
+MouseMove %VarPosX%, %VarPosY%
+Sleep 200
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 50
+SetDefaultMouseSpeed, 2
+if (Clipboard = "")
+{
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 200
+}
+else
+{
+Return
+}
+}
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\PX_Expiry_Date_Purple.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 120
+VarPosY := OutputVarY + 37
+MouseMove %VarPosX%, %VarPosY%
+Sleep 200
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 50
+SetDefaultMouseSpeed, 2
+if (Clipboard = "")
+{
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 200
+}
+else
+{
+Return
+}
+}
+}
+SetDefaultMouseSpeed, 0
+MouseMove 370, 484
+MouseClick
+MsgBox, 4096, Error, Could not find the PX! Press F12 to exit
+Reload
+}
+
+
+
+
 checkForPatientNameToAppear()
 {
 Loop
@@ -740,12 +1083,12 @@ SetDefaultMouseSpeed, 0
 
 	MouseMove 776, 483 ; Moves the cursor away from activities field after creating new activity
 
-Sleep 100
 MouseClick
 Sleep 100
 MouseClick
 Sleep 100
 MouseClick
+Sleep 100
 SetDefaultMouseSpeed, 2
 }
 
@@ -756,8 +1099,8 @@ clickOnNewlyCreatedActivity()
 {
 Loop, 20
 {
-Sleep 50
-ImageSearch OutputVarX, OutputVarY, 492, 569, 1265, 720, *60 %A_ScriptDir%\Images\New_Activity_Other.png
+Sleep 100
+ImageSearch OutputVarX, OutputVarY, 492, 569, 1265, 720, *40 %A_ScriptDir%\Images\New_Activity_Other.png
 if (ErrorLevel = 0)
 {
 VarPosX := OutputVarX + 15
@@ -1316,7 +1659,7 @@ checkForTemplateWindow()
 While color = 0xffffff 
 {
 	PixelGetColor, color, 968, 409 ; Loop keeps looking for pixel until it changes to blue (top of the template window)
-sleep 10
+sleep 50
 }
 }
 
@@ -1454,7 +1797,7 @@ Loop, 20
 	PixelSearch, OutputVarX, OutputVarY, 1299, 1027, 1383, 1035, 000080, 150, Fast ; Loop looks for progress bar to appear before moving forward
 
 if (ErrorLevel != 0)
-Sleep 10
+Sleep 50
 else
 break
 }
@@ -1463,7 +1806,7 @@ Loop, 20
 	PixelSearch, OutputVarX, OutputVarY, 1299, 1027, 1383, 1035, 000080, 150, Fast ; Loop looks for progress bar to disappear before moving forward
 
 if (ErrorLevel = 0)
-Sleep 10
+Sleep 50
 else
 Return
 }

@@ -314,7 +314,7 @@ ClipWait
 Sleep 50
 
 checkIfPxIsScrolled()
-selectsPXNumberInProScriptAndCopyItForDuplicate()
+selectsPXNumberInProScriptAndCopyIt()
 siebelDescriptionFieldInActiveNotes()
 
 Send ^{Home}
@@ -393,7 +393,7 @@ clearClipboard()
 siebelSelectStatusDownArrow()
 siebelSelectStatusDone()
 checkIfPxIsScrolled()
-selectsPXNumberInProScriptAndCopyItForDuplicate()
+selectsPXNumberInProScriptAndCopyIt()
 keyFix()
 
 BlockInput, MouseMoveOff
@@ -580,7 +580,7 @@ CoordMode, Pixel, Screen
 +Insert::
 BlockInput, MouseMove
 
-clearClipboard()
+
 checkIfStickyNotesAreRunning()
 checkIfSiebelOrderNoIsCopied()
 checkIfScreenIsScrolledToTop()
@@ -1983,18 +1983,31 @@ siebelPasteNHSNumber()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 91, 439 ; NHS Number Field coordinates in Search Side Tab in Siebel
+	MouseMove 91, 439 ; NHS Number Field coordinates in Search Side Tab in Siebel    
 	
 MouseClick
 MouseClick
-Send {Ctrl Down}
-SendInput {Raw}v
-Send {Ctrl Up}
-ClipWait, 1
+Sleep 50
+SendInput {Backspace}
+SendInput {Backspace}
+Sleep 50
+SendInput ^{End}
+SendInput +{Home}
+Sleep 50
+SendInput {Backspace}
+SendInput {Backspace}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput v
+SendInput {Ctrl Up}
+Sleep 50
 SendInput {Enter}
+Sleep 50
 
 SetDefaultMouseSpeed, 2
 }
+
+
 
 
 
@@ -2123,7 +2136,7 @@ SendInput {Tab}
 Sleep 50
 SendInput {Tab}
 Sleep 500
-SendInput {Raw}30
+SendInput {Raw}1
 Sleep 50
 }
 

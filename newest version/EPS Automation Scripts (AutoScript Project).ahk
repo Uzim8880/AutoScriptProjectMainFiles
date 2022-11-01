@@ -769,7 +769,7 @@ siebelPerscriptionNoField()
 checkForWindowChangeGas()
 siebelPerscriptionNoFieldClearAndPastePX()
 clearClipboard()
-siebelCheckPerscriptionFieldIfPXIsPastedIn()
+; siebelCheckPerscriptionFieldIfPXIsPastedIn()
 clickOnPXAfterGAS()
 keyFix()
 
@@ -806,7 +806,7 @@ siebelPerscriptionNoField()
 checkForWindowChangeGas()
 siebelPerscriptionNoFieldClearAndPastePX()
 clearClipboard()
-siebelCheckPerscriptionFieldIfPXIsPastedIn()
+; siebelCheckPerscriptionFieldIfPXIsPastedIn()
 clickOnPXAfterGAS()
 keyFix()
 
@@ -2160,7 +2160,7 @@ Sleep 50
 
 checkForProgressBar()
 {
-Loop, 20
+Loop, 50
 {
 	PixelSearch, OutputVarX, OutputVarY, 1299, 1027, 1383, 1035, 000080, 150, Fast ; Loop looks for progress bar to appear before moving forward
 
@@ -2169,7 +2169,7 @@ Sleep 50
 else
 break
 }
-Loop, 20
+Loop, 50
 {
 	PixelSearch, OutputVarX, OutputVarY, 1299, 1027, 1383, 1035, 000080, 150, Fast ; Loop looks for progress bar to disappear before moving forward
 

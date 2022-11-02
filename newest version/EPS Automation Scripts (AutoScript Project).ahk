@@ -91,7 +91,7 @@ CoordMode, Pixel, Screen
 `::
 SendInput {Raw}EPS
 Send {Ctrl Down}
-SendInput {Raw}v
+SendInput v
 Send {Ctrl Up} ; EPS + Script ID
 
 Return

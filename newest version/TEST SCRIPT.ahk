@@ -796,7 +796,7 @@ Break
 
 checkForExpiryDateOnPXFirstLine()
 {
-Loop, 5
+Loop, 3
 {
 ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\PX_Expiry_Date_Green.png
 if (ErrorLevel = 0)
@@ -889,7 +889,7 @@ Reload
 
 checkForExpiryDateOnPXSecondLine()
 {
-Loop, 5
+Loop, 3
 {
 ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\PX_Expiry_Date_Green.png
 if (ErrorLevel = 0)
@@ -1047,9 +1047,9 @@ Reload
 
 siebelActivityNewButton()
 {
-Loop, 20
+Loop, 10
 {
-Sleep 100
+Sleep 200
 ImageSearch OutputVarX, OutputVarY, 565, 570, 613, 593, *100 %A_ScriptDir%\Images\New_Activity_Button.png
 if (ErrorLevel = 0)
 {
@@ -1057,6 +1057,7 @@ VarPosX := OutputVarX + 15
 VarPosY := OutputVarY + 5
 SetDefaultMouseSpeed, 0
 MouseMove %VarPosX%, %VarPosY%
+Sleep 100
 MouseClick
 SetDefaultMouseSpeed, 2
 Return
@@ -1088,7 +1089,6 @@ Sleep 100
 MouseClick
 Sleep 100
 MouseClick
-Sleep 100
 SetDefaultMouseSpeed, 2
 }
 
@@ -1097,9 +1097,9 @@ SetDefaultMouseSpeed, 2
 
 clickOnNewlyCreatedActivity()
 {
-Loop, 20
+Loop, 10
 {
-Sleep 100
+Sleep 200
 ImageSearch OutputVarX, OutputVarY, 492, 569, 1265, 720, *40 %A_ScriptDir%\Images\New_Activity_Other.png
 if (ErrorLevel = 0)
 {
@@ -1346,7 +1346,7 @@ siebelClickOnNewInNotes()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1423, 899 ; Moves over New button in Active Notes on AP Order Lines
+	MouseMove 1422, 899 ; Moves over New button in Active Notes on AP Order Lines
 	
 MouseClick ; Clicks on New to create a New Active Note
 SetDefaultMouseSpeed, 2
@@ -1359,7 +1359,7 @@ siebelClickOnDropDownArrowInNotes()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1592, 841 ; Moves over Typ dropdown menu arrow in Active Notes on AP Order Lines
+	MouseMove 1593, 841 ; Moves over Typ dropdown menu arrow in Active Notes on AP Order Lines
 	
 SetDefaultMouseSpeed, 2
 }
@@ -1374,7 +1374,7 @@ SetDefaultMouseSpeed, 0
 MouseClick ; Clicks on dropdown arrow in newly created Active Note (If Flag Contact collumn is before Type collumn in siebel then add another MouseClick to fix the error)
 Sleep 50
 
-	MouseMove 1591, 882 ; Moves over Duplicate Perscription Alert
+	MouseMove 1591, 881 ; Moves over Duplicate Perscription Alert
 
 MouseClick ; Clicks on Duplicate Perscription Alert
 Sleep 50
@@ -1390,7 +1390,7 @@ siebelFlagContactTick()
 SetDefaultMouseSpeed, 0
 Sleep 50
 
-	MouseMove 1641, 839 ; Moves over Flag Contact Tick in newly created Active Note
+	MouseMove 1643, 841 ; Moves over Flag Contact Tick in newly created Active Note
 
 MouseClick
 Sleep 50
@@ -1408,7 +1408,7 @@ siebelDescriptionFieldInActiveNotes()
 SetDefaultMouseSpeed, 0
 Sleep 50
 
-	MouseMove 1730, 844 ; Moves over Description Field in newly created Active Note
+	MouseMove 1698, 839 ; Moves over Description Field in newly created Active Note
 	
 MouseClick
 Sleep 50
@@ -1629,17 +1629,29 @@ siebelPasteNHSNumber()
 SetDefaultMouseSpeed, 0
 
 	MouseMove 91, 439 ; NHS Number Field coordinates in Search Side Tab in Siebel
-	
-MouseClick
-MouseClick
-Send {Ctrl Down}
-SendInput {Raw}v
-Send {Ctrl Up}
-ClipWait, 1
-SendInput {Enter}
 
+MouseClick
+MouseClick
+Sleep 50
+SendInput {Backspace}
+SendInput {Backspace}
+Sleep 50
+SendInput ^{End}
+SendInput +{Home}
+Sleep 50
+SendInput {Backspace}
+SendInput {Backspace}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput v
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Enter}
+Sleep 50
 SetDefaultMouseSpeed, 2
 }
+
+
 
 
 
@@ -1768,7 +1780,7 @@ SendInput {Tab}
 Sleep 50
 SendInput {Tab}
 Sleep 500
-SendInput {Raw}30
+SendInput {Raw}1
 Sleep 50
 }
 

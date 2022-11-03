@@ -1,16 +1,4 @@
 ﻿
-#UseHook
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-
-^p::
-clearClipboard()
-keyFix()
-siebelActivityNewButton()
-return
-
-
-
 
 
   ; ==================================================================== EXITS SCRIPT DOCUMENT ==========================================================
@@ -152,7 +140,6 @@ checkForProgressBar()
 siebelActivityDescriptionField()
 
 MouseClick ; Clicks on Description in Activity
-Sleep 50
 MouseClick
 Sleep 50
 SendInput ^q ; Opens up Template Window
@@ -242,7 +229,7 @@ Send {Ctrl Down}
 SendInput {Raw}v
 Send {Ctrl Up}
 ClipWait, 1
-Sleep 100
+Sleep 200
 
 clearClipboard()
 checkIfPxIsScrolled()
@@ -298,8 +285,7 @@ checkIfScreenIsScrolledToTop()
 checkIfCurrentWindowIsCorrect()
 siebelClickOnNewInNotes()
 checkForProgressBar()
-siebelClickOnDropDownArrowInNotes()
-siebelSelectDupPxAlert()
+siebelTypeFieldInActiveNotes()
 siebelFlagContactTick()
 copyStickyNotes()
 siebelDescriptionFieldInActiveNotes()
@@ -580,7 +566,6 @@ CoordMode, Pixel, Screen
 +Insert::
 BlockInput, MouseMove
 
-
 checkIfStickyNotesAreRunning()
 checkIfSiebelOrderNoIsCopied()
 checkIfScreenIsScrolledToTop()
@@ -769,7 +754,7 @@ siebelPerscriptionNoField()
 checkForWindowChangeGas()
 siebelPerscriptionNoFieldClearAndPastePX()
 clearClipboard()
-; siebelCheckPerscriptionFieldIfPXIsPastedIn()
+siebelCheckPerscriptionFieldIfPXIsPastedIn()
 clickOnPXAfterGAS()
 keyFix()
 
@@ -806,7 +791,7 @@ siebelPerscriptionNoField()
 checkForWindowChangeGas()
 siebelPerscriptionNoFieldClearAndPastePX()
 clearClipboard()
-; siebelCheckPerscriptionFieldIfPXIsPastedIn()
+siebelCheckPerscriptionFieldIfPXIsPastedIn()
 clickOnPXAfterGAS()
 keyFix()
 
@@ -1149,9 +1134,9 @@ Break
 
 checkForExpiryDateOnPXFirstLine()
 {
-Loop, 5
+Loop, 2
 {
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\PX_Expiry_Date_Green.png
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *100 %A_ScriptDir%\Images\PX_Expiry_Date_Green.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1190,7 +1175,7 @@ else
 Return
 }
 }
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\PX_Expiry_Date_Purple.png
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *100 %A_ScriptDir%\Images\PX_Expiry_Date_Purple.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1242,9 +1227,9 @@ Reload
 
 checkForExpiryDateOnPXSecondLine()
 {
-Loop, 5
+Loop, 2
 {
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\PX_Expiry_Date_Green.png
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *100 %A_ScriptDir%\Images\PX_Expiry_Date_Green.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1283,7 +1268,7 @@ else
 Return
 }
 }
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\PX_Expiry_Date_Purple.png
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *100 %A_ScriptDir%\Images\PX_Expiry_Date_Purple.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1375,7 +1360,7 @@ siebelActivityTab()
 {
 Loop, 2
 {
-ImageSearch OutputVarX, OutputVarY, 470, 498, 1884, 622, *60 %A_ScriptDir%\Images\Activities_Tab.png
+ImageSearch OutputVarX, OutputVarY, 960, 520, 1884, 622, *60 %A_ScriptDir%\Images\Activities_Tab.png
 if (ErrorLevel = 0)
 {
 VarPosX := OutputVarX + 30
@@ -1448,14 +1433,12 @@ SetDefaultMouseSpeed, 2
 
 
 
-
-
 clickOnNewlyCreatedActivity()
 {
 Loop, 10
 {
 Sleep 200
-ImageSearch OutputVarX, OutputVarY, 492, 569, 1265, 720, *40 %A_ScriptDir%\Images\New_Activity_Other.png
+ImageSearch OutputVarX, OutputVarY, 492, 569, 1265, 720, *50 %A_ScriptDir%\Images\New_Activity_Other.png
 if (ErrorLevel = 0)
 {
 VarPosX := OutputVarX + 15
@@ -1640,6 +1623,7 @@ SetDefaultMouseSpeed, 0
 
 	MouseMove 1276, 702 ; Clicks on OK
 
+Sleep 100
 MouseClick
 MouseClick
 Sleep 100
@@ -1653,7 +1637,7 @@ selectsEPSReturnTemplate()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1275, 635 ; Selects EPS Return Template
+	MouseMove 1273, 657 ; Selects EPS Return Template
 	
 MouseClick
 SetDefaultMouseSpeed, 2
@@ -1666,7 +1650,7 @@ selectsEPSReturnPXServiceTemplate()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1275, 680 ; Selects EPS Return Template
+	MouseMove 1276, 679 ; Selects EPS Return Template
 
 MouseClick
 SetDefaultMouseSpeed, 2
@@ -1679,7 +1663,7 @@ selectsEPSShortfallTemplate()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1275, 659 ; Selects EPS Shortfall Template
+	MouseMove 1278, 633 ; Selects EPS Shortfall Template
 	
 MouseClick
 SetDefaultMouseSpeed, 2
@@ -1701,74 +1685,9 @@ siebelClickOnNewInNotes()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1423, 899 ; Moves over New button in Active Notes on AP Order Lines
+	MouseMove 1422, 899 ; Moves over New button in Active Notes on AP Order Lines
 	
 MouseClick ; Clicks on New to create a New Active Note
-SetDefaultMouseSpeed, 2
-}
-
-
-
-
-siebelClickOnDropDownArrowInNotes()
-{
-SetDefaultMouseSpeed, 0
-
-	MouseMove 1651, 843 ; Moves over Typ dropdown menu arrow in Active Notes on AP Order Lines
-	
-SetDefaultMouseSpeed, 2
-}
-
-
-
-
-siebelSelectDupPxAlert()
-{
-SetDefaultMouseSpeed, 0
-
-MouseClick ; Clicks on dropdown arrow in newly created Active Note (If Flag Contact collumn is before Type collumn in siebel then add another MouseClick to fix the error)
-Sleep 50
-
-	MouseMove 1654, 884 ; Moves over Duplicate Perscription Alert
-
-MouseClick ; Clicks on Duplicate Perscription Alert
-Sleep 50
-
-SetDefaultMouseSpeed, 2
-}
-
-
-
-
-siebelFlagContactTick()
-{
-SetDefaultMouseSpeed, 0
-Sleep 50
-
-	MouseMove 1686, 841 ; Moves over Flag Contact Tick in newly created Active Note
-
-MouseClick
-Sleep 50
-MouseClick ; Ticks the Flag Contact in newly created Active Note
-Sleep 50
-
-SetDefaultMouseSpeed, 2
-}
-
-
-
-
-siebelDescriptionFieldInActiveNotes()
-{
-SetDefaultMouseSpeed, 0
-Sleep 50
-
-	MouseMove 1730, 844 ; Moves over Description Field in newly created Active Note
-	
-MouseClick
-Sleep 50
-MouseClick
-Sleep 50
 SetDefaultMouseSpeed, 2
 }
 
@@ -1806,6 +1725,146 @@ Reload
 
 
 
+siebelFlagContactTick()
+{
+Loop, 5
+{
+ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *120 %A_ScriptDir%\Images\Flag_Contact_Label.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 14
+VarPosY := OutputVarY + 30
+MouseMove %VarPosX%, %VarPosY%
+Sleep 50
+MouseClick
+Sleep 100
+Break
+}
+else
+{
+Sleep 50
+}
+}
+Loop, 2
+{
+ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *120 %A_ScriptDir%\Images\Flag_Contact_Tick_Empty.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 7
+VarPosY := OutputVarY + 7
+MouseMove %VarPosX%, %VarPosY%
+Sleep 50
+MouseClick
+Sleep 100
+Break
+}
+else if (ErrorLevel != 0)
+{
+Sleep 50
+}
+}
+Loop
+{
+ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *120 %A_ScriptDir%\Images\Flag_Contact_Ticked.png
+if (ErrorLevel = 0)
+{
+Return
+}
+else
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 7
+VarPosY := OutputVarY + 7
+MouseMove %VarPosX%, %VarPosY%
+Sleep 50
+MouseClick
+Return
+}
+}
+}
+
+
+
+
+siebelDescriptionFieldInActiveNotes()
+{
+Loop, 5
+{
+ImageSearch OutputVarX, OutputVarY, 1260, 714, 1912, 1077, *120 %A_ScriptDir%\Images\Description_Field_Active_Notes.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 12
+VarPosY := OutputVarY + 30
+MouseMove %VarPosX%, %VarPosY%
+Sleep 50
+MouseClick
+MouseClick
+Sleep 100
+Break
+}
+else
+{
+Sleep 50
+}
+}
+}
+
+
+
+
+siebelTypeFieldInActiveNotes()
+{
+Loop, 5
+{
+ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *100 %A_ScriptDir%\Images\Type_Field_Active_Notes.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 6
+VarPosY := OutputVarY + 28
+MouseMove %VarPosX%, %VarPosY%
+Sleep 50
+MouseClick
+Sleep 50
+Break
+}
+else
+{
+Sleep 50
+}
+}
+Loop, 5
+{
+ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *100 %A_ScriptDir%\Images\Type_Field_Active_Notes_Down_Arrow.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 6
+VarPosY := OutputVarY + 6
+MouseMove %VarPosX%, %VarPosY%
+Sleep 50
+MouseClick
+Sleep 100
+MouseMove 0, 40, 0, R
+Sleep 100
+MouseClick
+Sleep 100
+Break
+}
+else
+{
+Sleep 50
+}
+}
+}
+
+
+
+
+
 
 
 
@@ -1833,6 +1892,10 @@ MouseClick
 Sleep, 50
 MouseClick
 Sleep 50
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
 SendInput {backspace}
 SendInput {backspace}
 SendInput ^{End}
@@ -1983,8 +2046,8 @@ siebelPasteNHSNumber()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 91, 439 ; NHS Number Field coordinates in Search Side Tab in Siebel    
-	
+	MouseMove 91, 439 ; NHS Number Field coordinates in Search Side Tab in Siebel
+
 MouseClick
 MouseClick
 Sleep 50
@@ -2003,7 +2066,6 @@ SendInput {Ctrl Up}
 Sleep 50
 SendInput {Enter}
 Sleep 50
-
 SetDefaultMouseSpeed, 2
 }
 

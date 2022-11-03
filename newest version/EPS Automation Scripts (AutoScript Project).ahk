@@ -1637,7 +1637,7 @@ selectsEPSReturnTemplate()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1273, 657 ; Selects EPS Return Template
+	MouseMove 1275, 635 ; Selects EPS Return Template
 	
 MouseClick
 SetDefaultMouseSpeed, 2
@@ -1650,7 +1650,7 @@ selectsEPSReturnPXServiceTemplate()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1276, 679 ; Selects EPS Return Template
+	MouseMove 1276, 680 ; Selects EPS Return Template
 
 MouseClick
 SetDefaultMouseSpeed, 2
@@ -1663,7 +1663,7 @@ selectsEPSShortfallTemplate()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1278, 633 ; Selects EPS Shortfall Template
+	MouseMove 1278, 655 ; Selects EPS Shortfall Template
 	
 MouseClick
 SetDefaultMouseSpeed, 2

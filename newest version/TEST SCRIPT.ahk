@@ -235,190 +235,28 @@ sleep,400
 Gui, help: Destroy
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 clearClipboard()
-checkIfScreenIsScrolledToTop()
-checkIfCurrentWindowIsCorrect()
-siebelActivityTab()
-checkForProgressBar()
-siebelActivityNewButton()
-checkForProgressBar()
-siebelActivityWhiteSpace()
-clickOnNewlyCreatedActivity()
-siebelActivityDescriptionField()
-checkForProgressBar()
-
-MouseClick
-MouseClick
-SendInput ^q ; Opens up Template Window
-Sleep 50
-
-checkForTemplateWindow()
-
-Sleep 50
-
-checkIfTemplateWindowIsScrolled()
-selectsEPSReturnPXServiceTemplate()
-clicksOnOkInTemplateWindow()
-checkIfPxIsScrolled()
-selectsPXNumberInProScriptAndCopyIt()
-siebelActivityCommentField()
-	
-
-MouseClick
-Sleep 100
-SendInput {Raw}EPS Px Services returned to spine
-SendInput {Space}
-Send {Ctrl Down}
-SendInput {Raw}v
-Send {Ctrl Up}
-Sleep 100
-
-
-
-
-removeCommentsField()
-setTyprOpenedInError()
-setStatusDone()
-
-
-
-Send {Ctrl Down}
-SendInput {Raw}b
-Send {Ctrl Up}
-Sleep 100
-
-siebelActivityDescriptionField()
-
-MouseClick ; Clicks on Description in Activity
-MouseClick
-Sleep 50
-SendInput ^q ; Opens up Template Window
-Sleep 50
-
-checkForTemplateWindow()
-
-Sleep 50
-
-checkIfTemplateWindowIsScrolled()
-selectsEPSReturnTemplate()
-clicksOnOkInTemplateWindow()
-siebelActivityDescriptionField()
-
-MouseClick
-Sleep, 50
-SendInput {Ctrl Down}
-SendInput {Raw}v
-SendInput {Ctrl Up}
-Sleep 100
-
-
-siebelSourceDownArrow()
-siebelSourcePXService()
-siebelActivityCommentField()
-
-MouseClick
-MouseClick
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-
 Sleep 200
-clearClipboard()
-checkForExpiryDateOnPXFirstLine()
-siebelActivityCommentField()
-
-MouseClick
-Sleep, 50
+MouseMove 634, 241
 MouseClick
 Sleep 50
-SendInput {Ctrl Down}
-SendInput {Raw}v
-SendInput {Ctrl Up}
-ClipWait, 1
-Sleep 50
-
-Sleep 200
-clearClipboard()
-checkForExpiryDateOnPXSecondLine()
-siebelActivityCommentField()
-
-MouseClick
-Sleep, 50
 MouseClick
 Sleep 50
+SendInput {backspace}
+SendInput {backspace}
 SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
 Sleep 50
-SendInput {Enter}
-Sleep 50
-SendInput {Ctrl Down}
-SendInput {Raw}v
-SendInput {Ctrl Up}
-ClipWait, 1
-Sleep 50
-SendInput {Enter}
-Sleep 50
-SendInput {Enter}
+SendInput {Raw}1-siebelCheckPerscriptionFieldIfPXIsPastedIn
 Sleep 100
+SendInput {Enter}
 
 
 
+siebelCheckPerscriptionFieldIfPXIsPastedIn()
 
-removeDescriptionField()
-removeCommentsField()
-setTyprOpenedInError()
-setStatusDone()
-
-
-
-
-
-keyFix()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-checkForPatientNameToAppear()
-checkForProgressBar()
 }
 
 BlockInput, MouseMoveOff
@@ -1505,17 +1343,17 @@ SendInput ^{End}
 SendInput +{Home}
 Sleep 50
 Send {Ctrl Down}
-SendInput {Raw}c
+SendInput c
 Send {Ctrl Up}
 ClipWait, 1
-Sleep 50
-if RegExMatch(Clipboard, "(EPS.{6}-.{6}-.{6})", OutputVar)
+Sleep 100
+if RegExMatch(Clipboard, "(.{9}-.{6}-.{6})", OutputVar)
 {
 return
 }
 else
 {
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\Script_Id.png
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *100 %A_ScriptDir%\Images\Script_Id.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1526,11 +1364,11 @@ Sleep 50
 MouseClick
 Sleep 50
 SendInput {Ctrl Down}
-SendInput {Raw}a
+SendInput a
 SendInput {Ctrl Up}
 Sleep 50
 SendInput {Ctrl Down}
-SendInput {Raw}c
+SendInput c
 SendInput {Ctrl Up}
 ClipWait, 1
 Sleep 50
@@ -1548,10 +1386,11 @@ SendInput {backspace}
 Sleep 50
 SendInput {Raw}EPS
 Send {Ctrl Down}
-SendInput {Raw}v
+SendInput v
 Send {Ctrl Up}
 ClipWait 1
-Sleep 50
+SendInput {Enter}
+Sleep 100
 SetDefaultMouseSpeed, 2
 }
 }

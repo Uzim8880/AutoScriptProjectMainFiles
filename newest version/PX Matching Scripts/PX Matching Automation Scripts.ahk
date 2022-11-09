@@ -6,6 +6,7 @@
 
 	;======= GLOBAL VARIABLES  ============
 
+
 	
 	; Alchemy Fields
 	
@@ -14,12 +15,16 @@ global alchemyPosY1 := -9
 global alchemyPosX2 := -5
 global alchemyPosY2 := 1063
 	
+	
+	
 	; Search Box
 	
-global searchBoxPosX1 := 615
-global searchBoxPosY1 := 230
-global searchBoxPosX2 := 1410
-global searchBoxPosY2 := 785
+global searchBoxPosX1 := 680
+global searchBoxPosY1 := 300
+global searchBoxPosX2 := 1235
+global searchBoxPosY2 := 700
+
+
 
 	; Return Script
 
@@ -27,6 +32,8 @@ global returnPosX1 := 537
 global returnPosY1 := 237
 global returnPosX2 := 745
 global returnPosY2 := 367
+
+
 
 	; Exemption Reason
 	
@@ -36,6 +43,20 @@ global exemptionPosX2 := 1569
 global exemptionPosY2 := 525
 
 
+
+	; Stock & Check
+
+global OrderStatusX := 752 ; X coordinate of the "Order Status" down arrow in new Order Window
+global OrderStatusY := 295 ; Y coordinate of the "Order Status" down arrow in new Order Window
+
+
+
+	; Duplicate Coordinates
+
+global duplicatePosX1 := 1260
+global duplicatePosY1 := 776
+global duplicatePosX2 := 1912
+global duplicatePosY2 := 1026
 
 
 
@@ -127,6 +148,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Left & End::
+Clipboard := Clipboard
 BlockInput, MouseMove
 MouseMove 591, 702
 MouseClick
@@ -250,6 +272,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Up & Insert::
+Clipboard := Clipboard
 SetCapsLockState, off
 BlockInput, MouseMove
 
@@ -280,7 +303,7 @@ Sleep 50
 
 checkIfTemplateWindowIsScrolled()
 selectsShortfallTemplate()
-clicksOnOkInTemplateWindow()
+clickOkButtonInTemplateWindow()
 siebelSiebelOrderNoField()
 clearClipboard()
 copyStickyNotes()
@@ -294,7 +317,7 @@ MouseClick
 MouseClick
 Sleep 100
 Send {Ctrl Down}
-SendInput {Raw}v
+SendInput v
 Send {Ctrl Up}
 ClipWait
 Sleep 100
@@ -331,6 +354,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Down & Insert::
+Clipboard := Clipboard
 SetCapsLockState, off
 BlockInput, MouseMove
 
@@ -361,7 +385,7 @@ Sleep 50
 
 checkIfTemplateWindowIsScrolled()
 selectsShortfallTemplate()
-clicksOnOkInTemplateWindow()
+clickOkButtonInTemplateWindow()
 siebelSiebelOrderNoField()
 clearClipboard()
 copyStickyNotes()
@@ -375,7 +399,7 @@ MouseClick
 MouseClick
 Sleep 100
 Send {Ctrl Down}
-SendInput {Raw}v
+SendInput v
 Send {Ctrl Up}
 ClipWait
 Sleep 100
@@ -408,9 +432,10 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Left & Insert::
+Clipboard := Clipboard
 SetCapsLockState, off
 BlockInput, MouseMove
-WinActivate, ahk_pid 5340 ; Opens up Alchemy app by its class
+WinActivate, Alchemy Index Station - \\Remote
 
 selectsPXNumberInAlchemyAndCopyItForDuplicate()
 alchemyClickOnSearchButton()
@@ -442,9 +467,10 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Right & Insert::
+Clipboard := Clipboard
 SetCapsLockState, off
 BlockInput, MouseMove
-WinActivate, ahk_pid 5340 ; Opens up Alchemy app by its class
+WinActivate, Alchemy Index Station - \\Remote
 
 alchemyClickOnSearchButton()
 checkForSearchBoxToAppearAlchemy()
@@ -478,6 +504,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Up & Delete::
+Clipboard := Clipboard
 global returnPosX1
 global returnPosY1
 global returnPosX2
@@ -509,7 +536,7 @@ Sleep 50
 
 checkIfTemplateWindowIsScrolled()
 selectsReturnToGpTemplate()
-clicksOnOkInTemplateWindow()
+clickOkButtonInTemplateWindow()
 siebelSubTypeDownArrow()
 
 BlockInput, MouseMoveOff
@@ -535,7 +562,7 @@ MouseClick
 MouseClick
 Sleep 50
 Send {Ctrl Down}
-SendInput {Raw}v
+SendInput v
 Send {Ctrl Up}
 ClipWait, 1
 Sleep 100
@@ -561,7 +588,7 @@ MouseClick
 MouseClick
 Sleep 50
 Send {Ctrl Down}
-SendInput {Raw}v
+SendInput v
 Send {Ctrl Up}
 ClipWait, 1
 Sleep 100
@@ -587,7 +614,7 @@ MouseClick
 MouseClick
 Sleep 50
 Send {Ctrl Down}
-SendInput {Raw}v
+SendInput v
 Send {Ctrl Up}
 ClipWait, 1
 Sleep 100
@@ -613,7 +640,7 @@ MouseClick
 MouseClick
 Sleep 50
 Send {Ctrl Down}
-SendInput {Raw}v
+SendInput v
 Send {Ctrl Up}
 ClipWait, 1
 Sleep 100
@@ -639,7 +666,7 @@ MouseClick
 MouseClick
 Sleep 50
 Send {Ctrl Down}
-SendInput {Raw}v
+SendInput v
 Send {Ctrl Up}
 ClipWait, 1
 Sleep 100
@@ -665,7 +692,7 @@ MouseClick
 MouseClick
 Sleep 50
 Send {Ctrl Down}
-SendInput {Raw}v
+SendInput v
 Send {Ctrl Up}
 ClipWait, 1
 Sleep 100
@@ -691,7 +718,7 @@ MouseClick
 MouseClick
 Sleep 50
 Send {Ctrl Down}
-SendInput {Raw}v
+SendInput v
 Send {Ctrl Up}
 ClipWait, 1
 Sleep 100
@@ -727,7 +754,7 @@ MouseClick
 MouseClick
 Sleep 50
 Send {Ctrl Down}
-SendInput {Raw}v
+SendInput v
 Send {Ctrl Up}
 ClipWait, 1
 
@@ -761,6 +788,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Down & Delete::
+Clipboard := Clipboard
 SetCapsLockState, off
 FormatTime, CurrentDateTime,, dd/MM/yy
 BlockInput, MouseMove
@@ -776,7 +804,7 @@ selectsPXNumberInAlchemyAndCopyIt()
 siebelDescriptionFieldInActiveNotes()
 
 Send {Ctrl Down}
-SendInput {Raw}v
+SendInput v
 Send {Ctrl Up}
 Sleep 50
 Send ^{End}
@@ -828,6 +856,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Up & End::
+Clipboard := Clipboard
 SetDefaultMouseSpeed, 0
 BlockInput, MouseMove
 
@@ -870,6 +899,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Down & End::
+Clipboard := Clipboard
 SetDefaultMouseSpeed, 0
 BlockInput, MouseMove
 
@@ -916,6 +946,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Up & Home::
+Clipboard := Clipboard
 SetCapsLockState, off
 BlockInput, MouseMove
 
@@ -959,6 +990,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Down & Home::
+Clipboard := Clipboard
 SetCapsLockState, off
 BlockInput, MouseMove
 
@@ -998,13 +1030,13 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Right & Home::
+Clipboard := Clipboard
 SetCapsLockState, off
 BlockInput, MouseMove
 
 clearClipboard()
 checkIfScreenIsScrolledToTop()
 checkIfCurrentWindowIsCorrect()
-clicksOnWhitespaceInSiebelForAutoGasSelected()
 siebelAutoGASSelectedButton()
 selectsPXNumberInAlchemyAndCopyIt()
 siebelPerscriptionNoField()
@@ -1040,6 +1072,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Left & Home::
+Clipboard := Clipboard
 SetCapsLockState, off
 BlockInput, MouseMove
 
@@ -1047,7 +1080,6 @@ clearClipboard()
 checkIfScreenIsScrolledToTop()
 checkIfCurrentWindowIsCorrect()
 checkForExemptionReason()
-clicksOnWhitespaceInSiebelForAutoGasSelected()
 siebelAutoGASSelectedButton()
 selectsPXNumberInAlchemyAndCopyIt()
 siebelPerscriptionNoField()
@@ -1087,6 +1119,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Up & PgUp::
+Clipboard := Clipboard
 SetCapsLockState, off
 BlockInput, MouseMove
 
@@ -1099,7 +1132,7 @@ siebelPerscriptionNoField()
 checkForWindowChangeGas()
 siebelPerscriptionNoFieldClearAndPastePX()
 clearClipboard()
-siebelCheckPerscriptionFieldIfPXIsPastedIn()
+siebelCheckPerscriptionFieldIfPXIsPastedInIsleOfMan()
 alchemyRequiresAttentionDownArrow()
 alchemyRequiresAttentionComplete()
 checkIfScreenIsScrolledToTopInSearch()
@@ -1130,6 +1163,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Down & PgUp::
+Clipboard := Clipboard
 SetCapsLockState, off
 BlockInput, MouseMove
 
@@ -1141,7 +1175,7 @@ siebelAutoGASAllButton()
 selectsPXNumberInAlchemyAndCopyItForIsleOfMan()
 siebelPerscriptionNoField()
 checkForWindowChangeGas()
-siebelPerscriptionNoFieldClearAndPastePX()
+siebelCheckPerscriptionFieldIfPXIsPastedInIsleOfMan()
 clearClipboard()
 siebelCheckPerscriptionFieldIfPXIsPastedIn()
 alchemyRequiresAttentionDownArrow()
@@ -1169,20 +1203,20 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Right & PgUp::
+Clipboard := Clipboard
 SetCapsLockState, off
 BlockInput, MouseMove
 
 clearClipboard()
 checkIfScreenIsScrolledToTop()
 checkIfCurrentWindowIsCorrect()
-clicksOnWhitespaceInSiebelForAutoGasSelected()
 siebelAutoGASSelectedButton()
 selectsPXNumberInAlchemyAndCopyItForIsleOfMan()
 siebelPerscriptionNoField()
 checkForWindowChangeGas()
 siebelPerscriptionNoFieldClearAndPastePX()
 clearClipboard()
-siebelCheckPerscriptionFieldIfPXIsPastedIn()
+siebelCheckPerscriptionFieldIfPXIsPastedInIsleOfMan()
 alchemyRequiresAttentionDownArrow()
 alchemyRequiresAttentionComplete()
 checkIfScreenIsScrolledToTopInSearch()
@@ -1210,6 +1244,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Left & PgUp::
+Clipboard := Clipboard
 SetCapsLockState, off
 BlockInput, MouseMove
 
@@ -1217,14 +1252,13 @@ clearClipboard()
 checkIfScreenIsScrolledToTop()
 checkIfCurrentWindowIsCorrect()
 checkForExemptionReasonIsleOfMan()
-clicksOnWhitespaceInSiebelForAutoGasSelected()
 siebelAutoGASSelectedButton()
 selectsPXNumberInAlchemyAndCopyItForIsleOfMan()
 siebelPerscriptionNoField()
 checkForWindowChangeGas()
 siebelPerscriptionNoFieldClearAndPastePX()
 clearClipboard()
-siebelCheckPerscriptionFieldIfPXIsPastedIn()
+siebelCheckPerscriptionFieldIfPXIsPastedInIsleOfMan()
 alchemyRequiresAttentionDownArrow()
 
 SetCapsLockState, on
@@ -1257,6 +1291,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Up & PgDn::
+Clipboard := Clipboard
 SetCapsLockState, off
 BlockInput, MouseMove
 
@@ -1299,6 +1334,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Down & PgDn::
+Clipboard := Clipboard
 SetCapsLockState, off
 BlockInput, MouseMove
 
@@ -1306,7 +1342,6 @@ clearClipboard()
 checkIfScreenIsScrolledToTop()
 checkIfCurrentWindowIsCorrect()
 checkForExemptionReasonScottishStoma()
-clicksOnWhitespaceInSiebelForAutoGasSelected()
 siebelAutoGASSelectedButton()
 selectsPXNumberInAlchemyAndCopyIt()
 siebelPerscriptionNoField()
@@ -1339,6 +1374,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Right & PgDn::
+Clipboard := Clipboard
 SetCapsLockState, off
 BlockInput, MouseMove
 
@@ -1378,6 +1414,7 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Left & PgDn::
+Clipboard := Clipboard
 SetCapsLockState, off
 BlockInput, MouseMove
 
@@ -1385,7 +1422,6 @@ clearClipboard()
 checkIfScreenIsScrolledToTop()
 checkIfCurrentWindowIsCorrect()
 checkForExemptionReasonScottishContinence()
-clicksOnWhitespaceInSiebelForAutoGasSelected()
 siebelAutoGASSelectedButton()
 selectsPXNumberInAlchemyAndCopyIt()
 siebelPerscriptionNoField()
@@ -1435,7 +1471,7 @@ global alchemyPosY1
 global alchemyPosX2
 global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
-Loop, 5
+Loop, 10
 {
 ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Perscription_No.png
 if (ErrorLevel = 0)
@@ -1444,18 +1480,18 @@ SetDefaultMouseSpeed, 0
 VarPosX := OutputVarX + 200
 VarPosY := OutputVarY + 8
 MouseMove %VarPosX%, %VarPosY%
-Sleep 200
+Sleep 50
 MouseClick
 Sleep 50
 SendInput {Ctrl Down}
-SendInput {Raw}a
+SendInput a
 SendInput {Ctrl Up}
 Sleep 50
 SendInput {Ctrl Down}
-SendInput {Raw}c
+SendInput c
 SendInput {Ctrl Up}
 ClipWait, 1
-Sleep 200
+Sleep 50
 SetDefaultMouseSpeed, 2
 if RegExMatch(Clipboard, "(.{11})", OutputVar)
 {
@@ -1463,7 +1499,7 @@ Return
 }
 else
 {
-Sleep 100
+Sleep 50
 }
 }
 }
@@ -1485,7 +1521,7 @@ global alchemyPosY1
 global alchemyPosX2
 global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
-Loop, 5
+Loop, 10
 {
 ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Perscription_No.png
 if (ErrorLevel = 0)
@@ -1494,18 +1530,18 @@ SetDefaultMouseSpeed, 0
 VarPosX := OutputVarX + 200
 VarPosY := OutputVarY + 8
 MouseMove %VarPosX%, %VarPosY%
-Sleep 200
+Sleep 50
 MouseClick
 Sleep 50
 SendInput {Ctrl Down}
-SendInput {Raw}a
+SendInput a
 SendInput {Ctrl Up}
 Sleep 50
 SendInput {Ctrl Down}
-SendInput {Raw}c
+SendInput c
 SendInput {Ctrl Up}
 ClipWait, 1
-Sleep 200
+Sleep 50
 SetDefaultMouseSpeed, 2
 if RegExMatch(Clipboard, "(.{8})", OutputVar)
 {
@@ -1513,7 +1549,7 @@ Return
 }
 else
 {
-Sleep 100
+Sleep 50
 }
 }
 }
@@ -1535,7 +1571,7 @@ global alchemyPosY1
 global alchemyPosX2
 global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
-Loop, 5
+Loop, 10
 {
 ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Perscription_No.png
 if (ErrorLevel = 0)
@@ -1544,15 +1580,15 @@ SetDefaultMouseSpeed, 0
 VarPosX := OutputVarX + 200
 VarPosY := OutputVarY + 8
 MouseMove %VarPosX%, %VarPosY%
-Sleep 200
+Sleep 50
 MouseClick
 Sleep 50
 SendInput {Ctrl Down}
-SendInput {Raw}a
+SendInput a
 SendInput {Ctrl Up}
 Sleep 50
 SendInput {Ctrl Down}
-SendInput {Raw}c
+SendInput c
 SendInput {Ctrl Up}
 ClipWait, 1
 Sleep 50
@@ -1561,7 +1597,7 @@ Return
 }
 else
 {
-Sleep 100
+Sleep 50
 }
 }
 SetDefaultMouseSpeed, 0
@@ -1580,7 +1616,7 @@ global alchemyPosY1
 global alchemyPosX2
 global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
-Loop, 5
+Loop, 10
 {
 ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Additional_Comments.png
 if (ErrorLevel = 0)
@@ -1594,11 +1630,13 @@ MouseClick
 MouseClick
 Sleep 50
 SendInput {Enter}
+Sleep 50
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 MouseMove 74, 557 ; Reset button coordinates (Siebel)
-Sleep 100
+Sleep 50
 MouseClick
 MouseMove 86, 355 ; Postcode search field coordinates (Siebel)
-Sleep 100
+Sleep 50
 MouseClick
 MouseClick
 SetDefaultMouseSpeed, 2
@@ -1606,7 +1644,7 @@ Return
 }
 else
 {
-Sleep 100
+Sleep 50
 }
 }
 MsgBox, 4096, Error, Cannot find Additional Comments Field. Press F12 to Exit the error message.
@@ -1624,7 +1662,7 @@ global alchemyPosY1
 global alchemyPosX2
 global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
-Loop, 5
+Loop, 10
 {
 ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Return Script\Down_Arrow.png
 if (ErrorLevel = 0)
@@ -1640,7 +1678,7 @@ Break
 }
 else
 {
-Sleep 100
+Sleep 50
 }
 }
 MsgBox, 4096, Error, Cannot find "Requires Attention" field Down Arrow. Press F12 to Exit the error message.
@@ -1650,7 +1688,7 @@ Reload
 
 alchemyRequiresAttentionComplete()
 {
-SendInput {Raw}Complete
+SendInput complete
 SendInput {Enter}
 }
 
@@ -1690,7 +1728,7 @@ global alchemyPosY1
 global alchemyPosX2
 global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
-Loop, 5
+Loop, 10
 {
 ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Additional_Comments.png
 if (ErrorLevel = 0)
@@ -1704,9 +1742,7 @@ MouseClick
 MouseClick
 Sleep 50
 SendInput ^{End}
-Sleep 50
 SendInput +{Home}
-Sleep 50
 SendInput {Backspace}
 Sleep 50
 SetDefaultMouseSpeed, 2
@@ -1714,7 +1750,7 @@ Break
 }
 else
 {
-Sleep 100
+Sleep 50
 }
 }
 MsgBox, 4096, Error, Cannot find Additional Comments field. Press F12 to Exit the error message.
@@ -1730,7 +1766,7 @@ global alchemyPosY1
 global alchemyPosX2
 global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
-Loop, 5
+Loop, 10
 {
 ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Additional_Comments.png
 if (ErrorLevel = 0)
@@ -1746,7 +1782,7 @@ Return
 }
 else
 {
-Sleep 100
+Sleep 50
 }
 MsgBox, 4096, Error, Cannot find Additional Comments. Press F12 to Exit the error message.
 Reload
@@ -1759,7 +1795,7 @@ Reload
 alchemyClickOnSearchButton()
 {
 WinActivate, Alchemy Index Station - \\Remote
-Loop, 5
+Loop, 10
 {
 ImageSearch OutputVarX, OutputVarY, -1920, -10, -6, 488, *150 %A_ScriptDir%\Misc\Alchemy_Search_Button.png
 if (ErrorLevel = 0)
@@ -1799,21 +1835,34 @@ Return
 
 checkForSearchBoxToAppearAlchemy()
 {
-Loop, 20
-{
 global searchBoxPosX1
 global searchBoxPosY1
 global searchBoxPosX2
 global searchBoxPosY2
+WinActivate, Alchemy Index Station - \\Remote
+Loop, 10
+{
 ImageSearch OutputVarX, OutputVarY, %searchBoxPosX1%, %searchBoxPosY1%, %searchBoxPosX2%, %searchBoxPosY2%,, *150 %A_ScriptDir%\Misc\Alchemy_Search_Box.png
 if (ErrorLevel = 0)
 {
-Return
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 50
+VarPosY := OutputVarY + 10
+MouseMove %VarPosX%, %VarPosY%
+Sleep 50
+MouseClick
+SetDefaultMouseSpeed, 2
 }
 ImageSearch OutputVarX, OutputVarY, %searchBoxPosX1%, %searchBoxPosY1%, %searchBoxPosX2%, %searchBoxPosY2%,, *150 %A_ScriptDir%\Misc\Alchemy_Search_Box_Unfocused.png
 if (ErrorLevel = 0)
 {
-Return
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 50
+VarPosY := OutputVarY + 10
+MouseMove %VarPosX%, %VarPosY%
+Sleep 50
+MouseClick
+SetDefaultMouseSpeed, 2
 }
 }
 }
@@ -1840,9 +1889,7 @@ Sleep 50
 MouseClick
 Sleep 50
 SendInput ^{End}
-Sleep 50
 SendInput +{Home}
-Sleep 50
 SendInput {Backspace}
 ClipWait, 1
 SetDefaultMouseSpeed, 2
@@ -1850,7 +1897,7 @@ Return
 }
 else
 {
-Sleep 200
+Sleep 50
 }
 MsgBox Could not find the Alchemy search box Batch Number Field. Press F12 to exit 
 BlockInput, MouseMoveOff
@@ -1884,7 +1931,7 @@ SendInput ^{End}
 SendInput +{Home}
 SendInput {Backspace}
 Send {Ctrl Down}
-SendInput {Raw}v
+SendInput v
 Send {Ctrl Up}
 SendInput {Backspace}
 SendInput {Backspace}
@@ -1896,7 +1943,7 @@ Return
 }
 else
 {
-Sleep 200
+Sleep 50
 }
 MsgBox Could not find the Alchemy search box Prescription Field. Press F12 to exit 
 BlockInput, MouseMoveOff
@@ -1930,7 +1977,7 @@ Return
 }
 else 
 {
-Sleep 200
+Sleep 50
 }
 MsgBox Could not find the Alchemy search box Search Button. Press F12 to exit 
 BlockInput, MouseMoveOff
@@ -1972,7 +2019,7 @@ Return
 }
 else 
 {
-Sleep 200
+Sleep 50
 }
 MsgBox Could not find the Alchemy search box Prescription Field. Press F12 to exit 
 BlockInput, MouseMoveOff
@@ -2010,7 +2057,7 @@ Return
 }
 else 
 {
-Sleep 200
+Sleep 50
 }
 MsgBox Could not find the Alchemy search box Batch Number Down Arrow. Press F12 to exit 
 BlockInput, MouseMoveOff
@@ -2041,9 +2088,10 @@ Return
 	
 siebelActivityTab()
 {
-Loop, 2
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+Loop, 10
 {
-ImageSearch OutputVarX, OutputVarY, 470, 498, 1884, 622, *60 %A_ScriptDir%\Misc\Activities_Tab.png
+ImageSearch OutputVarX, OutputVarY, 960, 520, 1884, 622, *60 %A_ScriptDir%\Misc\Activities_Tab.png
 if (ErrorLevel = 0)
 {
 VarPosX := OutputVarX + 30
@@ -2068,9 +2116,9 @@ Reload
 
 siebelActivityNewButton()
 {
-Loop, 10
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+Loop, 20
 {
-Sleep 200
 ImageSearch OutputVarX, OutputVarY, 565, 570, 613, 593, *100 %A_ScriptDir%\Misc\New_Activity_Button.png
 if (ErrorLevel = 0)
 {
@@ -2083,10 +2131,11 @@ MouseClick
 SetDefaultMouseSpeed, 2
 Return
 }
-}
-ImageSearch OutputVarX, OutputVarY, 565, 570, 613, 593, *100 %A_ScriptDir%\Misc\New_Activity_Button.png
-if (ErrorLevel != 0)
+else (ErrorLevel != 0)
 {
+sleep 50
+}
+}
 SetDefaultMouseSpeed, 0
 MouseMove 370, 484
 MouseClick
@@ -2094,13 +2143,13 @@ SetDefaultMouseSpeed, 2
 MsgBox, 4096, Error, "Script Failed - Could not find New Activity button. Press F12 to Exit the error message"
 Reload
 }
-}
 
 
 
 
 siebelActivityWhiteSpace()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
 
 	MouseMove 776, 483 ; Moves the cursor away from activities field after creating new activity
@@ -2118,10 +2167,10 @@ SetDefaultMouseSpeed, 2
 
 clickOnNewlyCreatedActivity()
 {
-Loop, 10
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+Loop, 20
 {
-Sleep 200
-ImageSearch OutputVarX, OutputVarY, 492, 569, 1265, 720, *50 %A_ScriptDir%\Misc\New_Activity_Other.png
+ImageSearch OutputVarX, OutputVarY, 492, 569, 1265, 650, *50 %A_ScriptDir%\Misc\New_Activity_Other.png
 if (ErrorLevel = 0)
 {
 VarPosX := OutputVarX + 15
@@ -2131,6 +2180,10 @@ MouseMove %VarPosX%, %VarPosY%
 MouseClick
 SetDefaultMouseSpeed, 2
 Return
+}
+else if (ErrorLevel != 0)
+{
+sleep 50
 }
 }
 SetDefaultMouseSpeed, 0
@@ -2146,8 +2199,11 @@ Reload
 
 siebelActivityDescriptionField()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
-MouseMove 872, 268 ; Moves to description field in New Activity 
+
+	MouseMove 872, 268 ; Moves to description field in New Activity
+	
 SetDefaultMouseSpeed, 2
 }
 
@@ -2156,8 +2212,11 @@ SetDefaultMouseSpeed, 2
 
 siebelActivityCommentField()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
-MouseMove 865, 336 ; Moves to comments field in New Activity
+
+	MouseMove 865, 336 ; Moves to comments field in New Activity
+
 SetDefaultMouseSpeed, 2
 }
 
@@ -2166,17 +2225,18 @@ SetDefaultMouseSpeed, 2
 
 siebelSiebelOrderNoField()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
 
 	MouseMove 1376, 404 ; Clicks on Siebel Order No Field in Shortfall Activity and pastes in Siebel Order Number
 
-Sleep 100
+Sleep 50
 MouseClick
 Sleep 50
 MouseClick
 Sleep 50
 Send {Ctrl Down}
-SendInput {Raw}v
+SendInput v
 Send {Ctrl Up}
 ClipWait, 1
 Sleep 100
@@ -2185,7 +2245,7 @@ SendInput ^{End}
 SendInput +{Home}
 Sleep 50
 Send {Ctrl Down}
-SendInput {Raw}c
+SendInput c
 Send {Ctrl Up}
 ClipWait, 1
 Sleep 50
@@ -2200,7 +2260,7 @@ else
 {
 Sleep 50
 Send {Ctrl Down}
-SendInput {Raw}v
+SendInput v
 Send {Ctrl Up}
 ClipWait, 1
 Sleep 50
@@ -2209,7 +2269,7 @@ SendInput ^{End}
 SendInput +{Home}
 Sleep 50
 Send {Ctrl Down}
-SendInput {Raw}c
+SendInput c
 Send {Ctrl Up}
 ClipWait, 1
 Sleep 50
@@ -2222,9 +2282,13 @@ Sleep 50
 
 siebelSourceDownArrow()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
-MouseMove 715, 327 ; Moves to source field down arrow in a newly created Activity and clicks it
-MouseClick    
+
+	MouseMove 715, 327 ; Moves to source field down arrow in a newly created Activity and clicks it
+	
+MouseClick
+Sleep 100
 SetDefaultMouseSpeed, 2
 }
 
@@ -2251,6 +2315,7 @@ SendInput {Enter}
 
 siebelSelectStatusDownArrow()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
 MouseMove 939, 383 ; Moves to status field down arrow in a newly created Activity and clicks it
 MouseClick
@@ -2271,24 +2336,48 @@ SendInput {Enter}
 
 siebelSubTypeDownArrow()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
+
 MouseMove 714, 302 ; Moves over sub-type drop arrow in Shortfall activity and clicks it
 MouseClick
+
 SetDefaultMouseSpeed, 2
 }
 
 
 
 
-clicksOnOkInTemplateWindow()
+clickOkButtonInTemplateWindow()
+{
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+Loop, 10
+{
+ImageSearch OutputVarX, OutputVarY, 553, 387, 1370, 748, *120 %A_ScriptDir%\Misc\Ok_Button_Template_Window.png
+if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
-MouseMove 1276, 703 ; Clicks on OK
-Sleep 100
+VarPosX := OutputVarX + 15
+VarPosY := OutputVarY + 10
+MouseMove %VarPosX%, %VarPosY%
+Sleep 50
 MouseClick
 MouseClick
-Sleep 100
+Sleep 50
 SetDefaultMouseSpeed, 2
+Return
+}
+else if (ErrorLevel != 0)
+{
+Sleep 50
+}
+}
+SetDefaultMouseSpeed, 0
+MouseMove 370, 484
+MouseClick
+MsgBox, 4096, Error, "Cannot find OK button in template window. Press F12 to Exit the error message"
+SetDefaultMouseSpeed, 2
+Reload
 }
 
 
@@ -2317,10 +2406,8 @@ SetDefaultMouseSpeed, 2
 
 coreOptionCoordinates()
 {
-SetDefaultMouseSpeed, 0
-MouseMove 711, 319 ; "Core" option coordinates	
-MouseClick
-SetDefaultMouseSpeed, 2
+SendInput {Raw}Core
+SendInput {Enter}
 }
 
 
@@ -2328,10 +2415,8 @@ SetDefaultMouseSpeed, 2
 
 supportingOptionCoordinates()
 {
-SetDefaultMouseSpeed, 0
-MouseMove 712, 357 ; "Supporting" option coordinates	
-MouseClick
-SetDefaultMouseSpeed, 2
+SendInput {Raw}Supporting Product
+SendInput {Enter}
 }
 
 
@@ -2339,6 +2424,7 @@ SetDefaultMouseSpeed, 2
 
 sourceFieldDownArrowCoordinates()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
 MouseMove 715, 326 ; "Source" field down arrow coordinates	
 MouseClick
@@ -2357,6 +2443,7 @@ SetDefaultMouseSpeed, 2
 
 siebelClickOnNewInNotes()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
 MouseMove 1423, 899 ; Moves over New button in Active Notes on AP Order Lines  
 MouseClick ; Clicks on New to create a New Active Note
@@ -2368,9 +2455,14 @@ SetDefaultMouseSpeed, 2
 
 siebelTypeFieldInActiveNotes()
 {
+global duplicatePosX1
+global duplicatePosY1
+global duplicatePosX2
+global duplicatePosY2
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *100 %A_ScriptDir%\Misc\Type_Field_Active_Notes.png
+ImageSearch OutputVarX, OutputVarY, %duplicatePosX1%, %duplicatePosY1%, %duplicatePosX2%, %duplicatePosY2%, *100 %A_ScriptDir%\Misc\Type_Field_Active_Notes.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -2387,9 +2479,10 @@ else
 Sleep 50
 }
 }
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *100 %A_ScriptDir%\Misc\Type_Field_Active_Notes_Down_Arrow.png
+ImageSearch OutputVarX, OutputVarY, %duplicatePosX1%, %duplicatePosY1%, %duplicatePosX2%, %duplicatePosY2%, *100 %A_ScriptDir%\Misc\Type_Field_Active_Notes_Down_Arrow.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -2399,7 +2492,7 @@ MouseMove %VarPosX%, %VarPosY%
 Sleep 50
 MouseClick
 Sleep 50
-MouseMove 0, 40, 0, R
+SendInput {Raw}Duplicate Prescription Alert
 Sleep 50
 MouseClick
 Sleep 50
@@ -2417,9 +2510,14 @@ Sleep 50
 
 siebelFlagContactTick()
 {
+global duplicatePosX1
+global duplicatePosY1
+global duplicatePosX2
+global duplicatePosY2
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *120 %A_ScriptDir%\Misc\Flag_Contact_Label.png
+ImageSearch OutputVarX, OutputVarY, %duplicatePosX1%, %duplicatePosY1%, %duplicatePosX2%, %duplicatePosY2%, *120 %A_ScriptDir%\Misc\Flag_Contact_Label.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -2438,7 +2536,7 @@ Sleep 50
 }
 Loop, 2
 {
-ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *120 %A_ScriptDir%\Misc\Flag_Contact_Tick_Empty.png
+ImageSearch OutputVarX, OutputVarY, %duplicatePosX1%, %duplicatePosY1%, %duplicatePosX2%, %duplicatePosY2%, *120 %A_ScriptDir%\Misc\Flag_Contact_Tick_Empty.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -2457,7 +2555,7 @@ Sleep 50
 }
 Loop
 {
-ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *120 %A_ScriptDir%\Misc\Flag_Contact_Ticked.png
+ImageSearch OutputVarX, OutputVarY, %duplicatePosX1%, %duplicatePosY1%, %duplicatePosX2%, %duplicatePosY2%, *120 %A_ScriptDir%\Misc\Flag_Contact_Ticked.png
 if (ErrorLevel = 0)
 {
 Return
@@ -2480,9 +2578,14 @@ Return
 
 siebelDescriptionFieldInActiveNotes()
 {
+global duplicatePosX1
+global duplicatePosY1
+global duplicatePosX2
+global duplicatePosY2
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, 1260, 714, 1912, 1077, *120 %A_ScriptDir%\Misc\Description_Field_Active_Notes.png
+ImageSearch OutputVarX, OutputVarY, %duplicatePosX1%, %duplicatePosY1%, %duplicatePosX2%, %duplicatePosY2%, *120 %A_ScriptDir%\Misc\Description_Field_Active_Notes.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -2515,6 +2618,7 @@ Sleep 50
 
 siebelPerscriptionNoField()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
 MouseMove 672, 241 ; Perscription No Field coordinates in Siebel, after GASing the order    
 SetDefaultMouseSpeed, 2
@@ -2525,6 +2629,7 @@ SetDefaultMouseSpeed, 2
 
 siebelPerscriptionNoFieldClearAndPastePX()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 MouseClick
 Sleep, 50
 MouseClick
@@ -2537,7 +2642,7 @@ SendInput {backspace}
 SendInput {backspace}
 Sleep 50
 Send {Ctrl Down}
-SendInput {Raw}v
+SendInput v
 Send {Ctrl Up}
 ClipWait 1
 Sleep 200
@@ -2548,21 +2653,75 @@ Sleep 200
 
 siebelCheckPerscriptionFieldIfPXIsPastedIn()
 {
+global alchemyPosX1
+global alchemyPosY1
+global alchemyPosX2
+global alchemyPosY2
+Loop, 5
+{
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 MouseClick
 SendInput ^{End}
 SendInput +{Home}
 Sleep 50
 Send {Ctrl Down}
-SendInput {Raw}c
+SendInput c
 Send {Ctrl Up}
 ClipWait, 1
-Sleep 200
-if RegExMatch(Clipboard, "(EPS.{6}-.{6}-.{6})", OutputVar)
+Sleep 100
+if RegExMatch(Clipboard, "(.{11})", OutputVar)
 {
-Return
+return
 }
 else
 {
+WinActivate, Alchemy Index Station - \\Remote
+ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Perscription_No.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 200
+VarPosY := OutputVarY + 8
+MouseMove %VarPosX%, %VarPosY%
+Sleep 50
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 50
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+MouseMove 672, 241 ; Perscription No Field coordinates in Siebel, after GASing the order    
+MouseClick
+Sleep, 50
+MouseClick
+Sleep 50
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+Sleep 50
+Send {Ctrl Down}
+SendInput v
+Send {Ctrl Up}
+ClipWait 1
+SendInput {Enter}
+Sleep 100
+SetDefaultMouseSpeed, 2
+}
+}
+}
 SetDefaultMouseSpeed, 0
 MouseMove 370, 484
 MouseClick
@@ -2570,16 +2729,108 @@ SetDefaultMouseSpeed, 2
 MsgBox, 4096, Error, "Script Failed - Please copy and paste the PX number manually. Press F12 to Exit the error message"
 Reload
 }
+
+
+
+
+
+
+siebelCheckPerscriptionFieldIfPXIsPastedInIsleOfMan()
+{
+global alchemyPosX1
+global alchemyPosY1
+global alchemyPosX2
+global alchemyPosY2
+
+Loop, 5
+{
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+MouseClick
+SendInput ^{End}
+SendInput +{Home}
+Sleep 50
+Send {Ctrl Down}
+SendInput c
+Send {Ctrl Up}
+ClipWait, 1
+Sleep 100
+if RegExMatch(Clipboard, "(.{8})", OutputVar)
+{
+return
 }
+else
+{
+WinActivate, Alchemy Index Station - \\Remote
+ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Perscription_No.png
+if (ErrorLevel = 0)
+{
+SetDefaultMouseSpeed, 0
+VarPosX := OutputVarX + 200
+VarPosY := OutputVarY + 8
+MouseMove %VarPosX%, %VarPosY%
+Sleep 50
+MouseClick
+Sleep 50
+SendInput {Ctrl Down}
+SendInput a
+SendInput {Ctrl Up}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput c
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 50
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+MouseMove 672, 241 ; Perscription No Field coordinates in Siebel, after GASing the order    
+MouseClick
+Sleep, 50
+MouseClick
+Sleep 50
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+Sleep 50
+Send {Ctrl Down}
+SendInput v
+Send {Ctrl Up}
+ClipWait 1
+SendInput {Enter}
+Sleep 100
+SetDefaultMouseSpeed, 2
+}
+}
+}
+SetDefaultMouseSpeed, 0
+MouseMove 370, 484
+MouseClick
+SetDefaultMouseSpeed, 2
+MsgBox, 4096, Error, "Script Failed - Please copy and paste the PX number manually. Press F12 to Exit the error message"
+Reload
+}
+
+
+
+
+
 
 
 
 
 siebelAutoGASAllButton()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
-MouseMove 1609, 600 ; "Auto GAS All" button Coordinates (Siebel)
+
+	MouseMove 1609, 600 ; "Auto GAS All" button Coordinates (Siebel)
 MouseClick
+
 SetDefaultMouseSpeed, 2
 }
 
@@ -2588,22 +2839,19 @@ SetDefaultMouseSpeed, 2
 
 siebelAutoGASSelectedButton()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
-MouseMove 1700, 599 ; "Auto GAS Selected" button Coordinates
-MouseClick
-SetDefaultMouseSpeed, 2
-}
 
+	MouseMove 1750, 469 ; Whitespace coordinates (Siebel) above Auto GAS Selected Button
 
-
-
-clicksOnWhitespaceInSiebelForAutoGasSelected()
-{
-SetDefaultMouseSpeed, 0
-MouseMove 1750, 469 ; Whitespace coordinates (Siebel)
 Sleep 50
 MouseClick
 Sleep 100
+
+	MouseMove 1700, 599 ; "Auto GAS Selected" button Coordinates
+
+MouseClick
+
 SetDefaultMouseSpeed, 2
 }
 
@@ -2619,6 +2867,7 @@ SetDefaultMouseSpeed, 2
 
 checkForTemplateWindow()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 	PixelGetColor, color, 968, 409 ; Looks for pixel (load up the template window and select pixel that is behind the blue top of the window) and waits for the template window to load before progressing
 While color = 0xffffff 
 {
@@ -2632,6 +2881,7 @@ sleep 10
 
 checkIfTemplateWindowIsScrolled()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop
 {
 Sleep 100
@@ -2668,13 +2918,16 @@ break
 	
 siebelStockAndCheckOrderStatusChanges()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
-OrderStatusX := 752 ; X coordinate of the "Order Status" down arrow in new Order Window
-OrderStatusY := 295 ; Y coordinate of the "Order Status" down arrow in new Order Window
+global OrderStatusX
+global OrderStatusY
 MouseMove %OrderStatusX%, %OrderStatusY% ; "Order Status" downarrow coordinates in new Order window
 MouseClick
 Sleep 50
-MouseMove 682, 338 ; "Pending" option Coordinates in dropdown menu
+SendInput {Raw}Pending
+Sleep 50
+SendInput {Enter}
 MouseClick
 Sleep 50
 MouseMove 851, 704 ; Stock & Check button Coordinates in  new Order Window
@@ -2685,13 +2938,17 @@ SendInput {Enter}
 MouseMove %OrderStatusX%, %OrderStatusY% ; "Order Status" downarrow coordinates in new Order window
 MouseClick
 Sleep 50
-MouseMove 743, 311 ; "Open" option Coordinates in dropdown menu
+SendInput {Raw}Open
+Sleep 50
+SendInput {Enter}
 MouseClick
 Sleep 50
 MouseMove %OrderStatusX%, %OrderStatusY% ; "Order Status" downarrow coordinates in new Order window
 MouseClick
 Sleep 50
-MouseMove 739, 322 ; "Awaiting Payment" option Coordinates in dropdown menu
+SendInput {Raw}Awaiting Payment
+Sleep 50
+SendInput {Enter}
 MouseClick
 Sleep 50
 SetDefaultMouseSpeed, 2
@@ -2702,6 +2959,7 @@ SetDefaultMouseSpeed, 2
 
 siebelSourceAndOriginFields()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
 MouseMove 752, 477 ; "Origin" downarrow field Coordinates (Siebel)
 MouseClick
@@ -2721,6 +2979,7 @@ SetDefaultMouseSpeed, 2
 
 siebelAddOosFlier()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 MouseMove 591, 702 ; New product button coordinates
 MouseClick
 checkForProgressBar()
@@ -2754,7 +3013,8 @@ Sleep 50
 
 checkForProgressBar()
 {
-Loop, 50
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+Loop, 100
 {
 	PixelSearch, OutputVarX, OutputVarY, 1299, 1027, 1383, 1035, 000080, 150, Fast ; Loop looks for progress bar to appear before moving forward
 
@@ -2763,7 +3023,8 @@ Sleep 50
 else
 break
 }
-Loop, 50
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+Loop, 100
 {
 	PixelSearch, OutputVarX, OutputVarY, 1299, 1027, 1383, 1035, 000080, 150, Fast ; Loop looks for progress bar to disappear before moving forward
 
@@ -2777,6 +3038,7 @@ Return
 
 checkForWindowChangeGas()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 	PixelGetColor, color, 691, 526 ; "Team" field Coordinates (Siebel - gray color sample) - Loop looks for white color to appear at these coordinates before moving forward
 While color = 0xEEEEEE
 {
@@ -2789,6 +3051,7 @@ Sleep 10
 
 checkForWindowChangeStockCheck()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 	PixelGetColor, color, 725, 565 ; "Team" field Coordinates (Siebel - gray color sample) - Loop looks for white color to appear at these coordinates before moving forward
 While color = 0xEEEEEE
 {
@@ -2813,6 +3076,7 @@ global exemptionPosX1
 global exemptionPosY1
 global exemptionPosX2
 global exemptionPosY2
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop, 5
 {
 ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
@@ -3015,6 +3279,7 @@ global exemptionPosX1
 global exemptionPosY1
 global exemptionPosX2
 global exemptionPosY2
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop, 5
 {
 ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
@@ -3214,13 +3479,14 @@ global exemptionPosX1
 global exemptionPosY1
 global exemptionPosX2
 global exemptionPosY2
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop, 5
 {
 ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
-SendRaw C
+SendRaw A
 Return
 }
 else if (ErrorLevel != 0)
@@ -3420,6 +3686,7 @@ global exemptionPosX1
 global exemptionPosY1
 global exemptionPosX2
 global exemptionPosY2
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop, 5
 {
 ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
@@ -3629,6 +3896,7 @@ Return
 
 checkIfScreenIsScrolledToTop()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop
 {
 PixelGetColor, color, 1908, 190
@@ -3655,6 +3923,7 @@ break
 
 checkIfScreenIsScrolledToTopInSearch()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop
 {
 ImageSearch OutputVarX, OutputVarY, 10, 7, 1915, 553, *100 %A_ScriptDir%\Misc\siebelPatientsSearchUpArrow.png
@@ -3698,6 +3967,7 @@ Reload
 
 checkIfCurrentWindowIsCorrect()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop
 {
 ImageSearch OutputVarX, OutputVarY, 490, 518, 983, 574, *70 %A_ScriptDir%\Misc\AP_Order_Lines.png
@@ -3730,9 +4000,10 @@ Reload
 
 checkIfCurrentWindowIsCorrectForStockAndCheck()
 {
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop
 {
-ImageSearch OutputVarX, OutputVarY, 6, 114, 888, 176, *20 %A_ScriptDir%\Images\Orders.png
+ImageSearch OutputVarX, OutputVarY, 6, 114, 888, 176, *20 %A_ScriptDir%\Misc\Orders.png
 if (ErrorLevel = 0)
 {
 Break
@@ -3774,7 +4045,7 @@ Sleep 100
 WinActivate, ahk_class ApplicationFrameWindow ; Opens up Sticky Notes app by its class
 Sleep 100
 Send {Ctrl Down}
-SendInput {Raw}c
+SendInput c
 Send {Ctrl Up}
 ClipWait, 1
 Sleep 50
@@ -3823,7 +4094,7 @@ insertDelScottishPx()
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -927, -9, -5, 1063, *50 %A_ScriptDir%\Misc\Additional_Comments.png
+ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Additional_Comments.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -3863,6 +4134,7 @@ Reload
 
 alchemyGeneralPxListCoordinates()
 {
+WinActivate, Alchemy Index Station - \\Remote
 SetDefaultMouseSpeed, 0
 MouseMove -1663, 197
 SetDefaultMouseSpeed, 2

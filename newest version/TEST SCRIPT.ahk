@@ -1,4 +1,35 @@
 
+
+
+
+#UseHook
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+^p::
+
+SafePaste() 
+{
+    ; A way of pasting that only returns control when the paste is complete
+    ; by jeeswg
+    ; See https://www.autohotkey.com/boards/viewtopic.php?p=271514&sid=f898e28c59efcb6871c1dff403e663dd#p271517
+    ; the point of this is that with a simple Ctrl + v, you don't know when the pasting is complete,
+    ; so if you immediately reload the Clipboard, the new text may end up getting pasted...
+ControlGetFocus, vCtlClassNN, A
+ControlGet, hCtl, Hwnd,, % vCtlClassNN, A
+SendMessage, 0x302,,,, % "ahk_id " hCtl ;WM_PASTE := 0x302
+}
+return
+
+
+
+
+
+
+
+
+
+
   ; ==================================================================== EXITS SCRIPT DOCUMENT ==========================================================
 
 ; This script exits the AHK application
@@ -235,28 +266,190 @@ sleep,400
 Gui, help: Destroy
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 clearClipboard()
-Sleep 200
-MouseMove 634, 241
+checkIfScreenIsScrolledToTop()
+checkIfCurrentWindowIsCorrect()
+siebelActivityTab()
+checkForProgressBar()
+siebelActivityNewButton()
+checkForProgressBar()
+siebelActivityWhiteSpace()
+clickOnNewlyCreatedActivity()
+siebelActivityDescriptionField()
+checkForProgressBar()
+
+MouseClick
+MouseClick
+SendInput ^q ; Opens up Template Window
+Sleep 50
+
+checkForTemplateWindow()
+
+Sleep 50
+
+checkIfTemplateWindowIsScrolled()
+selectsEPSReturnPXServiceTemplate()
+clicksOnOkInTemplateWindow()
+checkIfPxIsScrolled()
+selectsPXNumberInProScriptAndCopyIt()
+siebelActivityCommentField()
+	
+
+MouseClick
+Sleep 100
+SendInput {Raw}EPS Px Services returned to spine
+SendInput {Space}
+Send {Ctrl Down}
+SendInput {Raw}v
+Send {Ctrl Up}
+Sleep 100
+
+
+
+
+removeCommentsField()
+setTyprOpenedInError()
+setStatusDone()
+
+
+
+Send {Ctrl Down}
+SendInput {Raw}b
+Send {Ctrl Up}
+Sleep 100
+
+siebelActivityDescriptionField()
+
+MouseClick ; Clicks on Description in Activity
 MouseClick
 Sleep 50
-MouseClick
+SendInput ^q ; Opens up Template Window
 Sleep 50
+
+checkForTemplateWindow()
+
+Sleep 50
+
+checkIfTemplateWindowIsScrolled()
+selectsEPSReturnTemplate()
+clicksOnOkInTemplateWindow()
+siebelActivityDescriptionField()
+
+MouseClick
+Sleep, 50
+SendInput {Ctrl Down}
+SendInput {Raw}v
+SendInput {Ctrl Up}
+Sleep 100
+
+
+siebelSourceDownArrow()
+siebelSourcePXService()
+siebelActivityCommentField()
+
+MouseClick
+MouseClick
+SendInput ^{End}
+SendInput +{Home}
 SendInput {backspace}
 SendInput {backspace}
 SendInput ^{End}
 SendInput +{Home}
 SendInput {backspace}
 SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
+SendInput {backspace}
+SendInput {backspace}
+
+Sleep 200
+clearClipboard()
+checkForExpiryDateOnPXFirstLine()
+siebelActivityCommentField()
+
+MouseClick
+Sleep, 50
+MouseClick
 Sleep 50
-SendInput {Raw}1-siebelCheckPerscriptionFieldIfPXIsPastedIn
-Sleep 100
+SendInput {Ctrl Down}
+SendInput {Raw}v
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 50
+
+Sleep 200
+clearClipboard()
+checkForExpiryDateOnPXSecondLine()
+siebelActivityCommentField()
+
+MouseClick
+Sleep, 50
+MouseClick
+Sleep 50
+SendInput ^{End}
+Sleep 50
 SendInput {Enter}
+Sleep 50
+SendInput {Ctrl Down}
+SendInput {Raw}v
+SendInput {Ctrl Up}
+ClipWait, 1
+Sleep 50
+SendInput {Enter}
+Sleep 50
+SendInput {Enter}
+Sleep 100
 
 
 
-siebelCheckPerscriptionFieldIfPXIsPastedIn()
 
+removeDescriptionField()
+removeCommentsField()
+setTyprOpenedInError()
+setStatusDone()
+
+
+
+
+
+keyFix()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+checkForPatientNameToAppear()
+checkForProgressBar()
 }
 
 BlockInput, MouseMoveOff
@@ -1343,17 +1536,17 @@ SendInput ^{End}
 SendInput +{Home}
 Sleep 50
 Send {Ctrl Down}
-SendInput c
+SendInput {Raw}c
 Send {Ctrl Up}
 ClipWait, 1
-Sleep 100
-if RegExMatch(Clipboard, "(.{9}-.{6}-.{6})", OutputVar)
+Sleep 50
+if RegExMatch(Clipboard, "(EPS.{6}-.{6}-.{6})", OutputVar)
 {
 return
 }
 else
 {
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *100 %A_ScriptDir%\Images\Script_Id.png
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\Script_Id.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1364,11 +1557,11 @@ Sleep 50
 MouseClick
 Sleep 50
 SendInput {Ctrl Down}
-SendInput a
+SendInput {Raw}a
 SendInput {Ctrl Up}
 Sleep 50
 SendInput {Ctrl Down}
-SendInput c
+SendInput {Raw}c
 SendInput {Ctrl Up}
 ClipWait, 1
 Sleep 50
@@ -1386,11 +1579,10 @@ SendInput {backspace}
 Sleep 50
 SendInput {Raw}EPS
 Send {Ctrl Down}
-SendInput v
+SendInput {Raw}v
 Send {Ctrl Up}
 ClipWait 1
-SendInput {Enter}
-Sleep 100
+Sleep 50
 SetDefaultMouseSpeed, 2
 }
 }

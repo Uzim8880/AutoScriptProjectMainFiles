@@ -679,7 +679,6 @@ BlockInput, MouseMove
 
 checkIfCurrentWindowIsCorrectForStockAndCheck()
 checkIfScreenIsScrolledToTop()
-siebelAddOosFlier()
 siebelStockAndCheckOrderStatusChanges()
 keyFix()
 
@@ -824,7 +823,7 @@ lookForNHSOnPX()
 {
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\NHS_Number_Green.png
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *100 %A_ScriptDir%\Images\NHS_Number_Green.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -860,7 +859,7 @@ Break
 }
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\NHS_Number_Purple.png
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *100 %A_ScriptDir%\Images\NHS_Number_Purple.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -909,7 +908,7 @@ checkForMedicationOnPX()
 {
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\Prescribed_Medication_Green.png
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *100 %A_ScriptDir%\Images\Prescribed_Medication_Green.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -948,7 +947,7 @@ else
 Return
 }
 }
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\Prescribed_Medication_Purple.png
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *100 %A_ScriptDir%\Images\Prescribed_Medication_Purple.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1002,7 +1001,7 @@ selectsPXNumberInProScriptAndCopyIt()
 {
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\Script_Id.png
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *100 %A_ScriptDir%\Images\Script_Id.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1046,7 +1045,7 @@ selectsPXNumberInProScriptAndCopyItForDuplicate()
 {
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\Script_Id.png
+ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *100 %A_ScriptDir%\Images\Script_Id.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1385,7 +1384,7 @@ Reload
 
 siebelActivityNewButton()
 {
-Loop, 10
+Loop, 50
 {
 Sleep 200
 ImageSearch OutputVarX, OutputVarY, 565, 570, 613, 593, *100 %A_ScriptDir%\Images\New_Activity_Button.png
@@ -1435,7 +1434,7 @@ SetDefaultMouseSpeed, 2
 
 clickOnNewlyCreatedActivity()
 {
-Loop, 10
+Loop, 20
 {
 Sleep 200
 ImageSearch OutputVarX, OutputVarY, 492, 569, 1265, 720, *50 %A_ScriptDir%\Images\New_Activity_Other.png
@@ -1650,7 +1649,7 @@ selectsEPSReturnPXServiceTemplate()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1276, 680 ; Selects EPS Return Template
+	MouseMove 1276, 679 ; Selects EPS Return Template
 
 MouseClick
 SetDefaultMouseSpeed, 2
@@ -1663,7 +1662,7 @@ selectsEPSShortfallTemplate()
 {
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1278, 655 ; Selects EPS Shortfall Template
+	MouseMove 1275, 659 ; Selects EPS Shortfall Template
 	
 MouseClick
 SetDefaultMouseSpeed, 2
@@ -1738,7 +1737,7 @@ VarPosY := OutputVarY + 30
 MouseMove %VarPosX%, %VarPosY%
 Sleep 50
 MouseClick
-Sleep 100
+Sleep 50
 Break
 }
 else
@@ -1755,7 +1754,7 @@ SetDefaultMouseSpeed, 0
 VarPosX := OutputVarX + 7
 VarPosY := OutputVarY + 7
 MouseMove %VarPosX%, %VarPosY%
-Sleep 50
+Sleep 100
 MouseClick
 Sleep 100
 Break
@@ -1847,11 +1846,11 @@ VarPosY := OutputVarY + 6
 MouseMove %VarPosX%, %VarPosY%
 Sleep 50
 MouseClick
-Sleep 100
+Sleep 50
 MouseMove 0, 40, 0, R
-Sleep 100
+Sleep 50
 MouseClick
-Sleep 100
+Sleep 50
 Break
 }
 else
@@ -1957,6 +1956,10 @@ MouseClick
 Sleep, 50
 MouseClick
 Sleep 50
+SendInput {backspace}
+SendInput {backspace}
+SendInput ^{End}
+SendInput +{Home}
 SendInput {backspace}
 SendInput {backspace}
 SendInput ^{End}
@@ -2143,7 +2146,9 @@ OrderStatusY := 295 ; Y coordinate of the "Order Status" down arrow in new Order
 MouseMove %OrderStatusX%, %OrderStatusY% ; "Order Status" downarrow coordinates in new Order window
 MouseClick
 Sleep 50
-MouseMove 682, 338 ; "Pending" option Coordinates in dropdown menu
+SendInput {Raw}Pending
+Sleep 50
+SendInput {Enter}
 MouseClick
 Sleep 50
 MouseMove 851, 704 ; Stock & Check button Coordinates in  new Order Window
@@ -2154,13 +2159,17 @@ SendInput {Enter}
 MouseMove %OrderStatusX%, %OrderStatusY% ; "Order Status" downarrow coordinates in new Order window
 MouseClick
 Sleep 50
-MouseMove 743, 311 ; "Open" option Coordinates in dropdown menu
+SendInput {Raw}Open
+Sleep 50
+SendInput {Enter}
 MouseClick
 Sleep 50
 MouseMove %OrderStatusX%, %OrderStatusY% ; "Order Status" downarrow coordinates in new Order window
 MouseClick
 Sleep 50
-MouseMove 739, 322 ; "Awaiting Payment" option Coordinates in dropdown menu
+SendInput {Raw}Awaiting Payment
+Sleep 50
+SendInput {Enter}
 MouseClick
 Sleep 50
 SetDefaultMouseSpeed, 2
@@ -2176,6 +2185,7 @@ MouseMove 752, 477 ; "Origin" downarrow field Coordinates (Siebel)
 MouseClick
 Sleep 50
 SendInput {Raw}Prescription - EPS
+Sleep 50
 SendInput {Enter}
 MouseMove 751, 373 ; "Source" downarrow field Coordinates (Siebel)
 MouseClick

@@ -1,31 +1,39 @@
 
-checkForPatientNameToAppear()
-{
-Loop
-{
-	PixelSearch, OutputVarX, OutputVarY, 45, 628, 71, 661, 6666CC, 210, Fast ; Last Name Field Coordinates (Search Box - Siebel)
-if (ErrorLevel != 0)
-return
-else
-SetDefaultMouseSpeed, 0
-click %OutputVarX%, %OutputVarY%
-SetDefaultMouseSpeed, 2
-Return
-}
-}
 
 
 
 
 
-#UseHook
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
+	;======= GLOBAL VARIABLES  ============
 
-^p::
-siebelTypeFieldInActiveNotes()
-return
+	
+	; Alchemy Fields
+	
+global alchemyPosX1 := -927
+global alchemyPosY1 := -9
+global alchemyPosX2 := -5
+global alchemyPosY2 := 1063
+	
+	; Search Box
+	
+global searchBoxPosX1 := 615
+global searchBoxPosY1 := 230
+global searchBoxPosX2 := 1410
+global searchBoxPosY2 := 785
 
+	; Return Script
+
+global returnPosX1 := 537
+global returnPosY1 := 237
+global returnPosX2 := 745
+global returnPosY2 := 367
+
+	; Exemption Reason
+	
+global exemptionPosX1 := 1313
+global exemptionPosY1 := 457
+global exemptionPosX2 := 1569
+global exemptionPosY2 := 525
 
 
 
@@ -44,6 +52,123 @@ CoordMode, Pixel, Screen
 
 #x::ExitApp  ; Win+X
 return
+
+
+
+
+
+
+
+
+    ; ==================================================================== COMPLIMENTARIES ==============================================================
+
+; This script adds shortcuts for adding complimentary items
+
+
+
+#UseHook
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+^1::
+SendInput {Raw}380NCH0001 ; Complimentary Disposal Bags
+
+Return
+
+#UseHook
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+^2::
+SendInput {Raw}380NCH0002 ; Complimentary Dry Wipes
+
+Return
+
+#UseHook
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+^6::
+SendInput {Raw}380NCH0006 ; Complimentary Wet Wipes
+
+Return
+
+#UseHook
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+^5::
+SendInput {Raw}6164411006 ; Complimentary Isagel
+
+Return
+
+#UseHook
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+^4::
+SendInput {Raw}380NLTC034 ; Out Of Stock Flier
+
+Return
+
+
+
+
+
+
+
+
+	; ============================================== ADD ALL COMPS TO ORDER SCRIPT ================================= 
+
+; This script adds all 3 complimentary items to the order (Black Bags x 30, Dry Wipes x 60, Wet Wipes x 1)
+
+#UseHook
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+Left & End::
+BlockInput, MouseMove
+MouseMove 591, 702
+MouseClick
+
+checkForProgressBar()
+
+SendInput {Raw}380NCH0001
+Sleep 50
+SendInput {Tab}
+Sleep 50
+SendInput {Tab}
+Sleep 500
+SendInput {Raw}30
+Sleep 50
+MouseClick
+
+checkForProgressBar()
+
+SendInput {Raw}380NCH0002
+Sleep 50
+SendInput {Tab}
+Sleep 50
+SendInput {Tab}
+Sleep 500
+SendInput {Raw}60
+Sleep 50
+MouseClick
+
+checkForProgressBar()
+
+SendInput {Raw}380NCH0006
+Sleep 50
+SendInput {Tab}
+Sleep 50
+SendInput {Tab}
+Sleep 500
+SendInput {Raw}1
+BlockInput, MouseMoveOff
+Return
+
+
+
 
 
 
@@ -68,30 +193,41 @@ Return
 
 
 
-checkForExpiryDateOnPX2()
-{
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\PX_Expiry_Date_Green.png
-if (ErrorLevel = 0)
-{
-SetDefaultMouseSpeed, 0
-VarPosX := OutputVarX + 120
-VarPosY := OutputVarY + 37
-MouseMove %VarPosX%, %VarPosY%
-}
-else if (ErrorLevel != 0)
-{
-;
-}
-ImageSearch OutputVarX, OutputVarY, -1534, -8, -282, 1064, *150 %A_ScriptDir%\Images\PX_Expiry_Date_Purple.png
-if (ErrorLevel = 0)
-{
-SetDefaultMouseSpeed, 0
-VarPosX := OutputVarX + 120
-VarPosY := OutputVarY + 37
-MouseMove %VarPosX%, %VarPosY%
+
+	; ==================================================================== ARROW KEYS FIXES ==============================================================
+	
+; Those code snippets fix the functionality of arrow keys
+
+#UseHook
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+Up::
+SendInput {Up}
 Return
-}
-}
+
+
+#UseHook
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+Down::
+SendInput {Down}
+Return
+
+
+#UseHook
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+Right::
+SendInput {Right}
+Return
+
+
+#UseHook
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+Left::
+SendInput {Left}
+Return
 
 
 
@@ -100,193 +236,228 @@ Return
 
 
 
+	; ============================================== PX SHORTFALL CORE =====================================================================
 
+; This script works by creating Shortfall activity in Siebel
+; It also copies the PX Number from Alchemy and pastes it into Siebel
+; Of of its' functions is to wait for the blue progress bar in Siebel to appear (after every window change) 
+; It waits until it appears, then it waits until it disappears
+; After that it completes the next step
 
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
 
+Up & Insert::
+SetCapsLockState, off
+BlockInput, MouseMove
 
+checkIfStickyNotesAreRunning()
+checkIfSiebelOrderNoIsCopied()
+checkIfScreenIsScrolledToTop()
+checkIfCurrentWindowIsCorrect()
+siebelActivityTab()
+checkForProgressBar()
+siebelActivityNewButton()
+checkForProgressBar()
+siebelActivityWhiteSpace()
+clickOnNewlyCreatedActivity()
+siebelActivityDescriptionField()
+checkForProgressBar()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-removeCommentsField()
-{
-SetDefaultMouseSpeed, 0
-MouseMove 879, 337
-MouseClick
-MouseClick
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SetDefaultMouseSpeed, 2
-}
-
-
-
-removeDescriptionField()
-{
-SetDefaultMouseSpeed, 0
-MouseMove 882, 275
-MouseClick
-MouseClick
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SetDefaultMouseSpeed, 2
-}
-
-
-
-removeSiebelOrderNoField()
-{
-SetDefaultMouseSpeed, 0
-MouseMove 1338, 404
-MouseClick
-MouseClick
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SendInput ^{End}
-SendInput +{Home}
-SendInput {backspace}
-SendInput {backspace}
-SetDefaultMouseSpeed, 2
-}
-
-
-
-
-setStatusDone()
-{
-SetDefaultMouseSpeed, 0
-MouseMove 935, 380
+Sleep 100
+MouseClick ; Clicks on Description in Activity
 Sleep 50
 MouseClick
 Sleep 50
-MouseMove 936, 409
+SendInput ^q ; Opens up Template Window
 Sleep 50
-MouseClick
-SetDefaultMouseSpeed, 2
-}
 
+checkForTemplateWindow()
 
-
-setTypeOpenedInError()
-{
-SetDefaultMouseSpeed, 0
-MouseMove 715, 279
 Sleep 50
-MouseClick
-Sleep 50
-SendInput {Raw}Opened in Error
-Sleep 50
-SendInput {Enter}
-SetDefaultMouseSpeed, 2
-}
 
+checkIfTemplateWindowIsScrolled()
+selectsShortfallTemplate()
+clicksOnOkInTemplateWindow()
+siebelSiebelOrderNoField()
+clearClipboard()
+copyStickyNotes()
 
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+Sleep 100
 
-copySiebelOrderNumber()
-{
-MouseMove 1093, 647
+siebelActivityCommentField()
+
 MouseClick
 MouseClick
-Sleep 50
-SendInput ^{End}
-Sleep 50
-SendInput +{Home}
-Sleep 50
-Send {Ctrl Down}
-SendInput {Raw}c
-Send {Ctrl Up}
 Sleep 100
 Send {Ctrl Down}
 SendInput {Raw}v
 Send {Ctrl Up}
-ClipWait, 1
+ClipWait
 Sleep 100
-}
+
+siebelSubTypeDownArrow()
+coreOptionCoordinates()
+sourceFieldDownArrowCoordinates()
+clearClipboard()
+
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return ; Script Run finishes
 
 
-siebelFlagContactUnTick()
-{
 
-MouseMove 1613, 839
+
+
+
+
+
+
+	; ============================================== PX SHORTFALL SUPPORTING =====================================================================
+
+; This script works by creating Shortfall activity in Siebel
+; It also copies the PX Number from Alchemy and pastes it into Siebel
+; Of of its' functions is to wait for the blue progress bar in Siebel to appear (after every window change) 
+; It waits until it appears, then it waits until it disappears
+; After that it completes the next step
+
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+Down & Insert::
+SetCapsLockState, off
+BlockInput, MouseMove
+
+checkIfStickyNotesAreRunning()
+checkIfSiebelOrderNoIsCopied()
+checkIfScreenIsScrolledToTop()
+checkIfCurrentWindowIsCorrect()
+siebelActivityTab()
+checkForProgressBar()
+siebelActivityNewButton()
+checkForProgressBar()
+siebelActivityWhiteSpace()
+clickOnNewlyCreatedActivity()
+siebelActivityDescriptionField()
+checkForProgressBar()
+
 Sleep 100
+MouseClick ; Clicks on Description in Activity
+Sleep 50
+MouseClick
+Sleep 50
+SendInput ^q ; Opens up Template Window
+Sleep 50
+
+checkForTemplateWindow()
+
+Sleep 50
+
+checkIfTemplateWindowIsScrolled()
+selectsShortfallTemplate()
+clicksOnOkInTemplateWindow()
+siebelSiebelOrderNoField()
+clearClipboard()
+copyStickyNotes()
+
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+Sleep 100
+
+siebelActivityCommentField()
+
 MouseClick
 MouseClick
-Return
-}
+Sleep 100
+Send {Ctrl Down}
+SendInput {Raw}v
+Send {Ctrl Up}
+ClipWait
+Sleep 100
+
+siebelSubTypeDownArrow()
+supportingOptionCoordinates()
+sourceFieldDownArrowCoordinates()
+clearClipboard()
+
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return ; Script Run finishes
+
+
+
+
+
+
+
+
+	; ============================================== PX SEARCH FOR EVERY PX FROM THE SAME PATIENT =====================================================================
+; This script performs search for every PX from the same patient in Alechemy
+; First, it looks for search button using imagesearch functionality
+; Then it performs rest of the necessary actions 
+
+#UseHook
+SetBatchLines -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+Left & Insert::
+SetCapsLockState, off
+BlockInput, MouseMove
+WinActivate, ahk_pid 5340 ; Opens up Alchemy app by its class
+
+selectsPXNumberInAlchemyAndCopyItForDuplicate()
+alchemyClickOnSearchButton()
+checkForSearchBoxToAppearAlchemy()
+alchemyClickOnBatchNumberInSearchBoxAndDeleteContents()
+alchemyClickOnPrescriptionNoInSearchBoxAndPasteContents()
+alchemyClickOnSearchButtonInSearchBox()
+alchemyGeneralPxListCoordinates()
+
+SetDefaultMouseSpeed, 2
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
+
+
+
+
+
+
+	; ============================================== PX GO BACK TO LAST OPENED BATCH =====================================================================
+; This script performs search for every PX from the same patient in Alechemy
+; First, it looks for search button using imagesearch functionality
+; Then it performs rest of the necessary actions 
+
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+Right & Insert::
+SetCapsLockState, off
+BlockInput, MouseMove
+WinActivate, ahk_pid 5340 ; Opens up Alchemy app by its class
+
+alchemyClickOnSearchButton()
+checkForSearchBoxToAppearAlchemy()
+alchemyClickOnPrescriptionNoInSearchBoxAndDeleteContents()
+alchemyClickOnBatchNumberDownArrowInSearchBox()
+alchemyClickOnSearchButtonInSearchBox()
+alchemyGeneralPxListCoordinates()
+
+SetDefaultMouseSpeed, 2
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
 
 
 
@@ -298,10 +469,7 @@ Return
 
 
 
-
-
-
-
+	; ============================================== PX RETURN =====================================================================
 
 
 #UseHook
@@ -309,18 +477,267 @@ SetBatchLines, -1
 CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
-^Delete::
+Up & Delete::
+global returnPosX1
+global returnPosY1
+global returnPosX2
+global returnPosY2
+SetCapsLockState, off
 BlockInput, MouseMove
 
-Loop, 50
+clearClipboard()
+checkIfScreenIsScrolledToTop()
+checkIfCurrentWindowIsCorrect()
+siebelActivityTab()
+checkForProgressBar()
+siebelActivityNewButton()
+checkForProgressBar()
+siebelActivityWhiteSpace()
+clickOnNewlyCreatedActivity()
+checkForProgressBar()
+siebelActivityDescriptionField()
+
+MouseClick ; Clicks on Description in Activity
+MouseClick
+Sleep 50
+SendInput ^q ; Opens up Template Window
+Sleep 50
+
+checkForTemplateWindow()
+
+Sleep 50
+
+checkIfTemplateWindowIsScrolled()
+selectsReturnToGpTemplate()
+clicksOnOkInTemplateWindow()
+siebelSubTypeDownArrow()
+
+BlockInput, MouseMoveOff
+KeyWait, Up, D
+BlockInput, MouseMove
+SetDefaultMouseSpeed, 0
+	MouseMove 742, 322 ; Clicks on whitespace
+SetDefaultMouseSpeed, 2
+MouseClick
+Sleep 50
+
+Loop
 {
-Sleep 200
-var++
-Gui,help:Add, Text,     , %var%
-Gui,help:+toolwindow
-Gui,help:Show
-sleep,400
-Gui, help: Destroy
+ImageSearch OutputVarX, OutputVarY, %returnPosX1%, %returnPosY1%, %returnPosX2%, %returnPosY2%, *150 %A_ScriptDir%\Return Script\Not_Signed.png
+if (ErrorLevel = 0)
+{
+clearClipboard()
+copyStickyNotes()
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+Sleep 100
+siebelActivityCommentField()
+MouseClick
+MouseClick
+Sleep 50
+Send {Ctrl Down}
+SendInput {Raw}v
+Send {Ctrl Up}
+ClipWait, 1
+Sleep 100
+alchemyRequiresAttentionDownArrow()
+alchemyRequiresAttentionNOO()
+alchemyCommentFieldClear()
+SendInput {Raw}No Signature
+Break
+}
+else if (ErrorLevel != 0)
+{
+;
+}
+ImageSearch OutputVarX, OutputVarY, %returnPosX1%, %returnPosY1%, %returnPosX2%, %returnPosY2%, *150 %A_ScriptDir%\Return Script\Wrong_Product.png
+if (ErrorLevel = 0)
+{
+clearClipboard()
+copyStickyNotes()
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+Sleep 100
+siebelActivityCommentField()
+MouseClick
+MouseClick
+Sleep 50
+Send {Ctrl Down}
+SendInput {Raw}v
+Send {Ctrl Up}
+ClipWait, 1
+Sleep 100
+alchemyRequiresAttentionDownArrow()
+alchemyRequiresAttentionWP()
+alchemyCommentFieldClear()
+SendInput {Raw}RET TO GP
+Break
+}
+else if (ErrorLevel != 0)
+{
+;
+}
+ImageSearch OutputVarX, OutputVarY, %returnPosX1%, %returnPosY1%, %returnPosX2%, %returnPosY2%, *150 %A_ScriptDir%\Return Script\Wrong_Product_2.png
+if (ErrorLevel = 0)
+{
+clearClipboard()
+copyStickyNotes()
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+Sleep 100
+siebelActivityCommentField()
+MouseClick
+MouseClick
+Sleep 50
+Send {Ctrl Down}
+SendInput {Raw}v
+Send {Ctrl Up}
+ClipWait, 1
+Sleep 100
+alchemyRequiresAttentionDownArrow()
+alchemyRequiresAttentionWP()
+alchemyCommentFieldClear()
+SendInput {Raw}RET TO GP
+Break
+}
+else if (ErrorLevel != 0)
+{
+;
+}
+ImageSearch OutputVarX, OutputVarY, %returnPosX1%, %returnPosY1%, %returnPosX2%, %returnPosY2%, *150 %A_ScriptDir%\Return Script\Wrong_Quantity.png
+if (ErrorLevel = 0)
+{
+clearClipboard()
+copyStickyNotes()
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+Sleep 100
+siebelActivityCommentField()
+MouseClick
+MouseClick
+Sleep 50
+Send {Ctrl Down}
+SendInput {Raw}v
+Send {Ctrl Up}
+ClipWait, 1
+Sleep 100
+alchemyRequiresAttentionDownArrow()
+alchemyRequiresAttentionWQ()
+alchemyCommentFieldClear()
+SendInput {Raw}RET TO GP
+Break
+}
+else if (ErrorLevel != 0)
+{
+;
+}
+ImageSearch OutputVarX, OutputVarY, %returnPosX1%, %returnPosY1%, %returnPosX2%, %returnPosY2%, *150 %A_ScriptDir%\Return Script\Missing_Quantity.png
+if (ErrorLevel = 0)
+{
+clearClipboard()
+copyStickyNotes()
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+Sleep 100
+siebelActivityCommentField()
+MouseClick
+MouseClick
+Sleep 50
+Send {Ctrl Down}
+SendInput {Raw}v
+Send {Ctrl Up}
+ClipWait, 1
+Sleep 100
+alchemyRequiresAttentionDownArrow()
+alchemyRequiresAttentionWQ()
+alchemyCommentFieldClear()
+SendInput {Raw}RET TO GP
+Break
+}
+else if (ErrorLevel != 0)
+{
+;
+}
+ImageSearch OutputVarX, OutputVarY, %returnPosX1%, %returnPosY1%, %returnPosX2%, %returnPosY2%, *150 %A_ScriptDir%\Return Script\Medication.png
+if (ErrorLevel = 0)
+{
+clearClipboard()
+copyStickyNotes()
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+Sleep 100
+siebelActivityCommentField()
+MouseClick
+MouseClick
+Sleep 50
+Send {Ctrl Down}
+SendInput {Raw}v
+Send {Ctrl Up}
+ClipWait, 1
+Sleep 100
+alchemyRequiresAttentionDownArrow()
+alchemyRequiresAttentionMedicine()
+alchemyCommentFieldClear()
+SendInput {Raw}MED
+Break
+}
+else if (ErrorLevel != 0)
+{
+;
+}
+ImageSearch OutputVarX, OutputVarY, %returnPosX1%, %returnPosY1%, %returnPosX2%, %returnPosY2%, *150 %A_ScriptDir%\Return Script\Inactive.png
+if (ErrorLevel = 0)
+{
+clearClipboard()
+copyStickyNotes()
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+Sleep 100
+siebelActivityCommentField()
+MouseClick
+MouseClick
+Sleep 50
+Send {Ctrl Down}
+SendInput {Raw}v
+Send {Ctrl Up}
+ClipWait, 1
+Sleep 100
+alchemyRequiresAttentionDownArrow()
+alchemyRequiresAttentionNOO()
+alchemyCommentFieldClear()
+SendInput {Raw}Inactive
+Break
+}
+else if (ErrorLevel != 0)
+{
+;
+}
+ImageSearch OutputVarX, OutputVarY, %returnPosX1%, %returnPosY1%, %returnPosX2%, %returnPosY2%, *150 %A_ScriptDir%\Return Script\Empty.png
+if (ErrorLevel = 0)
+{
+alchemyCommentFieldClear()
+SendInput {Raw}ORDER HAS BEEN CANCELLED
+alchemyRequiresAttentionDownArrow()
+alchemyRequiresAttentionNOO()
+Break
+}
+else if (ErrorLevel != 0)
+{
+;
+}
+}
+
+selectsPXNumberInAlchemyAndCopyItForDuplicate()
+siebelActivityDescriptionField()
+
+MouseClick
+MouseClick
+Sleep 50
+Send {Ctrl Down}
+SendInput {Raw}v
+Send {Ctrl Up}
+ClipWait, 1
+
+checkIfScreenIsScrolledToTopInSearch()
+alchemyMoveToNextPxAndClickPostcode()
+
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return
 
 
 
@@ -329,23 +746,31 @@ Gui, help: Destroy
 
 
 
+	;=============================================== PX RETURN DUPLICATE ==============================================================
+
+; This script works by creating Return activity in Siebel
+; It also copies and pastes PX number and Dupliate product to Siebel
+; Of of its' functions is to wait for the blue progress bar in Siebel to appear (after every window change) 
+; It waits until it appears, then it waits until it disappears
+; After that it completes the next step
 
 
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
 
-
-
-
-
-
-
+Down & Delete::
+SetCapsLockState, off
+FormatTime, CurrentDateTime,, dd/MM/yy
+BlockInput, MouseMove
 clearClipboard()
 checkIfStickyNotesAreRunning()
 checkIfScreenIsScrolledToTop()
 checkIfCurrentWindowIsCorrect()
 siebelClickOnNewInNotes()
 checkForProgressBar()
-siebelClickOnDropDownArrowInNotes()
-siebelSelectDupPxAlert()
+siebelTypeFieldInActiveNotes()
 siebelFlagContactTick()
 selectsPXNumberInAlchemyAndCopyIt()
 siebelDescriptionFieldInActiveNotes()
@@ -360,6 +785,27 @@ SendInput {Enter}
 Sleep 50
 SendInput {Enter}
 
+clearClipboard()
+
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+KeyWait, Down, D
+BlockInput, MouseMove
+
+;alchemyRequiresAttentionDownArrow()
+;alchemyRequiresAttentionNOO()
+;alchemyCommentFieldClear()
+
+;SendInput, DUP {Space}
+;SendInput %CurrentDateTime%
+
+;checkIfScreenIsScrolledToTopInSearch()
+;alchemyMoveToNextPxAndClickPostcode()
+
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
 
 
 
@@ -368,16 +814,72 @@ SendInput {Enter}
 
 
 
+	; ============================================== STOCK & CHECK =====================================================================
 
+; This script performs first part of the Stock & Check 
+; It changes the "Origin" to "Perscription Paper"
+; It changes the "Source" to "Professional Contact"
+; It changes the "Order Status" to "Pending"
+; It clicks on "Stock & Check" button
 
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
 
-siebelFlagContactUnTick()
-checkForPatientNameToAppear()
+Up & End::
+SetDefaultMouseSpeed, 0
+BlockInput, MouseMove
+
+checkIfCurrentWindowIsCorrectForStockAndCheck()
+checkIfScreenIsScrolledToTop()
+siebelSourceAndOriginFields()
+siebelStockAndCheckOrderStatusChanges()
+
+	MouseMove 1077, 206 ; "Go to Contact" button coordinates 
+
+MouseClick
+Sleep 50
+
+	MouseMove 565, 556 ; "AP Order Lines" button coordinates
+
+checkForWindowChangeStockCheck()
 checkForProgressBar()
-}
+Sleep 50	
+MouseClick
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
+
+
+
+
+
+
+
+
+	; ============================================== PARTIAL STOCK & CHECK =====================================================================
+
+; This script performs first part of the Stock & Check 
+; It changes the "Order Status" to "Pending", then to "Awaiting Payment"
+; It clicks on "Stock & Check" button
+
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+Down & End::
+SetDefaultMouseSpeed, 0
+BlockInput, MouseMove
+
+checkIfCurrentWindowIsCorrectForStockAndCheck()
+checkIfScreenIsScrolledToTop()
+siebelAddOosFlier()
+siebelStockAndCheckOrderStatusChanges()
 
 BlockInput, MouseMoveOff
-MsgBox Meczyk wygrany, kurczak podany
+
 Return ; Script Run Finished
 
 
@@ -392,6 +894,91 @@ Return ; Script Run Finished
 
 
 
+	; ===== GAS SCRIPTS =====  
+	
+	
+	
+	; =================== NORMAL PX'S =================== 
+
+
+
+
+	; ============================================== PX GAS ALL + SCRIPT ID COPY + PASTE INTO SIEBEL (NORMAL PX'S // STATUS: COMPLETE) =====================================================================
+
+; This script works by GASsing the entire order
+; Then it checks the color in the specified area ("Team" field Coordinates in Siebel - It retrieves gray color sample from there)
+; When the color changes to white (Since gray color doesn't exist in that position in the next window, it means that window changed) then it executes the rest of the script 
+; Rest of the script includes: Copying Script ID number and pasting it into Siebel and changing the Required Attention field to Complete
+
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+Up & Home::
+SetCapsLockState, off
+BlockInput, MouseMove
+
+clearClipboard()
+checkIfScreenIsScrolledToTop()
+checkIfCurrentWindowIsCorrect()
+siebelAutoGASAllButton()
+selectsPXNumberInAlchemyAndCopyIt()
+siebelPerscriptionNoField()
+checkForWindowChangeGas()
+siebelPerscriptionNoFieldClearAndPastePX()
+clearClipboard()
+siebelCheckPerscriptionFieldIfPXIsPastedIn()
+alchemyRequiresAttentionDownArrow()
+alchemyRequiresAttentionComplete()
+checkIfScreenIsScrolledToTopInSearch()
+alchemyMoveToNextPxAndClickPostcode()
+
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
+
+
+
+
+
+
+
+
+	; ============================================== PX GAS ALL + SCRIPT ID COPY + PASTE INTO SIEBEL (NORMAL PX'S // STATUS: OTHER) =====================================================================
+
+; This script works by GASsing the entire order
+; Then it checks the color in the specified area ("Team" field Coordinates in Siebel - It retrieves gray color sample from there)
+; When the color changes to white (Since gray color doesn't exist in that position in the next window, it means that window changed) then it executes the rest of the script 
+; Rest of the script includes: Copying Script ID number and pasting it into Siebel and clicking the Required Attention field down arrow
+
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+Down & Home::
+SetCapsLockState, off
+BlockInput, MouseMove
+
+clearClipboard()
+checkIfScreenIsScrolledToTop()
+checkIfCurrentWindowIsCorrect()
+checkForExemptionReason()
+siebelAutoGASAllButton()
+selectsPXNumberInAlchemyAndCopyIt()
+siebelPerscriptionNoField()
+checkForWindowChangeGas()
+siebelPerscriptionNoFieldClearAndPastePX()
+clearClipboard()
+siebelCheckPerscriptionFieldIfPXIsPastedIn()
+alchemyRequiresAttentionDownArrow()
+
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
 
 
 
@@ -401,6 +988,39 @@ Return ; Script Run Finished
 
 
 
+	; ============================================== PX GAS SELECTED + SCRIPT ID COPY + PASTE INTO SIEBEL (NORMAL PX'S // STATUS: COMPLETE) =====================================================================
+
+; This script copies the Script ID from Alchemy, then pastes it into Siebel into "Perscription NO" field and changes "Requires Attention" field to "Complete"
+
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+Right & Home::
+SetCapsLockState, off
+BlockInput, MouseMove
+
+clearClipboard()
+checkIfScreenIsScrolledToTop()
+checkIfCurrentWindowIsCorrect()
+clicksOnWhitespaceInSiebelForAutoGasSelected()
+siebelAutoGASSelectedButton()
+selectsPXNumberInAlchemyAndCopyIt()
+siebelPerscriptionNoField()
+checkForWindowChangeGas()
+siebelPerscriptionNoFieldClearAndPastePX()
+clearClipboard()
+siebelCheckPerscriptionFieldIfPXIsPastedIn()
+alchemyRequiresAttentionDownArrow()
+alchemyRequiresAttentionComplete()
+checkIfScreenIsScrolledToTopInSearch()
+alchemyMoveToNextPxAndClickPostcode()
+
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
 
 
 
@@ -410,9 +1030,375 @@ Return ; Script Run Finished
 
 
 
+	; ============================================== PX GAS SELECTED + SCRIPT ID COPY + PASTE INTO SIEBEL (NORMAL PX'S // STATUS: OTHER) =====================================================================
+
+; This script copies the Script ID from Alchemy, then pastes it into Siebel into "Perscription NO" field and clicks the Required Attention field down arrow
+
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+Left & Home::
+SetCapsLockState, off
+BlockInput, MouseMove
+
+clearClipboard()
+checkIfScreenIsScrolledToTop()
+checkIfCurrentWindowIsCorrect()
+checkForExemptionReason()
+clicksOnWhitespaceInSiebelForAutoGasSelected()
+siebelAutoGASSelectedButton()
+selectsPXNumberInAlchemyAndCopyIt()
+siebelPerscriptionNoField()
+checkForWindowChangeGas()
+siebelPerscriptionNoFieldClearAndPastePX()
+clearClipboard()
+siebelCheckPerscriptionFieldIfPXIsPastedIn()
+alchemyRequiresAttentionDownArrow()
+
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
 
 
 
+
+
+
+
+
+	; =================== ISLE OF MAN PX'S =================== 
+
+
+
+
+	; ============================================== PX GAS ALL + SCRIPT ID COPY + PASTE INTO SIEBEL (ISLE OF MAN PX'S // STATUS: COMPLETE) =====================================================================
+
+; This script works by GASsing the entire order
+; Then it checks the color in the specified area ("Team" field Coordinates in Siebel - It retrieves gray color sample from there)
+; When the color changes to white (Since gray color doesn't exist in that position in the next window, it means that window changed) then it executes the rest of the script 
+; Rest of the script includes: Copying Script ID number and pasting it into Siebel and changing the Required Attention field to Complete
+
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+Up & PgUp::
+SetCapsLockState, off
+BlockInput, MouseMove
+
+clearClipboard()
+checkIfScreenIsScrolledToTop()
+checkIfCurrentWindowIsCorrect()
+siebelAutoGASAllButton()
+selectsPXNumberInAlchemyAndCopyItForIsleOfMan()
+siebelPerscriptionNoField()
+checkForWindowChangeGas()
+siebelPerscriptionNoFieldClearAndPastePX()
+clearClipboard()
+siebelCheckPerscriptionFieldIfPXIsPastedIn()
+alchemyRequiresAttentionDownArrow()
+alchemyRequiresAttentionComplete()
+checkIfScreenIsScrolledToTopInSearch()
+alchemyMoveToNextPxAndClickPostcode()
+
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
+
+
+
+
+
+
+
+
+	; ============================================== PX GAS ALL + SCRIPT ID COPY + PASTE INTO SIEBEL (ISLE OF MAN PX'S // STATUS: OTHER) =====================================================================
+
+; This script works by GASsing the entire order
+; Then it checks the color in the specified area ("Team" field Coordinates in Siebel - It retrieves gray color sample from there)
+; When the color changes to white (Since gray color doesn't exist in that position in the next window, it means that window changed) then it executes the rest of the script 
+; Rest of the script includes: Copying Script ID number and pasting it into Siebel and clicking the Required Attention field down arrow
+
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+Down & PgUp::
+SetCapsLockState, off
+BlockInput, MouseMove
+
+clearClipboard()
+checkIfScreenIsScrolledToTop()
+checkIfCurrentWindowIsCorrect()
+checkForExemptionReasonIsleOfMan()
+siebelAutoGASAllButton()
+selectsPXNumberInAlchemyAndCopyItForIsleOfMan()
+siebelPerscriptionNoField()
+checkForWindowChangeGas()
+siebelPerscriptionNoFieldClearAndPastePX()
+clearClipboard()
+siebelCheckPerscriptionFieldIfPXIsPastedIn()
+alchemyRequiresAttentionDownArrow()
+
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
+
+
+
+
+
+
+
+
+
+	; ============================================== PX GAS SELECTED + SCRIPT ID COPY + PASTE INTO SIEBEL (ISLE OF MAN PX'S // STATUS: COMPLETE) =====================================================================
+
+; This script copies the Script ID from Alchemy, then pastes it into Siebel into "Perscription NO" field and changes "Requires Attention" field to "Complete"
+
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+Right & PgUp::
+SetCapsLockState, off
+BlockInput, MouseMove
+
+clearClipboard()
+checkIfScreenIsScrolledToTop()
+checkIfCurrentWindowIsCorrect()
+clicksOnWhitespaceInSiebelForAutoGasSelected()
+siebelAutoGASSelectedButton()
+selectsPXNumberInAlchemyAndCopyItForIsleOfMan()
+siebelPerscriptionNoField()
+checkForWindowChangeGas()
+siebelPerscriptionNoFieldClearAndPastePX()
+clearClipboard()
+siebelCheckPerscriptionFieldIfPXIsPastedIn()
+alchemyRequiresAttentionDownArrow()
+alchemyRequiresAttentionComplete()
+checkIfScreenIsScrolledToTopInSearch()
+alchemyMoveToNextPxAndClickPostcode()
+
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
+
+
+
+
+
+
+
+
+	; ============================================== PX GAS SELECTED + SCRIPT ID COPY + PASTE INTO SIEBEL (ISLE OF MAN PX'S // STATUS: OTHER) =====================================================================
+
+; This script copies the Script ID from Alchemy, then pastes it into Siebel into "Perscription NO" field and clicks the Required Attention field down arrow
+
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+Left & PgUp::
+SetCapsLockState, off
+BlockInput, MouseMove
+
+clearClipboard()
+checkIfScreenIsScrolledToTop()
+checkIfCurrentWindowIsCorrect()
+checkForExemptionReasonIsleOfMan()
+clicksOnWhitespaceInSiebelForAutoGasSelected()
+siebelAutoGASSelectedButton()
+selectsPXNumberInAlchemyAndCopyItForIsleOfMan()
+siebelPerscriptionNoField()
+checkForWindowChangeGas()
+siebelPerscriptionNoFieldClearAndPastePX()
+clearClipboard()
+siebelCheckPerscriptionFieldIfPXIsPastedIn()
+alchemyRequiresAttentionDownArrow()
+
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
+
+
+
+
+
+
+
+
+	; =================== SCOTTISH PX'S =================== 
+
+
+
+
+	; ============================================== STOMA // PX GAS ALL + SCRIPT ID COPY + PASTE INTO SIEBEL (SCOTTISH PX'S) =====================================================================
+
+; This script works by GASsing the entire order
+; Then it checks the color in the specified area ("Team" field Coordinates in Siebel - It retrieves gray color sample from there)
+; When the color changes to white (Since gray color doesn't exist in that position in the next window, it means that window changed) then it executes the rest of the script 
+; Rest of the script includes: Copying Script ID number and pasting it into Siebel
+
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+Up & PgDn::
+SetCapsLockState, off
+BlockInput, MouseMove
+
+clearClipboard()
+checkIfScreenIsScrolledToTop()
+checkIfCurrentWindowIsCorrect()
+checkForExemptionReasonScottishStoma()
+siebelAutoGASAllButton()
+selectsPXNumberInAlchemyAndCopyIt()
+siebelPerscriptionNoField()
+checkForWindowChangeGas()
+siebelPerscriptionNoFieldClearAndPastePX()
+clearClipboard()
+siebelCheckPerscriptionFieldIfPXIsPastedIn()
+insertDelScottishPx()
+alchemyRequiresAttentionDownArrow()
+
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
+
+
+
+
+
+
+
+
+	; ============================================== STOMA // PX GAS SELECTED + SCRIPT ID COPY + PASTE INTO SIEBEL (SCOTTISH PX'S) =====================================================================
+
+; This script works by GASsing the entire order
+; Then it checks the color in the specified area ("Team" field Coordinates in Siebel - It retrieves gray color sample from there)
+; When the color changes to white (Since gray color doesn't exist in that position in the next window, it means that window changed) then it executes the rest of the script 
+; Rest of the script includes: Copying Script ID number and pasting it into Siebel 
+
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+Down & PgDn::
+SetCapsLockState, off
+BlockInput, MouseMove
+
+clearClipboard()
+checkIfScreenIsScrolledToTop()
+checkIfCurrentWindowIsCorrect()
+checkForExemptionReasonScottishStoma()
+clicksOnWhitespaceInSiebelForAutoGasSelected()
+siebelAutoGASSelectedButton()
+selectsPXNumberInAlchemyAndCopyIt()
+siebelPerscriptionNoField()
+checkForWindowChangeGas()
+siebelPerscriptionNoFieldClearAndPastePX()
+clearClipboard()
+siebelCheckPerscriptionFieldIfPXIsPastedIn()
+insertDelScottishPx()
+alchemyRequiresAttentionDownArrow()
+
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
+
+
+
+
+
+
+
+
+	; ============================================== CONTINENCE // PX GAS ALL + SCRIPT ID COPY + PASTE INTO SIEBEL (SCOTTISH PX'S) =====================================================================
+
+; This script copies the Script ID from Alchemy, then pastes it into Siebel into "Perscription NO" field 
+
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+Right & PgDn::
+SetCapsLockState, off
+BlockInput, MouseMove
+
+clearClipboard()
+checkIfScreenIsScrolledToTop()
+checkIfCurrentWindowIsCorrect()
+checkForExemptionReasonScottishContinence()
+siebelAutoGASAllButton()
+selectsPXNumberInAlchemyAndCopyIt()
+siebelPerscriptionNoField()
+checkForWindowChangeGas()
+siebelPerscriptionNoFieldClearAndPastePX()
+clearClipboard()
+siebelCheckPerscriptionFieldIfPXIsPastedIn()
+alchemyRequiresAttentionDownArrow()
+
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
+
+
+
+
+
+
+
+
+
+	; ============================================== CONTINENCE // PX GAS SELECTED + SCRIPT ID COPY + PASTE INTO SIEBEL (SCOTTISH PX'S) =====================================================================
+
+; This script copies the Script ID from Alchemy, then pastes it into Siebel into "Perscription NO" field 
+
+#UseHook
+SetBatchLines, -1
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+
+Left & PgDn::
+SetCapsLockState, off
+BlockInput, MouseMove
+
+clearClipboard()
+checkIfScreenIsScrolledToTop()
+checkIfCurrentWindowIsCorrect()
+checkForExemptionReasonScottishContinence()
+clicksOnWhitespaceInSiebelForAutoGasSelected()
+siebelAutoGASSelectedButton()
+selectsPXNumberInAlchemyAndCopyIt()
+siebelPerscriptionNoField()
+checkForWindowChangeGas()
+siebelPerscriptionNoFieldClearAndPastePX()
+clearClipboard()
+siebelCheckPerscriptionFieldIfPXIsPastedIn()
+alchemyRequiresAttentionDownArrow()
+
+SetCapsLockState, on
+BlockInput, MouseMoveOff
+
+Return ; Script Run Finished
 
 
 
@@ -435,8 +1421,8 @@ Return ; Script Run Finished
 	
 	
 	; ====================== ALCHEMY FUNCTIONS ========================
-	
-	
+
+
 	; === General Alchemy Functions ===
 
 	
@@ -444,10 +1430,14 @@ Return ; Script Run Finished
 
 selectsPXNumberInAlchemyAndCopyIt()
 {
+global alchemyPosX1
+global alchemyPosY1
+global alchemyPosX2
+global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -927, -9, -5, 1063, *50 %A_ScriptDir%\Misc\Perscription_No.png
+ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Perscription_No.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -490,10 +1480,14 @@ Reload
 
 selectsPXNumberInAlchemyAndCopyItForIsleOfMan()
 {
+global alchemyPosX1
+global alchemyPosY1
+global alchemyPosX2
+global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -927, -9, -5, 1063, *50 %A_ScriptDir%\Misc\Perscription_No.png
+ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Perscription_No.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -536,10 +1530,14 @@ Reload
 
 selectsPXNumberInAlchemyAndCopyItForDuplicate()
 {
+global alchemyPosX1
+global alchemyPosY1
+global alchemyPosX2
+global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -927, -9, -5, 1063, *50 %A_ScriptDir%\Misc\Perscription_No.png
+ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Perscription_No.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -577,10 +1575,14 @@ Reload
 
 alchemyMoveToNextPxAndClickPostcode()
 {
+global alchemyPosX1
+global alchemyPosY1
+global alchemyPosX2
+global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -927, -9, -5, 1063, *50 %A_ScriptDir%\Misc\Additional_Comments.png
+ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Additional_Comments.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -617,10 +1619,14 @@ Reload
 
 alchemyRequiresAttentionDownArrow()
 {
+global alchemyPosX1
+global alchemyPosY1
+global alchemyPosX2
+global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -927, -9, -5, 1063, *50 %A_ScriptDir%\Return Script\Down_Arrow.png
+ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Return Script\Down_Arrow.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -679,10 +1685,14 @@ SendInput {Enter}
 
 alchemyCommentFieldClear()
 {
+global alchemyPosX1
+global alchemyPosY1
+global alchemyPosX2
+global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -927, -9, -5, 1063, *50 %A_ScriptDir%\Misc\Additional_Comments.png
+ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Additional_Comments.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -715,10 +1725,14 @@ Reload
 
 alchemyCommentField()
 {
+global alchemyPosX1
+global alchemyPosY1
+global alchemyPosX2
+global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -927, -9, -5, 1063, *50 %A_ScriptDir%\Misc\Additional_Comments.png
+ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Additional_Comments.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -744,6 +1758,7 @@ Reload
 
 alchemyClickOnSearchButton()
 {
+WinActivate, Alchemy Index Station - \\Remote
 Loop, 5
 {
 ImageSearch OutputVarX, OutputVarY, -1920, -10, -6, 488, *150 %A_ScriptDir%\Misc\Alchemy_Search_Button.png
@@ -770,11 +1785,51 @@ Return
 
 
 
+
+
+
+
+
+
+
+	; =================================== Alchemy Search Box ========================================
+
+
+
+
+checkForSearchBoxToAppearAlchemy()
+{
+Loop, 20
+{
+global searchBoxPosX1
+global searchBoxPosY1
+global searchBoxPosX2
+global searchBoxPosY2
+ImageSearch OutputVarX, OutputVarY, %searchBoxPosX1%, %searchBoxPosY1%, %searchBoxPosX2%, %searchBoxPosY2%,, *150 %A_ScriptDir%\Misc\Alchemy_Search_Box.png
+if (ErrorLevel = 0)
+{
+Return
+}
+ImageSearch OutputVarX, OutputVarY, %searchBoxPosX1%, %searchBoxPosY1%, %searchBoxPosX2%, %searchBoxPosY2%,, *150 %A_ScriptDir%\Misc\Alchemy_Search_Box_Unfocused.png
+if (ErrorLevel = 0)
+{
+Return
+}
+}
+}
+
+
+
 alchemyClickOnBatchNumberInSearchBoxAndDeleteContents()
 {
-Loop, 5
+global searchBoxPosX1
+global searchBoxPosY1
+global searchBoxPosX2
+global searchBoxPosY2
+WinActivate, Alchemy Index Station - \\Remote
+Loop, 20
 {
-ImageSearch OutputVarX, OutputVarY, 501, 423, 734, 625, *150 %A_ScriptDir%\Misc\Batch_Number_Search_Box.png
+ImageSearch OutputVarX, OutputVarY, %searchBoxPosX1%, %searchBoxPosY1%, %searchBoxPosX2%, %searchBoxPosY2%, *150 %A_ScriptDir%\Misc\Batch_Number_Search_Box.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -795,9 +1850,9 @@ Return
 }
 else
 {
-Sleep 100
+Sleep 200
 }
-MsgBox Could not find the Alchemy search box. Press F12 to exit 
+MsgBox Could not find the Alchemy search box Batch Number Field. Press F12 to exit 
 BlockInput, MouseMoveOff
 Return
 }
@@ -808,9 +1863,14 @@ Return
 
 alchemyClickOnPrescriptionNoInSearchBoxAndPasteContents()
 {
-Loop, 5
+global searchBoxPosX1
+global searchBoxPosY1
+global searchBoxPosX2
+global searchBoxPosY2
+WinActivate, Alchemy Index Station - \\Remote
+Loop, 20
 {
-ImageSearch OutputVarX, OutputVarY, 501, 423, 734, 625, *150 %A_ScriptDir%\Misc\Prescription_No_Search_Box.png
+ImageSearch OutputVarX, OutputVarY, %searchBoxPosX1%, %searchBoxPosY1%, %searchBoxPosX2%, %searchBoxPosY2%, *100 %A_ScriptDir%\Misc\Prescription_No_Search_Box.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -830,15 +1890,15 @@ SendInput {Backspace}
 SendInput {Backspace}
 SendInput {Backspace}
 SendInput {Backspace}
-Send *
+SendInput *
 SetDefaultMouseSpeed, 2
 Return
 }
 else
 {
-Sleep 100
+Sleep 200
 }
-MsgBox Could not find the Alchemy search box. Press F12 to exit 
+MsgBox Could not find the Alchemy search box Prescription Field. Press F12 to exit 
 BlockInput, MouseMoveOff
 Return
 }
@@ -849,9 +1909,14 @@ Return
 
 alchemyClickOnSearchButtonInSearchBox()
 {
-Loop, 5
+global searchBoxPosX1
+global searchBoxPosY1
+global searchBoxPosX2
+global searchBoxPosY2
+WinActivate, Alchemy Index Station - \\Remote
+Loop, 20
 {
-ImageSearch OutputVarX, OutputVarY, 449, 316, 1066, 717, *150 %A_ScriptDir%\Misc\Alchemy_Search_Button_Search_Box.png
+ImageSearch OutputVarX, OutputVarY, %searchBoxPosX1%, %searchBoxPosY1%, %searchBoxPosX2%, %searchBoxPosY2%, *150 %A_ScriptDir%\Misc\Alchemy_Search_Button_Search_Box.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -865,9 +1930,9 @@ Return
 }
 else 
 {
-Sleep 100
+Sleep 200
 }
-MsgBox Could not find the Alchemy search box. Press F12 to exit 
+MsgBox Could not find the Alchemy search box Search Button. Press F12 to exit 
 BlockInput, MouseMoveOff
 Return
 }
@@ -878,9 +1943,14 @@ Return
 
 alchemyClickOnPrescriptionNoInSearchBoxAndDeleteContents()
 {
-Loop, 5
+global searchBoxPosX1
+global searchBoxPosY1
+global searchBoxPosX2
+global searchBoxPosY2
+WinActivate, Alchemy Index Station - \\Remote
+Loop, 20
 {
-ImageSearch OutputVarX, OutputVarY, 501, 423, 734, 625, *150 %A_ScriptDir%\Misc\Prescription_No_Search_Box.png
+ImageSearch OutputVarX, OutputVarY, %searchBoxPosX1%, %searchBoxPosY1%, %searchBoxPosX2%, %searchBoxPosY2%, *150 %A_ScriptDir%\Misc\Prescription_No_Search_Box.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -890,10 +1960,11 @@ MouseMove %VarPosX%, %VarPosY%
 Sleep 50
 MouseClick
 Sleep 50
+MouseClick
+Sleep 50
 SendInput ^{End}
-Sleep 50
 SendInput +{Home}
-Sleep 50
+SendInput {Backspace}
 SendInput {Backspace}
 ClipWait, 1
 SetDefaultMouseSpeed, 2
@@ -901,9 +1972,9 @@ Return
 }
 else 
 {
-Sleep 100
+Sleep 200
 }
-MsgBox Could not find the Alchemy search box. Press F12 to exit 
+MsgBox Could not find the Alchemy search box Prescription Field. Press F12 to exit 
 BlockInput, MouseMoveOff
 Return
 }
@@ -914,9 +1985,14 @@ Return
 
 alchemyClickOnBatchNumberDownArrowInSearchBox()
 {
-Loop, 5
+global searchBoxPosX1
+global searchBoxPosY1
+global searchBoxPosX2
+global searchBoxPosY2
+WinActivate, Alchemy Index Station - \\Remote
+Loop, 20
 {
-ImageSearch OutputVarX, OutputVarY, 501, 423, 734, 625, *150 %A_ScriptDir%\Misc\Batch_Number_Search_Box.png
+ImageSearch OutputVarX, OutputVarY, %searchBoxPosX1%, %searchBoxPosY1%, %searchBoxPosX2%, %searchBoxPosY2%, *150 %A_ScriptDir%\Misc\Batch_Number_Search_Box.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -934,9 +2010,9 @@ Return
 }
 else 
 {
-Sleep 100
+Sleep 200
 }
-MsgBox Could not find the Alchemy search box. Press F12 to exit 
+MsgBox Could not find the Alchemy search box Batch Number Down Arrow. Press F12 to exit 
 BlockInput, MouseMoveOff
 Return
 }
@@ -1290,25 +2366,50 @@ SetDefaultMouseSpeed, 2
 
 
 
-siebelClickOnDropDownArrowInNotes()
+siebelTypeFieldInActiveNotes()
+{
+Loop, 5
+{
+ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *100 %A_ScriptDir%\Misc\Type_Field_Active_Notes.png
+if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
-MouseMove 1593, 841 ; Moves over Typ dropdown menu arrow in Active Notes on AP Order Lines  
-SetDefaultMouseSpeed, 2
+VarPosX := OutputVarX + 6
+VarPosY := OutputVarY + 28
+MouseMove %VarPosX%, %VarPosY%
+Sleep 50
+MouseClick
+Sleep 50
+Break
 }
-
-
-
-
-siebelSelectDupPxAlert()
+else
+{
+Sleep 50
+}
+}
+Loop, 5
+{
+ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *100 %A_ScriptDir%\Misc\Type_Field_Active_Notes_Down_Arrow.png
+if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
-MouseClick ; Clicks on dropdown arrow in newly created Active Note (If Flag Contact collumn is before Type collumn in siebel then add another MouseClick to fix the error)
+VarPosX := OutputVarX + 6
+VarPosY := OutputVarY + 6
+MouseMove %VarPosX%, %VarPosY%
 Sleep 50
-MouseMove 1598, 882 ; Moves over Duplicate Perscription Alert
-MouseClick ; Clicks on Duplicate Perscription Alert
+MouseClick
 Sleep 50
-SetDefaultMouseSpeed, 2
+MouseMove 0, 40, 0, R
+Sleep 50
+MouseClick
+Sleep 50
+Break
+}
+else
+{
+Sleep 50
+}
+}
 }
 
 
@@ -1401,54 +2502,6 @@ Sleep 50
 }
 }
 
-
-
-
-siebelTypeFieldInActiveNotes()
-{
-Loop, 5
-{
-ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *100 %A_ScriptDir%\Misc\Type_Field_Active_Notes.png
-if (ErrorLevel = 0)
-{
-SetDefaultMouseSpeed, 0
-VarPosX := OutputVarX + 6
-VarPosY := OutputVarY + 28
-MouseMove %VarPosX%, %VarPosY%
-Sleep 50
-MouseClick
-Sleep 50
-Break
-}
-else
-{
-Sleep 50
-}
-}
-Loop, 5
-{
-ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *100 %A_ScriptDir%\Misc\Type_Field_Active_Notes_Down_Arrow.png
-if (ErrorLevel = 0)
-{
-SetDefaultMouseSpeed, 0
-VarPosX := OutputVarX + 6
-VarPosY := OutputVarY + 6
-MouseMove %VarPosX%, %VarPosY%
-Sleep 50
-MouseClick
-Sleep 50
-MouseMove 0, 40, 0, R
-Sleep 50
-MouseClick
-Sleep 50
-Break
-}
-else
-{
-Sleep 50
-}
-}
-}
 
 
 
@@ -1722,22 +2775,6 @@ Return
 }
 
 
-
-
-checkForSearchBoxToAppearAlchemy()
-{
-Sleep 100
-	PixelGetColor, color, 967, 543 ; Gray field in search box coordinates
-While color = 0xFFFFFF
-{
-	PixelGetColor, color, 967, 543 
-Sleep 10
-}
-}
-
-
-
-
 checkForWindowChangeGas()
 {
 	PixelGetColor, color, 691, 526 ; "Team" field Coordinates (Siebel - gray color sample) - Loop looks for white color to appear at these coordinates before moving forward
@@ -1772,9 +2809,13 @@ Sleep 10
 
 checkForExemptionReason()
 {
-Loop
+global exemptionPosX1
+global exemptionPosY1
+global exemptionPosX2
+global exemptionPosY2
+Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
 if (ErrorLevel = 0)
 {
 Break
@@ -1783,7 +2824,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Under-16-years-of-age.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Under-16-years-of-age.png
 if (ErrorLevel = 0)
 {
 Break
@@ -1792,7 +2833,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\16-17-18.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\16-17-18.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -1803,7 +2844,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Maternity-Exemption.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Maternity-Exemption.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -1814,7 +2855,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Medical-Exemption.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Medical-Exemption.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -1825,7 +2866,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Prescription-Pre-Payment.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Prescription-Pre-Payment.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -1836,7 +2877,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\War-Pension.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\War-Pension.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -1847,7 +2888,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\HC2-Charges-Certificate.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\HC2-Charges-Certificate.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -1858,7 +2899,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Income-Support.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Income-Support.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -1869,7 +2910,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Income-Based.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Income-Based.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -1880,7 +2921,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Tax-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Tax-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -1891,7 +2932,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Partner-Pension-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Partner-Pension-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -1902,7 +2943,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Unknown.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Unknown.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -1913,7 +2954,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Not-Exempt.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Not-Exempt.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -1924,7 +2965,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Wales-Scot-Not-Exempt.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Wales-Scot-Not-Exempt.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -1935,7 +2976,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Universal-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Universal-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -1946,7 +2987,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Exemption-Cert-Issued-By-MOD.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Exemption-Cert-Issued-By-MOD.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -1970,9 +3011,13 @@ Return
 
 checkForExemptionReasonIsleOfMan()
 {
-Loop
+global exemptionPosX1
+global exemptionPosY1
+global exemptionPosX2
+global exemptionPosY2
+Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
 if (ErrorLevel = 0)
 {
 Break
@@ -1981,7 +3026,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Under-16-years-of-age.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Under-16-years-of-age.png
 if (ErrorLevel = 0)
 {
 Break
@@ -1990,7 +3035,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\16-17-18.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\16-17-18.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2001,7 +3046,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Maternity-Exemption.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Maternity-Exemption.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2012,7 +3057,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Medical-Exemption.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Medical-Exemption.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2023,7 +3068,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Prescription-Pre-Payment.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Prescription-Pre-Payment.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2034,7 +3079,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\War-Pension.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\War-Pension.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2045,7 +3090,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\HC2-Charges-Certificate.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\HC2-Charges-Certificate.png
 if (ErrorLevel = 0)
 {
 MsgBox This PX is not of Isle of Man type. Press F12 to exit
@@ -2055,7 +3100,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Income-Support.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Income-Support.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2066,7 +3111,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Income-Based.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Income-Based.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2077,7 +3122,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Tax-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Tax-Credit.png
 if (ErrorLevel = 0)
 {
 MsgBox This PX is not of Isle of Man type. Press F12 to exit
@@ -2087,7 +3132,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Partner-Pension-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Partner-Pension-Credit.png
 if (ErrorLevel = 0)
 {
 MsgBox This PX is not of Isle of Man type. Press F12 to exit
@@ -2097,7 +3142,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Unknown.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Unknown.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2108,7 +3153,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Not-Exempt.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Not-Exempt.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2119,7 +3164,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Wales-Scot-Not-Exempt.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Wales-Scot-Not-Exempt.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2130,7 +3175,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Universal-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Universal-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2141,7 +3186,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Exemption-Cert-Issued-By-MOD.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Exemption-Cert-Issued-By-MOD.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2165,9 +3210,13 @@ Return
 
 checkForExemptionReasonScottishStoma()
 {
-Loop
+global exemptionPosX1
+global exemptionPosY1
+global exemptionPosX2
+global exemptionPosY2
+Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2178,7 +3227,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Under-16-years-of-age.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Under-16-years-of-age.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2189,7 +3238,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\16-17-18.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\16-17-18.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2200,7 +3249,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Maternity-Exemption.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Maternity-Exemption.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2211,7 +3260,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Medical-Exemption.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Medical-Exemption.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2222,7 +3271,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Prescription-Pre-Payment.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Prescription-Pre-Payment.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2233,7 +3282,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\War-Pension.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\War-Pension.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2244,7 +3293,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\HC2-Charges-Certificate.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\HC2-Charges-Certificate.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2255,7 +3304,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Income-Support.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Income-Support.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2266,7 +3315,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Income-Based.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Income-Based.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2277,7 +3326,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Tax-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Tax-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2288,7 +3337,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Partner-Pension-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Partner-Pension-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2299,7 +3348,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Unknown.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Unknown.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2310,7 +3359,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Not-Exempt.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Not-Exempt.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2321,7 +3370,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Wales-Scot-Not-Exempt.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Wales-Scot-Not-Exempt.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2332,7 +3381,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Universal-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Universal-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2343,7 +3392,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Exemption-Cert-Issued-By-MOD.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Exemption-Cert-Issued-By-MOD.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2367,9 +3416,13 @@ Return
 
 checkForExemptionReasonScottishContinence()
 {
-Loop
+global exemptionPosX1
+global exemptionPosY1
+global exemptionPosX2
+global exemptionPosY2
+Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
 if (ErrorLevel = 0)
 {
 Break
@@ -2378,7 +3431,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Under-16-years-of-age.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Under-16-years-of-age.png
 if (ErrorLevel = 0)
 {
 Break
@@ -2387,7 +3440,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\16-17-18.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\16-17-18.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2398,7 +3451,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Maternity-Exemption.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Maternity-Exemption.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2409,7 +3462,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Medical-Exemption.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Medical-Exemption.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2420,7 +3473,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Prescription-Pre-Payment.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Prescription-Pre-Payment.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2431,7 +3484,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\War-Pension.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\War-Pension.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2442,7 +3495,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\HC2-Charges-Certificate.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\HC2-Charges-Certificate.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2453,7 +3506,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Income-Support.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Income-Support.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2464,7 +3517,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Income-Based.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Income-Based.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2475,7 +3528,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Tax-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Tax-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2486,7 +3539,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Partner-Pension-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Partner-Pension-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2497,7 +3550,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Unknown.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Unknown.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2508,7 +3561,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Not-Exempt.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Not-Exempt.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2519,7 +3572,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Wales-Scot-Not-Exempt.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Wales-Scot-Not-Exempt.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2530,7 +3583,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Universal-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Universal-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2541,7 +3594,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Exemption-Cert-Issued-By-MOD.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Exemption-Cert-Issued-By-MOD.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()

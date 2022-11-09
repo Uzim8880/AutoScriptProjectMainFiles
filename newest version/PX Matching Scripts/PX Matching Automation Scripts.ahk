@@ -1,10 +1,43 @@
-﻿#UseHook
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
+﻿
 
-^p::
-checkIfScreenIsScrolledToTopInSearch()
-return
+
+
+
+
+	;======= GLOBAL VARIABLES  ============
+
+	
+	; Alchemy Fields
+	
+global alchemyPosX1 := -927
+global alchemyPosY1 := -9
+global alchemyPosX2 := -5
+global alchemyPosY2 := 1063
+	
+	; Search Box
+	
+global searchBoxPosX1 := 615
+global searchBoxPosY1 := 230
+global searchBoxPosX2 := 1410
+global searchBoxPosY2 := 785
+
+	; Return Script
+
+global returnPosX1 := 537
+global returnPosY1 := 237
+global returnPosX2 := 745
+global returnPosY2 := 367
+
+	; Exemption Reason
+	
+global exemptionPosX1 := 1313
+global exemptionPosY1 := 457
+global exemptionPosX2 := 1569
+global exemptionPosY2 := 525
+
+
+
+
 
 
   ; ==================================================================== EXITS SCRIPT DOCUMENT ==========================================================
@@ -445,6 +478,10 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Up & Delete::
+global returnPosX1
+global returnPosY1
+global returnPosX2
+global returnPosY2
 SetCapsLockState, off
 BlockInput, MouseMove
 
@@ -486,7 +523,7 @@ Sleep 50
 
 Loop
 {
-ImageSearch OutputVarX, OutputVarY, 537, 237, 745, 367, *150 %A_ScriptDir%\Return Script\Not_Signed.png
+ImageSearch OutputVarX, OutputVarY, %returnPosX1%, %returnPosY1%, %returnPosX2%, %returnPosY2%, *150 %A_ScriptDir%\Return Script\Not_Signed.png
 if (ErrorLevel = 0)
 {
 clearClipboard()
@@ -512,7 +549,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 537, 237, 745, 367, *150 %A_ScriptDir%\Return Script\Wrong_Product.png
+ImageSearch OutputVarX, OutputVarY, %returnPosX1%, %returnPosY1%, %returnPosX2%, %returnPosY2%, *150 %A_ScriptDir%\Return Script\Wrong_Product.png
 if (ErrorLevel = 0)
 {
 clearClipboard()
@@ -538,7 +575,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 537, 237, 745, 367, *150 %A_ScriptDir%\Return Script\Wrong_Product_2.png
+ImageSearch OutputVarX, OutputVarY, %returnPosX1%, %returnPosY1%, %returnPosX2%, %returnPosY2%, *150 %A_ScriptDir%\Return Script\Wrong_Product_2.png
 if (ErrorLevel = 0)
 {
 clearClipboard()
@@ -564,7 +601,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 537, 237, 745, 367, *150 %A_ScriptDir%\Return Script\Wrong_Quantity.png
+ImageSearch OutputVarX, OutputVarY, %returnPosX1%, %returnPosY1%, %returnPosX2%, %returnPosY2%, *150 %A_ScriptDir%\Return Script\Wrong_Quantity.png
 if (ErrorLevel = 0)
 {
 clearClipboard()
@@ -590,7 +627,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 537, 237, 745, 367, *150 %A_ScriptDir%\Return Script\Missing_Quantity.png
+ImageSearch OutputVarX, OutputVarY, %returnPosX1%, %returnPosY1%, %returnPosX2%, %returnPosY2%, *150 %A_ScriptDir%\Return Script\Missing_Quantity.png
 if (ErrorLevel = 0)
 {
 clearClipboard()
@@ -616,7 +653,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 537, 237, 745, 367, *150 %A_ScriptDir%\Return Script\Medication.png
+ImageSearch OutputVarX, OutputVarY, %returnPosX1%, %returnPosY1%, %returnPosX2%, %returnPosY2%, *150 %A_ScriptDir%\Return Script\Medication.png
 if (ErrorLevel = 0)
 {
 clearClipboard()
@@ -642,7 +679,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 537, 237, 745, 367, *150 %A_ScriptDir%\Return Script\Inactive.png
+ImageSearch OutputVarX, OutputVarY, %returnPosX1%, %returnPosY1%, %returnPosX2%, %returnPosY2%, *150 %A_ScriptDir%\Return Script\Inactive.png
 if (ErrorLevel = 0)
 {
 clearClipboard()
@@ -668,7 +705,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 537, 237, 745, 367, *150 %A_ScriptDir%\Return Script\Empty.png
+ImageSearch OutputVarX, OutputVarY, %returnPosX1%, %returnPosY1%, %returnPosX2%, %returnPosY2%, *150 %A_ScriptDir%\Return Script\Empty.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -733,8 +770,7 @@ checkIfScreenIsScrolledToTop()
 checkIfCurrentWindowIsCorrect()
 siebelClickOnNewInNotes()
 checkForProgressBar()
-siebelClickOnDropDownArrowInNotes()
-siebelSelectDupPxAlert()
+siebelTypeFieldInActiveNotes()
 siebelFlagContactTick()
 selectsPXNumberInAlchemyAndCopyIt()
 siebelDescriptionFieldInActiveNotes()
@@ -1385,8 +1421,8 @@ Return ; Script Run Finished
 	
 	
 	; ====================== ALCHEMY FUNCTIONS ========================
-	
-	
+
+
 	; === General Alchemy Functions ===
 
 	
@@ -1394,10 +1430,14 @@ Return ; Script Run Finished
 
 selectsPXNumberInAlchemyAndCopyIt()
 {
+global alchemyPosX1
+global alchemyPosY1
+global alchemyPosX2
+global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -927, -9, -5, 1063, *50 %A_ScriptDir%\Misc\Perscription_No.png
+ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Perscription_No.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1440,10 +1480,14 @@ Reload
 
 selectsPXNumberInAlchemyAndCopyItForIsleOfMan()
 {
+global alchemyPosX1
+global alchemyPosY1
+global alchemyPosX2
+global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -927, -9, -5, 1063, *50 %A_ScriptDir%\Misc\Perscription_No.png
+ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Perscription_No.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1486,10 +1530,14 @@ Reload
 
 selectsPXNumberInAlchemyAndCopyItForDuplicate()
 {
+global alchemyPosX1
+global alchemyPosY1
+global alchemyPosX2
+global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -927, -9, -5, 1063, *50 %A_ScriptDir%\Misc\Perscription_No.png
+ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Perscription_No.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1527,10 +1575,14 @@ Reload
 
 alchemyMoveToNextPxAndClickPostcode()
 {
+global alchemyPosX1
+global alchemyPosY1
+global alchemyPosX2
+global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -927, -9, -5, 1063, *50 %A_ScriptDir%\Misc\Additional_Comments.png
+ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Additional_Comments.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1567,10 +1619,14 @@ Reload
 
 alchemyRequiresAttentionDownArrow()
 {
+global alchemyPosX1
+global alchemyPosY1
+global alchemyPosX2
+global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -927, -9, -5, 1063, *50 %A_ScriptDir%\Return Script\Down_Arrow.png
+ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Return Script\Down_Arrow.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1629,10 +1685,14 @@ SendInput {Enter}
 
 alchemyCommentFieldClear()
 {
+global alchemyPosX1
+global alchemyPosY1
+global alchemyPosX2
+global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -927, -9, -5, 1063, *50 %A_ScriptDir%\Misc\Additional_Comments.png
+ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Additional_Comments.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1665,10 +1725,14 @@ Reload
 
 alchemyCommentField()
 {
+global alchemyPosX1
+global alchemyPosY1
+global alchemyPosX2
+global alchemyPosY2
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, -927, -9, -5, 1063, *50 %A_ScriptDir%\Misc\Additional_Comments.png
+ImageSearch OutputVarX, OutputVarY, %alchemyPosX1%, %alchemyPosY1%, %alchemyPosX2%, %alchemyPosY2%, *50 %A_ScriptDir%\Misc\Additional_Comments.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1694,6 +1758,7 @@ Reload
 
 alchemyClickOnSearchButton()
 {
+WinActivate, Alchemy Index Station - \\Remote
 Loop, 5
 {
 ImageSearch OutputVarX, OutputVarY, -1920, -10, -6, 488, *150 %A_ScriptDir%\Misc\Alchemy_Search_Button.png
@@ -1720,11 +1785,51 @@ Return
 
 
 
+
+
+
+
+
+
+
+	; =================================== Alchemy Search Box ========================================
+
+
+
+
+checkForSearchBoxToAppearAlchemy()
+{
+Loop, 20
+{
+global searchBoxPosX1
+global searchBoxPosY1
+global searchBoxPosX2
+global searchBoxPosY2
+ImageSearch OutputVarX, OutputVarY, %searchBoxPosX1%, %searchBoxPosY1%, %searchBoxPosX2%, %searchBoxPosY2%,, *150 %A_ScriptDir%\Misc\Alchemy_Search_Box.png
+if (ErrorLevel = 0)
+{
+Return
+}
+ImageSearch OutputVarX, OutputVarY, %searchBoxPosX1%, %searchBoxPosY1%, %searchBoxPosX2%, %searchBoxPosY2%,, *150 %A_ScriptDir%\Misc\Alchemy_Search_Box_Unfocused.png
+if (ErrorLevel = 0)
+{
+Return
+}
+}
+}
+
+
+
 alchemyClickOnBatchNumberInSearchBoxAndDeleteContents()
 {
-Loop, 5
+global searchBoxPosX1
+global searchBoxPosY1
+global searchBoxPosX2
+global searchBoxPosY2
+WinActivate, Alchemy Index Station - \\Remote
+Loop, 20
 {
-ImageSearch OutputVarX, OutputVarY, 501, 423, 734, 625, *150 %A_ScriptDir%\Misc\Batch_Number_Search_Box.png
+ImageSearch OutputVarX, OutputVarY, %searchBoxPosX1%, %searchBoxPosY1%, %searchBoxPosX2%, %searchBoxPosY2%, *150 %A_ScriptDir%\Misc\Batch_Number_Search_Box.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1745,9 +1850,9 @@ Return
 }
 else
 {
-Sleep 100
+Sleep 200
 }
-MsgBox Could not find the Alchemy search box. Press F12 to exit 
+MsgBox Could not find the Alchemy search box Batch Number Field. Press F12 to exit 
 BlockInput, MouseMoveOff
 Return
 }
@@ -1758,9 +1863,14 @@ Return
 
 alchemyClickOnPrescriptionNoInSearchBoxAndPasteContents()
 {
-Loop, 5
+global searchBoxPosX1
+global searchBoxPosY1
+global searchBoxPosX2
+global searchBoxPosY2
+WinActivate, Alchemy Index Station - \\Remote
+Loop, 20
 {
-ImageSearch OutputVarX, OutputVarY, 501, 423, 734, 625, *150 %A_ScriptDir%\Misc\Prescription_No_Search_Box.png
+ImageSearch OutputVarX, OutputVarY, %searchBoxPosX1%, %searchBoxPosY1%, %searchBoxPosX2%, %searchBoxPosY2%, *100 %A_ScriptDir%\Misc\Prescription_No_Search_Box.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1780,15 +1890,15 @@ SendInput {Backspace}
 SendInput {Backspace}
 SendInput {Backspace}
 SendInput {Backspace}
-Send *
+SendInput *
 SetDefaultMouseSpeed, 2
 Return
 }
 else
 {
-Sleep 100
+Sleep 200
 }
-MsgBox Could not find the Alchemy search box. Press F12 to exit 
+MsgBox Could not find the Alchemy search box Prescription Field. Press F12 to exit 
 BlockInput, MouseMoveOff
 Return
 }
@@ -1799,9 +1909,14 @@ Return
 
 alchemyClickOnSearchButtonInSearchBox()
 {
-Loop, 5
+global searchBoxPosX1
+global searchBoxPosY1
+global searchBoxPosX2
+global searchBoxPosY2
+WinActivate, Alchemy Index Station - \\Remote
+Loop, 20
 {
-ImageSearch OutputVarX, OutputVarY, 449, 316, 1066, 717, *150 %A_ScriptDir%\Misc\Alchemy_Search_Button_Search_Box.png
+ImageSearch OutputVarX, OutputVarY, %searchBoxPosX1%, %searchBoxPosY1%, %searchBoxPosX2%, %searchBoxPosY2%, *150 %A_ScriptDir%\Misc\Alchemy_Search_Button_Search_Box.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1815,9 +1930,9 @@ Return
 }
 else 
 {
-Sleep 100
+Sleep 200
 }
-MsgBox Could not find the Alchemy search box. Press F12 to exit 
+MsgBox Could not find the Alchemy search box Search Button. Press F12 to exit 
 BlockInput, MouseMoveOff
 Return
 }
@@ -1828,9 +1943,14 @@ Return
 
 alchemyClickOnPrescriptionNoInSearchBoxAndDeleteContents()
 {
-Loop, 5
+global searchBoxPosX1
+global searchBoxPosY1
+global searchBoxPosX2
+global searchBoxPosY2
+WinActivate, Alchemy Index Station - \\Remote
+Loop, 20
 {
-ImageSearch OutputVarX, OutputVarY, 501, 423, 734, 625, *150 %A_ScriptDir%\Misc\Prescription_No_Search_Box.png
+ImageSearch OutputVarX, OutputVarY, %searchBoxPosX1%, %searchBoxPosY1%, %searchBoxPosX2%, %searchBoxPosY2%, *150 %A_ScriptDir%\Misc\Prescription_No_Search_Box.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1840,10 +1960,11 @@ MouseMove %VarPosX%, %VarPosY%
 Sleep 50
 MouseClick
 Sleep 50
+MouseClick
+Sleep 50
 SendInput ^{End}
-Sleep 50
 SendInput +{Home}
-Sleep 50
+SendInput {Backspace}
 SendInput {Backspace}
 ClipWait, 1
 SetDefaultMouseSpeed, 2
@@ -1851,9 +1972,9 @@ Return
 }
 else 
 {
-Sleep 100
+Sleep 200
 }
-MsgBox Could not find the Alchemy search box. Press F12 to exit 
+MsgBox Could not find the Alchemy search box Prescription Field. Press F12 to exit 
 BlockInput, MouseMoveOff
 Return
 }
@@ -1864,9 +1985,14 @@ Return
 
 alchemyClickOnBatchNumberDownArrowInSearchBox()
 {
-Loop, 5
+global searchBoxPosX1
+global searchBoxPosY1
+global searchBoxPosX2
+global searchBoxPosY2
+WinActivate, Alchemy Index Station - \\Remote
+Loop, 20
 {
-ImageSearch OutputVarX, OutputVarY, 501, 423, 734, 625, *150 %A_ScriptDir%\Misc\Batch_Number_Search_Box.png
+ImageSearch OutputVarX, OutputVarY, %searchBoxPosX1%, %searchBoxPosY1%, %searchBoxPosX2%, %searchBoxPosY2%, *150 %A_ScriptDir%\Misc\Batch_Number_Search_Box.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -1884,9 +2010,9 @@ Return
 }
 else 
 {
-Sleep 100
+Sleep 200
 }
-MsgBox Could not find the Alchemy search box. Press F12 to exit 
+MsgBox Could not find the Alchemy search box Batch Number Down Arrow. Press F12 to exit 
 BlockInput, MouseMoveOff
 Return
 }
@@ -2240,25 +2366,50 @@ SetDefaultMouseSpeed, 2
 
 
 
-siebelClickOnDropDownArrowInNotes()
+siebelTypeFieldInActiveNotes()
+{
+Loop, 5
+{
+ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *100 %A_ScriptDir%\Misc\Type_Field_Active_Notes.png
+if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
-MouseMove 1593, 841 ; Moves over Typ dropdown menu arrow in Active Notes on AP Order Lines  
-SetDefaultMouseSpeed, 2
+VarPosX := OutputVarX + 6
+VarPosY := OutputVarY + 28
+MouseMove %VarPosX%, %VarPosY%
+Sleep 50
+MouseClick
+Sleep 50
+Break
 }
-
-
-
-
-siebelSelectDupPxAlert()
+else
+{
+Sleep 50
+}
+}
+Loop, 5
+{
+ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *100 %A_ScriptDir%\Misc\Type_Field_Active_Notes_Down_Arrow.png
+if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
-MouseClick ; Clicks on dropdown arrow in newly created Active Note (If Flag Contact collumn is before Type collumn in siebel then add another MouseClick to fix the error)
+VarPosX := OutputVarX + 6
+VarPosY := OutputVarY + 6
+MouseMove %VarPosX%, %VarPosY%
 Sleep 50
-MouseMove 1598, 882 ; Moves over Duplicate Perscription Alert
-MouseClick ; Clicks on Duplicate Perscription Alert
+MouseClick
 Sleep 50
-SetDefaultMouseSpeed, 2
+MouseMove 0, 40, 0, R
+Sleep 50
+MouseClick
+Sleep 50
+Break
+}
+else
+{
+Sleep 50
+}
+}
 }
 
 
@@ -2351,54 +2502,6 @@ Sleep 50
 }
 }
 
-
-
-
-siebelTypeFieldInActiveNotes()
-{
-Loop, 5
-{
-ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *100 %A_ScriptDir%\Misc\Type_Field_Active_Notes.png
-if (ErrorLevel = 0)
-{
-SetDefaultMouseSpeed, 0
-VarPosX := OutputVarX + 6
-VarPosY := OutputVarY + 28
-MouseMove %VarPosX%, %VarPosY%
-Sleep 50
-MouseClick
-Sleep 50
-Break
-}
-else
-{
-Sleep 50
-}
-}
-Loop, 5
-{
-ImageSearch OutputVarX, OutputVarY, 1260, 488, 1912, 1077, *100 %A_ScriptDir%\Misc\Type_Field_Active_Notes_Down_Arrow.png
-if (ErrorLevel = 0)
-{
-SetDefaultMouseSpeed, 0
-VarPosX := OutputVarX + 6
-VarPosY := OutputVarY + 6
-MouseMove %VarPosX%, %VarPosY%
-Sleep 50
-MouseClick
-Sleep 50
-MouseMove 0, 40, 0, R
-Sleep 50
-MouseClick
-Sleep 50
-Break
-}
-else
-{
-Sleep 50
-}
-}
-}
 
 
 
@@ -2672,22 +2775,6 @@ Return
 }
 
 
-
-
-checkForSearchBoxToAppearAlchemy()
-{
-Sleep 100
-	PixelGetColor, color, 967, 543 ; Gray field in search box coordinates
-While color = 0xFFFFFF
-{
-	PixelGetColor, color, 967, 543 
-Sleep 10
-}
-}
-
-
-
-
 checkForWindowChangeGas()
 {
 	PixelGetColor, color, 691, 526 ; "Team" field Coordinates (Siebel - gray color sample) - Loop looks for white color to appear at these coordinates before moving forward
@@ -2722,9 +2809,13 @@ Sleep 10
 
 checkForExemptionReason()
 {
-Loop
+global exemptionPosX1
+global exemptionPosY1
+global exemptionPosX2
+global exemptionPosY2
+Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
 if (ErrorLevel = 0)
 {
 Break
@@ -2733,7 +2824,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Under-16-years-of-age.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Under-16-years-of-age.png
 if (ErrorLevel = 0)
 {
 Break
@@ -2742,7 +2833,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\16-17-18.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\16-17-18.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2753,7 +2844,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Maternity-Exemption.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Maternity-Exemption.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2764,7 +2855,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Medical-Exemption.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Medical-Exemption.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2775,7 +2866,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Prescription-Pre-Payment.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Prescription-Pre-Payment.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2786,7 +2877,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\War-Pension.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\War-Pension.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2797,7 +2888,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\HC2-Charges-Certificate.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\HC2-Charges-Certificate.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2808,7 +2899,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Income-Support.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Income-Support.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2819,7 +2910,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Income-Based.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Income-Based.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2830,7 +2921,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Tax-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Tax-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2841,7 +2932,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Partner-Pension-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Partner-Pension-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2852,7 +2943,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Unknown.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Unknown.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2863,7 +2954,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Not-Exempt.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Not-Exempt.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2874,7 +2965,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Wales-Scot-Not-Exempt.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Wales-Scot-Not-Exempt.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2885,7 +2976,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Universal-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Universal-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2896,7 +2987,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Exemption-Cert-Issued-By-MOD.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Exemption-Cert-Issued-By-MOD.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2920,9 +3011,13 @@ Return
 
 checkForExemptionReasonIsleOfMan()
 {
-Loop
+global exemptionPosX1
+global exemptionPosY1
+global exemptionPosX2
+global exemptionPosY2
+Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
 if (ErrorLevel = 0)
 {
 Break
@@ -2931,7 +3026,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Under-16-years-of-age.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Under-16-years-of-age.png
 if (ErrorLevel = 0)
 {
 Break
@@ -2940,7 +3035,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\16-17-18.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\16-17-18.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2951,7 +3046,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Maternity-Exemption.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Maternity-Exemption.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2962,7 +3057,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Medical-Exemption.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Medical-Exemption.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2973,7 +3068,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Prescription-Pre-Payment.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Prescription-Pre-Payment.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2984,7 +3079,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\War-Pension.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\War-Pension.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -2995,7 +3090,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\HC2-Charges-Certificate.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\HC2-Charges-Certificate.png
 if (ErrorLevel = 0)
 {
 MsgBox This PX is not of Isle of Man type. Press F12 to exit
@@ -3005,7 +3100,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Income-Support.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Income-Support.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3016,7 +3111,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Income-Based.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Income-Based.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3027,7 +3122,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Tax-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Tax-Credit.png
 if (ErrorLevel = 0)
 {
 MsgBox This PX is not of Isle of Man type. Press F12 to exit
@@ -3037,7 +3132,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Partner-Pension-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Partner-Pension-Credit.png
 if (ErrorLevel = 0)
 {
 MsgBox This PX is not of Isle of Man type. Press F12 to exit
@@ -3047,7 +3142,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Unknown.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Unknown.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3058,7 +3153,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Not-Exempt.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Not-Exempt.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3069,7 +3164,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Wales-Scot-Not-Exempt.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Wales-Scot-Not-Exempt.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3080,7 +3175,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Universal-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Universal-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3091,7 +3186,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Exemption-Cert-Issued-By-MOD.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Exemption-Cert-Issued-By-MOD.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3115,9 +3210,13 @@ Return
 
 checkForExemptionReasonScottishStoma()
 {
-Loop
+global exemptionPosX1
+global exemptionPosY1
+global exemptionPosX2
+global exemptionPosY2
+Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3128,7 +3227,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Under-16-years-of-age.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Under-16-years-of-age.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3139,7 +3238,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\16-17-18.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\16-17-18.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3150,7 +3249,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Maternity-Exemption.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Maternity-Exemption.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3161,7 +3260,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Medical-Exemption.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Medical-Exemption.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3172,7 +3271,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Prescription-Pre-Payment.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Prescription-Pre-Payment.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3183,7 +3282,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\War-Pension.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\War-Pension.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3194,7 +3293,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\HC2-Charges-Certificate.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\HC2-Charges-Certificate.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3205,7 +3304,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Income-Support.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Income-Support.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3216,7 +3315,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Income-Based.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Income-Based.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3227,7 +3326,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Tax-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Tax-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3238,7 +3337,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Partner-Pension-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Partner-Pension-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3249,7 +3348,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Unknown.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Unknown.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3260,7 +3359,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Not-Exempt.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Not-Exempt.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3271,7 +3370,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Wales-Scot-Not-Exempt.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Wales-Scot-Not-Exempt.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3282,7 +3381,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Universal-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Universal-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3293,7 +3392,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Exemption-Cert-Issued-By-MOD.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Exemption-Cert-Issued-By-MOD.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3317,9 +3416,13 @@ Return
 
 checkForExemptionReasonScottishContinence()
 {
-Loop
+global exemptionPosX1
+global exemptionPosY1
+global exemptionPosX2
+global exemptionPosY2
+Loop, 5
 {
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\60-years-of-age.png
 if (ErrorLevel = 0)
 {
 Break
@@ -3328,7 +3431,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Under-16-years-of-age.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Under-16-years-of-age.png
 if (ErrorLevel = 0)
 {
 Break
@@ -3337,7 +3440,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\16-17-18.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\16-17-18.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3348,7 +3451,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Maternity-Exemption.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Maternity-Exemption.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3359,7 +3462,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Medical-Exemption.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Medical-Exemption.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3370,7 +3473,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Prescription-Pre-Payment.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Prescription-Pre-Payment.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3381,7 +3484,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\War-Pension.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\War-Pension.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3392,7 +3495,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\HC2-Charges-Certificate.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\HC2-Charges-Certificate.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3403,7 +3506,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Income-Support.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Income-Support.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3414,7 +3517,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Income-Based.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Income-Based.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3425,7 +3528,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Tax-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Tax-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3436,7 +3539,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Partner-Pension-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Partner-Pension-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3447,7 +3550,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Unknown.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Unknown.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3458,7 +3561,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Not-Exempt.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Not-Exempt.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3469,7 +3572,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Wales-Scot-Not-Exempt.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Wales-Scot-Not-Exempt.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3480,7 +3583,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Universal-Credit.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Universal-Credit.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()
@@ -3491,7 +3594,7 @@ else if (ErrorLevel != 0)
 {
 ;
 }
-ImageSearch OutputVarX, OutputVarY, 1313, 457, 1569, 525, *150 %A_ScriptDir%\Exemption Reasons\Exemption-Cert-Issued-By-MOD.png
+ImageSearch OutputVarX, OutputVarY, %exemptionPosX1%, %exemptionPosY1%, %exemptionPosX2%, %exemptionPosY2%, *150 %A_ScriptDir%\Exemption Reasons\Exemption-Cert-Issued-By-MOD.png
 if (ErrorLevel = 0)
 {
 alchemyCommentFieldClear()

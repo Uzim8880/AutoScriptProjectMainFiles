@@ -2,31 +2,6 @@
 
 
 
-#UseHook
-CoordMode, Mouse, Screen
-CoordMode, Pixel, Screen
-
-^p::
-
-SafePaste() 
-{
-    ; A way of pasting that only returns control when the paste is complete
-    ; by jeeswg
-    ; See https://www.autohotkey.com/boards/viewtopic.php?p=271514&sid=f898e28c59efcb6871c1dff403e663dd#p271517
-    ; the point of this is that with a simple Ctrl + v, you don't know when the pasting is complete,
-    ; so if you immediately reload the Clipboard, the new text may end up getting pasted...
-ControlGetFocus, vCtlClassNN, A
-ControlGet, hCtl, Hwnd,, % vCtlClassNN, A
-SendMessage, 0x302,,,, % "ahk_id " hCtl ;WM_PASTE := 0x302
-}
-return
-
-
-
-
-
-
-
 
 
 

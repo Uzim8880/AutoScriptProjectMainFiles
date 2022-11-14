@@ -14,11 +14,20 @@ global alchemyPosX1 := -927
 global alchemyPosY1 := -9
 global alchemyPosX2 := -5
 global alchemyPosY2 := 1063
+
+global alchemyGeneralPxListCoordinatesPosX := -1663
+global alchemyGeneralPxListCoordinatesPosY := 197
+
 	
 	
 	
-	; Search Box
-	
+	; Alchemy Search Box
+
+global alchemySearchButtonPosX1 := -1920
+global alchemySearchButtonPosY1 := -10
+global alchemySearchButtonPosX2 := -6
+global alchemySearchButtonPosY2 := 488
+
 global searchBoxPosX1 := 680
 global searchBoxPosY1 := 300
 global searchBoxPosX2 := 1235
@@ -26,16 +35,19 @@ global searchBoxPosY2 := 700
 
 
 
-	; Return Script
+	; Return Script - Source Field Coordinates in Activity
 
 global returnPosX1 := 537
 global returnPosY1 := 237
 global returnPosX2 := 745
 global returnPosY2 := 367
 
+global returnWhiteSpacePosX := 742
+global returnWhiteSpacePosY := 322
 
 
-	; Exemption Reason
+
+	; Exemption Reason Field in Siebel
 	
 global exemptionPosX1 := 1313
 global exemptionPosY1 := 457
@@ -49,6 +61,36 @@ global exemptionPosY2 := 525
 global OrderStatusX := 752 ; X coordinate of the "Order Status" down arrow in new Order Window
 global OrderStatusY := 295 ; Y coordinate of the "Order Status" down arrow in new Order Window
 
+global siebelStockAndCheckButtonPosX := 851
+global siebelStockAndCheckButtonPosY := 704
+
+global goToContactButtonPosX := 1077
+global goToContactButtonPosY := 206
+
+global apOrderLinesButtonPosX := 565
+global apOrderLinesButtonPosY := 556
+
+global siebelOriginDownArrowStockAndCheckPosX := 752
+global siebelOriginDownArrowStockAndCheckPosY := 477
+global siebelSourceDownArrowStockAndCheckPosX := 751
+global siebelSourceDownArrowStockAndCheckPosY := 373
+
+
+
+
+	; Siebel Search Side Bar
+	
+global siebelResetButtonPosX := 74
+global siebelResetButtonPosY := 557
+
+global siebelPostcodeFieldPosX := 86
+global siebelPostcodeFieldPosY := 355
+
+global checkIfScreenIsScrolledToTopInSearchPosX1 := 10
+global checkIfScreenIsScrolledToTopInSearchPosY1 := 7
+global checkIfScreenIsScrolledToTopInSearchPosX2 := 1915
+global checkIfScreenIsScrolledToTopInSearchPosY2 := 553
+
 
 
 	; Duplicate Coordinates
@@ -57,6 +99,128 @@ global duplicatePosX1 := 1260
 global duplicatePosY1 := 776
 global duplicatePosX2 := 1912
 global duplicatePosY2 := 1026
+
+global duplicateNewNotesButtonPosX := 1423
+global duplicateNewNotesButtonPosY := 899
+
+
+
+	; New Activity Coordinates
+
+global siebelActivityTabPosX1 := 960
+global siebelActivityTabPosY1 := 520
+global siebelActivityTabPosX2 := 1884
+global siebelActivityTabPosY2 := 622
+
+global siebelActivityNewButtonPosX1 := 565
+global siebelActivityNewButtonPosY1 := 570
+global siebelActivityNewButtonPosX2 := 613
+global siebelActivityNewButtonPosY2 := 593
+
+global siebelNewActivityWhiteSpacePosX := 776
+global siebelNewActivityWhiteSpacePosY := 483
+
+global siebelNewActivityOtherPosX1 := 492
+global siebelNewActivityOtherPosY1 := 569
+global siebelNewActivityOtherPosX2 := 1265
+global siebelNewActivityOtherPosY2 := 650
+
+global activityDescriptionFieldPosX := 872
+global activityDescriptionFieldPosY := 268
+
+global siebelActivityCommentFieldPosX := 865
+global siebelActivityCommentFieldPosY := 336
+
+global siebelSiebelOrderNoFieldPosX := 1376
+global siebelSiebelOrderNoFieldPosY := 404
+
+global siebelSourceFieldDownArrowPosX := 715
+global siebelSourceFieldDownArrowPosY := 326
+
+global siebelSelectStatusDownArrowPosX := 939
+global siebelSelectStatusDownArrowPosY := 383
+
+global siebelSubTypeDownArrowPosX := 714
+global siebelSubTypeDownArrowPosY := 302
+
+
+
+	; AutoGAS Buttons
+
+global siebelAutoGASAllButtonPosX := 1609
+global siebelAutoGASAllButtonPosY := 600
+
+global siebelAutoGASSelectedButtonPosX := 1700
+global siebelAutoGASSelectedButtonPosY := 599
+
+global siebelAutoGASSelectedButtonWhiteSpacePosX := 1700
+global siebelAutoGASSelectedButtonWhiteSpacePosY := 480
+
+
+
+	; Template Window Coordinates
+
+global checkForTemplateWindowPosX := 968
+global checkForTemplateWindowPosY := 409
+
+global siebelTemplateWindowDownArrowPosX := 1349
+global siebelTemplateWindowDownArrowPosY := 683
+
+global checkIfTemplateWindowIsScrolledPosX := 1348 ; White Pixel at the bottom of the scroll bar in template window
+global checkIfTemplateWindowIsScrolledPosY := 638 ; White Pixel at the bottom of the scroll bar in template window
+
+global clickOkButtonInTemplateWindowPosX1 := 553
+global clickOkButtonInTemplateWindowPosY1 := 387
+global clickOkButtonInTemplateWindowPosX2 := 1370
+global clickOkButtonInTemplateWindowPosY2 := 748
+
+
+
+	; After GAS Px Field
+
+global siebelPerscriptionNoFieldPosX := 672
+global siebelPerscriptionNoFieldPosY := 241
+
+
+
+
+	; Safety Functions Coordinates
+
+global checkForWindowChangeGasPosX := 691 ;"Team" field Coordinates (Siebel - gray color sample)
+global checkForWindowChangeGasPosY := 526 ;"Team" field Coordinates (Siebel - gray color sample)
+
+global checkForWindowChangeStockCheckPosX := 725 ;"Team" field Coordinates (Siebel - gray color sample)
+global checkForWindowChangeStockCheckPosY := 565 ;"Team" field Coordinates (Siebel - gray color sample)
+
+global checkIfScreenIsScrolledToTopPosX := 1908 ; White Pixel in the scroll bar
+global checkIfScreenIsScrolledToTopPosY := 190 ; White Pixel in the scroll bar
+
+global checkIfCurrentWindowIsCorrectAPOrderLinesPosX1 := 490
+global checkIfCurrentWindowIsCorrectAPOrderLinesPosY1 := 518
+global checkIfCurrentWindowIsCorrectAPOrderLinesPosX2 := 983
+global checkIfCurrentWindowIsCorrectAPOrderLinesPosY2 := 574
+
+global checkIfCurrentWindowIsCorrectContactsPosX1 := 6
+global checkIfCurrentWindowIsCorrectContactsPosY1 := 114
+global checkIfCurrentWindowIsCorrectContactsPosX2 := 426
+global checkIfCurrentWindowIsCorrectContactsPosY2 := 156
+
+global checkIfCurrentWindowIsCorrectForStockAndCheckPosX1 := 6
+global checkIfCurrentWindowIsCorrectForStockAndCheckPosY1 := 114
+global checkIfCurrentWindowIsCorrectForStockAndCheckPosX2 := 888
+global checkIfCurrentWindowIsCorrectForStockAndCheckPosY2 := 176
+
+global checkForProgressBarPosX1 := 1299
+global checkForProgressBarPosY1 := 1027
+global checkForProgressBarPosX2 := 1383
+global checkForProgressBarPosY2 := 1035 
+
+
+
+	; After Error Mouse Move
+
+global afterErrorMouseMovePosX := 370
+global afterErrorMouseMovePosY := 484
 
 
 
@@ -509,6 +673,8 @@ global returnPosX1
 global returnPosY1
 global returnPosX2
 global returnPosY2
+global returnWhiteSpacePosX
+global returnWhiteSpacePosY
 SetCapsLockState, off
 BlockInput, MouseMove
 
@@ -543,7 +709,7 @@ BlockInput, MouseMoveOff
 KeyWait, Up, D
 BlockInput, MouseMove
 SetDefaultMouseSpeed, 0
-	MouseMove 742, 322 ; Clicks on whitespace
+	MouseMove %returnWhiteSpacePosX%, %returnWhiteSpacePosY% ; Clicks on whitespace
 SetDefaultMouseSpeed, 2
 MouseClick
 Sleep 50
@@ -856,6 +1022,10 @@ CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
 
 Up & End::
+global goToContactButtonPosX
+global goToContactButtonPosY
+global apOrderLinesButtonPosX
+global apOrderLinesButtonPosY
 Clipboard := Clipboard
 SetDefaultMouseSpeed, 0
 BlockInput, MouseMove
@@ -865,12 +1035,12 @@ checkIfScreenIsScrolledToTop()
 siebelSourceAndOriginFields()
 siebelStockAndCheckOrderStatusChanges()
 
-	MouseMove 1077, 206 ; "Go to Contact" button coordinates 
+	MouseMove %goToContactButtonPosX%, %goToContactButtonPosY% ; "Go to Contact" button coordinates 
 
 MouseClick
 Sleep 50
 
-	MouseMove 565, 556 ; "AP Order Lines" button coordinates
+	MouseMove %apOrderLinesButtonPosX%, %apOrderLinesButtonPosY% ; "AP Order Lines" button coordinates
 
 checkForWindowChangeStockCheck()
 checkForProgressBar()
@@ -905,7 +1075,6 @@ BlockInput, MouseMove
 
 checkIfCurrentWindowIsCorrectForStockAndCheck()
 checkIfScreenIsScrolledToTop()
-siebelAddOosFlier()
 siebelStockAndCheckOrderStatusChanges()
 
 BlockInput, MouseMoveOff
@@ -1470,6 +1639,8 @@ global alchemyPosX1
 global alchemyPosY1
 global alchemyPosX2
 global alchemyPosY2
+global afterErrorMouseMovePosX
+global afterErrorMouseMovePosY
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 10
 {
@@ -1504,7 +1675,7 @@ Sleep 50
 }
 }
 SetDefaultMouseSpeed, 0
-MouseMove 370, 484
+MouseMove %afterErrorMouseMovePosX%, %afterErrorMouseMovePosY%
 MouseClick
 MsgBox, 4096, Error, "Could not find the PX Number. Press F12 to Exit the error message"
 SetDefaultMouseSpeed, 2
@@ -1520,6 +1691,8 @@ global alchemyPosX1
 global alchemyPosY1
 global alchemyPosX2
 global alchemyPosY2
+global afterErrorMouseMovePosX
+global afterErrorMouseMovePosY
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 10
 {
@@ -1554,7 +1727,7 @@ Sleep 50
 }
 }
 SetDefaultMouseSpeed, 0
-MouseMove 370, 484
+MouseMove %afterErrorMouseMovePosX%, %afterErrorMouseMovePosY%
 MouseClick
 MsgBox, 4096, Error, "Could not find the PX Number. Press F12 to Exit the error message"
 SetDefaultMouseSpeed, 2
@@ -1570,6 +1743,8 @@ global alchemyPosX1
 global alchemyPosY1
 global alchemyPosX2
 global alchemyPosY2
+global afterErrorMouseMovePosX
+global afterErrorMouseMovePosY
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 10
 {
@@ -1601,7 +1776,7 @@ Sleep 50
 }
 }
 SetDefaultMouseSpeed, 0
-MouseMove 370, 484
+MouseMove %afterErrorMouseMovePosX%, %afterErrorMouseMovePosY%
 MsgBox, 4096, Error, "Could not find the PX Number. Press F12 to Exit the error message"
 Reload
 }
@@ -1615,6 +1790,10 @@ global alchemyPosX1
 global alchemyPosY1
 global alchemyPosX2
 global alchemyPosY2
+global siebelResetButtonPosX
+global siebelResetButtonPosY
+global siebelPostcodeFieldPosX
+global siebelPostcodeFieldPosY
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 10
 {
@@ -1632,10 +1811,10 @@ Sleep 50
 SendInput {Enter}
 Sleep 50
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
-MouseMove 74, 557 ; Reset button coordinates (Siebel)
+MouseMove %siebelResetButtonPosX%, %siebelResetButtonPosY% ; Reset button coordinates (Siebel)
 Sleep 50
 MouseClick
-MouseMove 86, 355 ; Postcode search field coordinates (Siebel)
+MouseMove %siebelPostcodeFieldPosX%, %siebelPostcodeFieldPosY% ; Postcode search field coordinates (Siebel)
 Sleep 50
 MouseClick
 MouseClick
@@ -1794,10 +1973,14 @@ Reload
 
 alchemyClickOnSearchButton()
 {
+global alchemySearchButtonPosX1
+global alchemySearchButtonPosY1
+global alchemySearchButtonPosX2
+global alchemySearchButtonPosY2
 WinActivate, Alchemy Index Station - \\Remote
 Loop, 10
 {
-ImageSearch OutputVarX, OutputVarY, -1920, -10, -6, 488, *150 %A_ScriptDir%\Misc\Alchemy_Search_Button.png
+ImageSearch OutputVarX, OutputVarY, %alchemySearchButtonPosX1%, %alchemySearchButtonPosY1%, %alchemySearchButtonPosX2%, %alchemySearchButtonPosY2%, *150 %A_ScriptDir%\Misc\Alchemy_Search_Button.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -2088,10 +2271,16 @@ Return
 	
 siebelActivityTab()
 {
+global afterErrorMouseMovePosX
+global afterErrorMouseMovePosY
+global siebelActivityTabPosX1
+global siebelActivityTabPosY1
+global siebelActivityTabPosX2
+global siebelActivityTabPosY2
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop, 10
 {
-ImageSearch OutputVarX, OutputVarY, 960, 520, 1884, 622, *60 %A_ScriptDir%\Misc\Activities_Tab.png
+ImageSearch OutputVarX, OutputVarY, %siebelActivityTabPosX1%, %siebelActivityTabPosY1%, %siebelActivityTabPosX2%, %siebelActivityTabPosY2%, *60 %A_ScriptDir%\Misc\Activities_Tab.png
 if (ErrorLevel = 0)
 {
 VarPosX := OutputVarX + 30
@@ -2104,7 +2293,7 @@ Return
 }
 }
 SetDefaultMouseSpeed, 0
-MouseMove 370, 484
+MouseMove %afterErrorMouseMovePosX%, %afterErrorMouseMovePosY%
 MouseClick
 SetDefaultMouseSpeed, 2
 MsgBox, 4096, Error, "Script Failed - Could not find Activity tab. Press F12 to Exit the error message"
@@ -2116,10 +2305,16 @@ Reload
 
 siebelActivityNewButton()
 {
+global afterErrorMouseMovePosX
+global afterErrorMouseMovePosY
+global siebelActivityNewButtonPosX1
+global siebelActivityNewButtonPosY1
+global siebelActivityNewButtonPosX2
+global siebelActivityNewButtonPosY2
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop, 20
 {
-ImageSearch OutputVarX, OutputVarY, 565, 570, 613, 593, *100 %A_ScriptDir%\Misc\New_Activity_Button.png
+ImageSearch OutputVarX, OutputVarY, %siebelActivityNewButtonPosX1%, %siebelActivityNewButtonPosY1%, %siebelActivityNewButtonPosX2%, %siebelActivityNewButtonPosY2%, *100 %A_ScriptDir%\Misc\New_Activity_Button.png
 if (ErrorLevel = 0)
 {
 VarPosX := OutputVarX + 15
@@ -2137,7 +2332,7 @@ sleep 50
 }
 }
 SetDefaultMouseSpeed, 0
-MouseMove 370, 484
+MouseMove %afterErrorMouseMovePosX%, %afterErrorMouseMovePosY%
 MouseClick
 SetDefaultMouseSpeed, 2
 MsgBox, 4096, Error, "Script Failed - Could not find New Activity button. Press F12 to Exit the error message"
@@ -2149,10 +2344,12 @@ Reload
 
 siebelActivityWhiteSpace()
 {
+global siebelNewActivityWhiteSpacePosX
+global siebelNewActivityWhiteSpacePosY
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
 
-	MouseMove 776, 483 ; Moves the cursor away from activities field after creating new activity
+	MouseMove %siebelNewActivityWhiteSpacePosX%, %siebelNewActivityWhiteSpacePosY% ; Moves the cursor away from activities field after creating new activity
 
 MouseClick
 Sleep 100
@@ -2167,10 +2364,16 @@ SetDefaultMouseSpeed, 2
 
 clickOnNewlyCreatedActivity()
 {
+global afterErrorMouseMovePosX
+global afterErrorMouseMovePosY
+global siebelNewActivityOtherPosX1
+global siebelNewActivityOtherPosY1
+global siebelNewActivityOtherPosX2
+global siebelNewActivityOtherPosY2
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop, 20
 {
-ImageSearch OutputVarX, OutputVarY, 492, 569, 1265, 650, *50 %A_ScriptDir%\Misc\New_Activity_Other.png
+ImageSearch OutputVarX, OutputVarY, %siebelNewActivityOtherPosX1%, %siebelNewActivityOtherPosY1%, %siebelNewActivityOtherPosX2%, %siebelNewActivityOtherPosY2%, *50 %A_ScriptDir%\Misc\New_Activity_Other.png
 if (ErrorLevel = 0)
 {
 VarPosX := OutputVarX + 15
@@ -2187,7 +2390,7 @@ sleep 50
 }
 }
 SetDefaultMouseSpeed, 0
-MouseMove 370, 484
+MouseMove %afterErrorMouseMovePosX%, %afterErrorMouseMovePosY%
 MouseClick
 SetDefaultMouseSpeed, 2
 MsgBox, 4096, Error, "Script Failed - Could not find new activity created. Press F12 to Exit the error message"
@@ -2199,10 +2402,12 @@ Reload
 
 siebelActivityDescriptionField()
 {
+global activityDescriptionFieldPosX
+global activityDescriptionFieldPosY
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
 
-	MouseMove 872, 268 ; Moves to description field in New Activity
+	MouseMove %activityDescriptionFieldPosX%, %activityDescriptionFieldPosY% ; Moves to description field in New Activity
 	
 SetDefaultMouseSpeed, 2
 }
@@ -2212,10 +2417,12 @@ SetDefaultMouseSpeed, 2
 
 siebelActivityCommentField()
 {
+global siebelActivityCommentFieldPosX
+global siebelActivityCommentFieldPosY
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
 
-	MouseMove 865, 336 ; Moves to comments field in New Activity
+	MouseMove %siebelActivityCommentFieldPosX%, %siebelActivityCommentFieldPosY% ; Moves to comments field in New Activity
 
 SetDefaultMouseSpeed, 2
 }
@@ -2225,10 +2432,12 @@ SetDefaultMouseSpeed, 2
 
 siebelSiebelOrderNoField()
 {
+global siebelSiebelOrderNoFieldPosX
+global siebelSiebelOrderNoFieldPosY
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1376, 404 ; Clicks on Siebel Order No Field in Shortfall Activity and pastes in Siebel Order Number
+	MouseMove %siebelSiebelOrderNoFieldPosX%, %siebelSiebelOrderNoFieldPosY% ; Clicks on Siebel Order No Field in Shortfall Activity and pastes in Siebel Order Number
 
 Sleep 50
 MouseClick
@@ -2279,22 +2488,6 @@ Sleep 50
 
 
 
-
-siebelSourceDownArrow()
-{
-WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
-SetDefaultMouseSpeed, 0
-
-	MouseMove 715, 327 ; Moves to source field down arrow in a newly created Activity and clicks it
-	
-MouseClick
-Sleep 100
-SetDefaultMouseSpeed, 2
-}
-
-
-
-
 siebelSelectSourceMED()
 {
 SendInput {Raw}Medication
@@ -2315,9 +2508,11 @@ SendInput {Enter}
 
 siebelSelectStatusDownArrow()
 {
+global siebelSelectStatusDownArrowPosX
+global siebelSelectStatusDownArrowPosY
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
-MouseMove 939, 383 ; Moves to status field down arrow in a newly created Activity and clicks it
+MouseMove %siebelSelectStatusDownArrowPosX%, %siebelSelectStatusDownArrowPosY% ; Moves to status field down arrow in a newly created Activity and clicks it
 MouseClick
 SetDefaultMouseSpeed, 2
 }
@@ -2336,10 +2531,12 @@ SendInput {Enter}
 
 siebelSubTypeDownArrow()
 {
+global siebelSubTypeDownArrowPosX
+global siebelSubTypeDownArrowPosY
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
 
-MouseMove 714, 302 ; Moves over sub-type drop arrow in Shortfall activity and clicks it
+MouseMove %siebelSubTypeDownArrowPosX%, %siebelSubTypeDownArrowPosY% ; Moves over sub-type drop arrow in Shortfall activity and clicks it
 MouseClick
 
 SetDefaultMouseSpeed, 2
@@ -2350,10 +2547,16 @@ SetDefaultMouseSpeed, 2
 
 clickOkButtonInTemplateWindow()
 {
+global afterErrorMouseMovePosX
+global afterErrorMouseMovePosY
+global clickOkButtonInTemplateWindowPosX1
+global clickOkButtonInTemplateWindowPosY1
+global clickOkButtonInTemplateWindowPosX2
+global clickOkButtonInTemplateWindowPosY2
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop, 10
 {
-ImageSearch OutputVarX, OutputVarY, 553, 387, 1370, 748, *120 %A_ScriptDir%\Misc\Ok_Button_Template_Window.png
+ImageSearch OutputVarX, OutputVarY, %clickOkButtonInTemplateWindowPosX1%, %clickOkButtonInTemplateWindowPosY1%, %clickOkButtonInTemplateWindowPosX2%, %clickOkButtonInTemplateWindowPosY2%, *120 %A_ScriptDir%\Misc\Ok_Button_Template_Window.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -2373,7 +2576,7 @@ Sleep 50
 }
 }
 SetDefaultMouseSpeed, 0
-MouseMove 370, 484
+MouseMove %afterErrorMouseMovePosX%, %afterErrorMouseMovePosY%
 MouseClick
 MsgBox, 4096, Error, "Cannot find OK button in template window. Press F12 to Exit the error message"
 SetDefaultMouseSpeed, 2
@@ -2424,9 +2627,11 @@ SendInput {Enter}
 
 sourceFieldDownArrowCoordinates()
 {
+global siebelSourceFieldDownArrowPosX
+global siebelSourceFieldDownArrowPosY
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
-MouseMove 715, 326 ; "Source" field down arrow coordinates	
+MouseMove %siebelSourceFieldDownArrowPosX%, %siebelSourceFieldDownArrowPosY% ; "Source" field down arrow coordinates	
 MouseClick
 SetDefaultMouseSpeed, 2
 }
@@ -2443,9 +2648,11 @@ SetDefaultMouseSpeed, 2
 
 siebelClickOnNewInNotes()
 {
+global duplicateNewNotesButtonPosX
+global duplicateNewNotesButtonPosY
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
-MouseMove 1423, 899 ; Moves over New button in Active Notes on AP Order Lines  
+MouseMove %duplicateNewNotesButtonPosX%, %duplicateNewNotesButtonPosY% ; Moves over New button in Active Notes on AP Order Lines  
 MouseClick ; Clicks on New to create a New Active Note
 SetDefaultMouseSpeed, 2
 }
@@ -2618,9 +2825,11 @@ Sleep 50
 
 siebelPerscriptionNoField()
 {
+global siebelPerscriptionNoFieldPosX
+global siebelPerscriptionNoFieldPosY
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
-MouseMove 672, 241 ; Perscription No Field coordinates in Siebel, after GASing the order    
+MouseMove %siebelPerscriptionNoFieldPosX%, %siebelPerscriptionNoFieldPosY% ; Perscription No Field coordinates in Siebel, after GASing the order    
 SetDefaultMouseSpeed, 2
 }
 
@@ -2657,6 +2866,10 @@ global alchemyPosX1
 global alchemyPosY1
 global alchemyPosX2
 global alchemyPosY2
+global afterErrorMouseMovePosX
+global afterErrorMouseMovePosY
+global siebelPerscriptionNoFieldPosX
+global siebelPerscriptionNoFieldPosY
 Loop, 5
 {
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
@@ -2696,7 +2909,7 @@ SendInput {Ctrl Up}
 ClipWait, 1
 Sleep 50
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
-MouseMove 672, 241 ; Perscription No Field coordinates in Siebel, after GASing the order    
+MouseMove %siebelPerscriptionNoFieldPosX%, %siebelPerscriptionNoFieldPosY% ; Perscription No Field coordinates in Siebel, after GASing the order    
 MouseClick
 Sleep, 50
 MouseClick
@@ -2723,7 +2936,7 @@ SetDefaultMouseSpeed, 2
 }
 }
 SetDefaultMouseSpeed, 0
-MouseMove 370, 484
+MouseMove %afterErrorMouseMovePosX%, %afterErrorMouseMovePosY%
 MouseClick
 SetDefaultMouseSpeed, 2
 MsgBox, 4096, Error, "Script Failed - Please copy and paste the PX number manually. Press F12 to Exit the error message"
@@ -2741,6 +2954,10 @@ global alchemyPosX1
 global alchemyPosY1
 global alchemyPosX2
 global alchemyPosY2
+global afterErrorMouseMovePosX
+global afterErrorMouseMovePosY
+global siebelPerscriptionNoFieldPosX
+global siebelPerscriptionNoFieldPosY
 
 Loop, 5
 {
@@ -2781,7 +2998,7 @@ SendInput {Ctrl Up}
 ClipWait, 1
 Sleep 50
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
-MouseMove 672, 241 ; Perscription No Field coordinates in Siebel, after GASing the order    
+MouseMove %siebelPerscriptionNoFieldPosX%, %siebelPerscriptionNoFieldPosY% ; Perscription No Field coordinates in Siebel, after GASing the order    
 MouseClick
 Sleep, 50
 MouseClick
@@ -2808,7 +3025,7 @@ SetDefaultMouseSpeed, 2
 }
 }
 SetDefaultMouseSpeed, 0
-MouseMove 370, 484
+MouseMove %afterErrorMouseMovePosX%, %afterErrorMouseMovePosY%
 MouseClick
 SetDefaultMouseSpeed, 2
 MsgBox, 4096, Error, "Script Failed - Please copy and paste the PX number manually. Press F12 to Exit the error message"
@@ -2825,10 +3042,12 @@ Reload
 
 siebelAutoGASAllButton()
 {
+global siebelAutoGASAllButtonPosX
+global siebelAutoGASAllButtonPosY
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1609, 600 ; "Auto GAS All" button Coordinates (Siebel)
+	MouseMove %siebelAutoGASAllButtonPosX%, %siebelAutoGASAllButtonPosY% ; "Auto GAS All" button Coordinates (Siebel)
 MouseClick
 
 SetDefaultMouseSpeed, 2
@@ -2839,16 +3058,20 @@ SetDefaultMouseSpeed, 2
 
 siebelAutoGASSelectedButton()
 {
+global siebelAutoGASSelectedButtonPosX
+global siebelAutoGASSelectedButtonPosY
+global siebelAutoGASSelectedButtonWhiteSpacePosX
+global siebelAutoGASSelectedButtonWhiteSpacePosY
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
 
-	MouseMove 1750, 469 ; Whitespace coordinates (Siebel) above Auto GAS Selected Button
+	MouseMove %siebelAutoGASSelectedButtonWhiteSpacePosX%, %siebelAutoGASSelectedButtonWhiteSpacePosY% ; Whitespace coordinates (Siebel) above Auto GAS Selected Button
 
 Sleep 50
 MouseClick
 Sleep 100
 
-	MouseMove 1700, 599 ; "Auto GAS Selected" button Coordinates
+	MouseMove %siebelAutoGASSelectedButtonPosX%, %siebelAutoGASSelectedButtonPosY% ; "Auto GAS Selected" button Coordinates
 
 MouseClick
 
@@ -2867,11 +3090,13 @@ SetDefaultMouseSpeed, 2
 
 checkForTemplateWindow()
 {
+global checkForTemplateWindowPosX
+global checkForTemplateWindowPosY
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
-	PixelGetColor, color, 968, 409 ; Looks for pixel (load up the template window and select pixel that is behind the blue top of the window) and waits for the template window to load before progressing
+	PixelGetColor, color, %checkForTemplateWindowPosX%, %checkForTemplateWindowPosY% ; Looks for pixel (load up the template window and select pixel that is behind the blue top of the window) and waits for the template window to load before progressing
 While color = 0xffffff 
 {
-	PixelGetColor, color, 968, 409 ; Loop keeps looking for pixel until it changes to blue (top of the template window)
+	PixelGetColor, color, %checkForTemplateWindowPosX%, %checkForTemplateWindowPosY% ; Loop keeps looking for pixel until it changes to blue (top of the template window)
 sleep 10
 }
 }
@@ -2881,15 +3106,19 @@ sleep 10
 
 checkIfTemplateWindowIsScrolled()
 {
+global siebelTemplateWindowDownArrowPosX
+global siebelTemplateWindowDownArrowPosY
+global checkIfTemplateWindowIsScrolledPosX
+global checkIfTemplateWindowIsScrolledPosY
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop
 {
 Sleep 100
-PixelGetColor, color, 1348, 638
+PixelGetColor, color, %checkIfTemplateWindowIsScrolledPosX%, %checkIfTemplateWindowIsScrolledPosY%
 if (color = 0xFFFFFF)
 {
 SetDefaultMouseSpeed, 0
-MouseMove 1349, 683 ; Moves the mouse over the down arrow in template window
+MouseMove %siebelTemplateWindowDownArrowPosX%, %siebelTemplateWindowDownArrowPosY% ; Moves the mouse over the down arrow in template window
 MouseClick ; Scrolls Down in the Template Window
 Sleep 50
 MouseClick
@@ -2918,10 +3147,12 @@ break
 	
 siebelStockAndCheckOrderStatusChanges()
 {
-WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
-SetDefaultMouseSpeed, 0
+global siebelStockAndCheckButtonPosX
+global siebelStockAndCheckButtonPosY
 global OrderStatusX
 global OrderStatusY
+WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
+SetDefaultMouseSpeed, 0
 MouseMove %OrderStatusX%, %OrderStatusY% ; "Order Status" downarrow coordinates in new Order window
 MouseClick
 Sleep 50
@@ -2930,7 +3161,7 @@ Sleep 50
 SendInput {Enter}
 MouseClick
 Sleep 50
-MouseMove 851, 704 ; Stock & Check button Coordinates in  new Order Window
+MouseMove %siebelStockAndCheckButtonPosX%, %siebelStockAndCheckButtonPosY% ; Stock & Check button Coordinates in  new Order Window
 MouseClick
 SendInput {Enter}
 SendInput {Enter}
@@ -2959,14 +3190,18 @@ SetDefaultMouseSpeed, 2
 
 siebelSourceAndOriginFields()
 {
+global siebelOriginDownArrowStockAndCheckPosX
+global siebelOriginDownArrowStockAndCheckPosY
+global siebelSourceDownArrowStockAndCheckPosX
+global siebelSourceDownArrowStockAndCheckPosY
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 SetDefaultMouseSpeed, 0
-MouseMove 752, 477 ; "Origin" downarrow field Coordinates (Siebel)
+MouseMove %siebelOriginDownArrowStockAndCheckPosX%, %siebelOriginDownArrowStockAndCheckPosY% ; "Origin" downarrow field Coordinates (Siebel)
 MouseClick
 Sleep 50
 SendInput {Raw}Prescription - Paper
 SendInput {Enter}
-MouseMove 751, 373 ; "Source" downarrow field Coordinates (Siebel)
+MouseMove %siebelSourceDownArrowStockAndCheckPosX%, %siebelSourceDownArrowStockAndCheckPosY% ; "Source" downarrow field Coordinates (Siebel)
 MouseClick
 Sleep 50
 SendInput {Raw}Professional Contact
@@ -2977,27 +3212,10 @@ SetDefaultMouseSpeed, 2
 
 
 
-siebelAddOosFlier()
-{
-WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
-MouseMove 591, 702 ; New product button coordinates
-MouseClick
-checkForProgressBar()
-SendInput {Raw}380NLTC034
-Sleep 50
-SendInput {Tab}
-Sleep 50
-SendInput {Tab}
-Sleep 500
-SendInput {Raw}1
-Sleep 50
-}
 
 	
 	
 	
-	
-
 
 
 
@@ -3013,10 +3231,14 @@ Sleep 50
 
 checkForProgressBar()
 {
+global checkForProgressBarPosX1
+global checkForProgressBarPosY1
+global checkForProgressBarPosX2
+global checkForProgressBarPosY2
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop, 100
 {
-	PixelSearch, OutputVarX, OutputVarY, 1299, 1027, 1383, 1035, 000080, 150, Fast ; Loop looks for progress bar to appear before moving forward
+	PixelSearch, OutputVarX, OutputVarY, %checkForProgressBarPosX1%, %checkForProgressBarPosY1%, %checkForProgressBarPosX2%, %checkForProgressBarPosY2%, 000080, 150, Fast ; Loop looks for progress bar to appear before moving forward
 
 if (ErrorLevel != 0)
 Sleep 50
@@ -3026,7 +3248,7 @@ break
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop, 100
 {
-	PixelSearch, OutputVarX, OutputVarY, 1299, 1027, 1383, 1035, 000080, 150, Fast ; Loop looks for progress bar to disappear before moving forward
+	PixelSearch, OutputVarX, OutputVarY, %checkForProgressBarPosX1%, %checkForProgressBarPosY1%, %checkForProgressBarPosX2%, %checkForProgressBarPosY2%, 000080, 150, Fast ; Loop looks for progress bar to disappear before moving forward
 
 if (ErrorLevel = 0)
 Sleep 50
@@ -3038,11 +3260,13 @@ Return
 
 checkForWindowChangeGas()
 {
+global checkForWindowChangeGasPosX
+global checkForWindowChangeGasPosY
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
-	PixelGetColor, color, 691, 526 ; "Team" field Coordinates (Siebel - gray color sample) - Loop looks for white color to appear at these coordinates before moving forward
+	PixelGetColor, color, %checkForWindowChangeGasPosX%, %checkForWindowChangeGasPosY% ; "Team" field Coordinates (Siebel - gray color sample) - Loop looks for white color to appear at these coordinates before moving forward
 While color = 0xEEEEEE
 {
-	PixelGetColor, color, 691, 526 
+	PixelGetColor, color, %checkForWindowChangeGasPosX%, %checkForWindowChangeGasPosY% 
 Sleep 10
 }
 }
@@ -3051,11 +3275,13 @@ Sleep 10
 
 checkForWindowChangeStockCheck()
 {
+global checkForWindowChangeStockCheckPosX
+global checkForWindowChangeStockCheckPosY
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
-	PixelGetColor, color, 725, 565 ; "Team" field Coordinates (Siebel - gray color sample) - Loop looks for white color to appear at these coordinates before moving forward
+	PixelGetColor, color, %checkForWindowChangeStockCheckPosX%, %checkForWindowChangeStockCheckPosY% ; "Team" field Coordinates (Siebel - gray color sample) - Loop looks for white color to appear at these coordinates before moving forward
 While color = 0xEEEEEE
 {
-	PixelGetColor, color, 725, 565
+	PixelGetColor, color, %checkForWindowChangeStockCheckPosX%, %checkForWindowChangeStockCheckPosY%
 Sleep 10
 }
 }
@@ -3896,14 +4122,18 @@ Return
 
 checkIfScreenIsScrolledToTop()
 {
+global checkIfScreenIsScrolledToTopPosX
+global checkIfScreenIsScrolledToTopPosY
+VarPosX := checkIfScreenIsScrolledToTopPosX - 1
+VarPosY := checkIfScreenIsScrolledToTopPosY - 12
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop
 {
-PixelGetColor, color, 1908, 190
+PixelGetColor, color, %checkIfScreenIsScrolledToTopPosX%, %checkIfScreenIsScrolledToTopPosY%
 if (color = 0xFFFFFF)
 {
 SetDefaultMouseSpeed, 0
-	MouseMove 1907, 178 ; Scrolls up to the top of the window
+	MouseMove %VarPosX%, %VarPosY% ; Scrolls up to the top of the window
 MouseClick
 MouseClick
 MouseClick
@@ -3923,10 +4153,14 @@ break
 
 checkIfScreenIsScrolledToTopInSearch()
 {
+global checkIfScreenIsScrolledToTopInSearchPosX1
+global checkIfScreenIsScrolledToTopInSearchPosY1
+global checkIfScreenIsScrolledToTopInSearchPosX2
+global checkIfScreenIsScrolledToTopInSearchPosY2
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop
 {
-ImageSearch OutputVarX, OutputVarY, 10, 7, 1915, 553, *100 %A_ScriptDir%\Misc\siebelPatientsSearchUpArrow.png
+ImageSearch OutputVarX, OutputVarY, %checkIfScreenIsScrolledToTopInSearchPosX1%, %checkIfScreenIsScrolledToTopInSearchPosY1%, %checkIfScreenIsScrolledToTopInSearchPosX2%, %checkIfScreenIsScrolledToTopInSearchPosY2%, *100 %A_ScriptDir%\Misc\siebelPatientsSearchUpArrow.png
 if (ErrorLevel = 0)
 {
 SetDefaultMouseSpeed, 0
@@ -3967,10 +4201,18 @@ Reload
 
 checkIfCurrentWindowIsCorrect()
 {
+global checkIfCurrentWindowIsCorrectAPOrderLinesPosX1
+global checkIfCurrentWindowIsCorrectAPOrderLinesPosY1
+global checkIfCurrentWindowIsCorrectAPOrderLinesPosX2
+global checkIfCurrentWindowIsCorrectAPOrderLinesPosY2
+global checkIfCurrentWindowIsCorrectContactsPosX1
+global checkIfCurrentWindowIsCorrectContactsPosY1
+global checkIfCurrentWindowIsCorrectContactsPosX2
+global checkIfCurrentWindowIsCorrectContactsPosY2
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop
 {
-ImageSearch OutputVarX, OutputVarY, 490, 518, 983, 574, *70 %A_ScriptDir%\Misc\AP_Order_Lines.png
+ImageSearch OutputVarX, OutputVarY, %checkIfCurrentWindowIsCorrectAPOrderLinesPosX1%, %checkIfCurrentWindowIsCorrectAPOrderLinesPosY1%, %checkIfCurrentWindowIsCorrectAPOrderLinesPosX2%, %checkIfCurrentWindowIsCorrectAPOrderLinesPosY2%, *70 %A_ScriptDir%\Misc\AP_Order_Lines.png
 if (ErrorLevel = 0)
 {
 ;
@@ -3981,7 +4223,7 @@ BlockInput, MouseMoveOff
 MsgBox, 4096, Error, You can only run this script from AP Order Lines Tab. Press F12 to Exit the error message.
 Reload
 }
-ImageSearch OutputVarX, OutputVarY, 6, 114, 426, 156, *70 %A_ScriptDir%\Misc\Contacts.png
+ImageSearch OutputVarX, OutputVarY, %checkIfCurrentWindowIsCorrectContactsPosX1%, %checkIfCurrentWindowIsCorrectContactsPosY1%, %checkIfCurrentWindowIsCorrectContactsPosX2%, %checkIfCurrentWindowIsCorrectContactsPosY2%, *70 %A_ScriptDir%\Misc\Contacts.png
 if (ErrorLevel = 0)
 {
 Break
@@ -4000,10 +4242,14 @@ Reload
 
 checkIfCurrentWindowIsCorrectForStockAndCheck()
 {
+global checkIfCurrentWindowIsCorrectForStockAndCheckPosX1
+global checkIfCurrentWindowIsCorrectForStockAndCheckPosY1
+global checkIfCurrentWindowIsCorrectForStockAndCheckPosX2
+global checkIfCurrentWindowIsCorrectForStockAndCheckPosY2
 WinActivate, ahk_class Transparent Windows Client ; Opens up Siebel app by its class
 Loop
 {
-ImageSearch OutputVarX, OutputVarY, 6, 114, 888, 176, *20 %A_ScriptDir%\Misc\Orders.png
+ImageSearch OutputVarX, OutputVarY, %checkIfCurrentWindowIsCorrectForStockAndCheckPosX1%, %checkIfCurrentWindowIsCorrectForStockAndCheckPosY1%, %checkIfCurrentWindowIsCorrectForStockAndCheckPosX2%, %checkIfCurrentWindowIsCorrectForStockAndCheckPosY2%, *20 %A_ScriptDir%\Misc\Orders.png
 if (ErrorLevel = 0)
 {
 Break
@@ -4037,6 +4283,8 @@ Reload
 
 copyStickyNotes()
 {
+global afterErrorMouseMovePosX
+global afterErrorMouseMovePosY
 Loop, 5
 {
 if (Clipboard = "")
@@ -4056,7 +4304,7 @@ Return
 }
 }
 SetDefaultMouseSpeed, 0
-MouseMove 370, 484
+MouseMove %afterErrorMouseMovePosX%, %afterErrorMouseMovePosY%
 MouseClick
 MsgBox, 4096, Error, Could not find the selected sticky notes! Press F12 to exit
 Reload
@@ -4134,9 +4382,11 @@ Reload
 
 alchemyGeneralPxListCoordinates()
 {
+global alchemyGeneralPxListCoordinatesPosX
+global alchemyGeneralPxListCoordinatesPosY
 WinActivate, Alchemy Index Station - \\Remote
 SetDefaultMouseSpeed, 0
-MouseMove -1663, 197
+MouseMove %alchemyGeneralPxListCoordinatesPosX%, %alchemyGeneralPxListCoordinatesPosY%
 SetDefaultMouseSpeed, 2
 }
 
